@@ -1,0 +1,20 @@
+/* -------- VARIABLES CSS -------- */
+:root{
+  --color-main: black;
+}
+
+/* ------------------------------- */
+.containerAdvertisement{
+  width: 15rem;
+  height: 15rem;
+  border: 2px solid black;
+}
+
+.advertisementTitle{
+  font-size: 1.5rem;
+}
+
+.advertisementDescription{
+  color: var(--color-main);
+  background-color: lightgray;
+}
