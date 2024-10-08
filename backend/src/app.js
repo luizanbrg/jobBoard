@@ -72,8 +72,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use((req, res) => {
-  res.json({ message: 'ça marche' });
+app.get('/', (req, res) => {
+  res.send('Hello from our server!');
 });
 
 module.exports = app;
