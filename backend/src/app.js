@@ -72,12 +72,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.get('offers', (req, res, next) => {
-//   Advertisement.find()
-//     .then(advertisements => res.status(200).json(advertisements))
-//     .catch(error => res.status(400).json({ error }));
-// });
-
 app.use((req, res) => {
   res.json({ message: 'ça marche' });
 });
