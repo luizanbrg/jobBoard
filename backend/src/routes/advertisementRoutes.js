@@ -15,6 +15,6 @@ router.get('/', advertisementController.getAllAdvertisements);
 // router.put('/:id', advertisementController.updateAdvertisement);
 
 // Route pour supprimer une annonce
-// router.delete('/:id', advertisementController.deleteAdvertisement);
+router.delete('/:id', advertisementController.deleteAdvertisement);
 
 module.exports = router;

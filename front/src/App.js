@@ -5,15 +5,15 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Job Board</h1>
-        <a
+        <h1 className="indexTitle">Job Board</h1>
+        {/* <a
           className="App-link"
           href="https://reactjs.org"
           target="_blank"
           rel="noopener noreferrer"
         >
           Learn React
-        </a>
+        </a> */}
         <Advertisement/>
       </header>
     </div>

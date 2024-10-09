@@ -1,5 +1,16 @@
+.indexTitle{
+  font-size: 3rem;
+}
 
+.App{
+  text-align: center;
+}
 
+.btnDelete{
+  background-color: red;
+  border: none;
+  
+}
 
 /* .App {
   text-align: center;
