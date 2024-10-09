@@ -3,40 +3,67 @@ import './Advertisement.css'
 
 export default function Advertisement() {
 
-  // const [advertisement, setAdvertsement] = useState("");
+  const urlAdvertisementIndex = `${process.env.REACT_APP_API_ADVERTISEMENT_INDEX}`;
 
-  // const getAdvertisementIndex = async () => {
-  //   try {
-  //     const options = {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         // Authorization: `Bearer ${authToken}`,
-  //       }
-  //     };
+  const [advertisement, setAdvertsement] = useState([]);
 
-  //     const response = await fetch(,options)
-  //     const data = await response.json()
+  console.log((`advertisement`, advertisement));
 
-  //     if (response.ok) {
 
-  //     } else {
-  //       console.error(`Advertisement Index | data : `, data);
-  //     }
+  // -----------------------------------------------
+  //  Advertisement | GET
+  const getAdvertisementIndex = async () => {
+    try {
+      const options = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          // Authorization: `Bearer ${authToken}`,
+        }
+      };
 
-  // } catch (error) {
-  //   console.error(`Fetch error back-end advertisement Index: `, error);
-  // }
+      console.log(`Advertisement List | Options :`, options);
+
+      const response = await fetch(urlAdvertisementIndex, options)
+      const data = await response.json()
+
+      if (Array.isArray(data)) {
+        setAdvertsement(data)
+      } else {
+        // console.error(`Advertisement Index | data : `, data);
+      }
+
+    } catch (error) {
+      console.error(`Fetch error back-end advertisement Index: `, error);
+    }
+  }
+
+  const renderAdvertisements = () => {
+        
+    return advertisement?.map((element, index) => {
+        return (
+          <>
+            <div className="containerAdvertisement" key={element.id}>
+              <div className='advertisementDescription'>
+                <h1>{element.title}</h1>
+                <p>{element.content}</p>
+              </div>
+              <div>
+                <button className="learMore">Lear more</button>
+              </div>
+            </div>
+          </>
+        )})
+  }
+
+  useEffect(() => {
+    getAdvertisementIndex();
+  }, [])
+
 
   return(
-
     <section>
-      <div className="containerAdvertisement">
-        <h4 className='advertisementTitle'>Title</h4>
-        <p className="advertisementDescription">Short description</p>
-        <button className="learMore">Lear more</button>
-      </div>
-
+        {renderAdvertisements()}
     </section>
-    )
-  };
+  )
+}
