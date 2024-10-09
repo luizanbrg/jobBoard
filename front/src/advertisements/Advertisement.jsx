@@ -48,13 +48,13 @@ export default function Advertisement() {
         "Content-Type": "application/json",
         // Authorization: `Bearer ${authToken}`,
       },
-      body: JSON.stringify({
-        id: id,
-      })
+      // body: JSON.stringify({
+      //   id: id,
+      // })
     };
 
     try {
-      const response = await fetch(urlAdvertisementIndex, options);
+      const response = await fetch(`${urlAdvertisementIndex}/${id}`, options);
 
         console.log(`AdvertisementDelete (options) : `, options);
 
