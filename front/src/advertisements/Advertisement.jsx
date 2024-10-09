@@ -84,7 +84,7 @@ export default function Advertisement() {
         
     return advertisement?.map((element, index) => {
         return (
-            <div className="containerAdvertisement" key={element.id}>
+            <div className="renderAdvertisement" key={element.id}>
               <div className='advertisementDescription'>
                 <h1>{element.title}</h1>
                 <p>{element.content}</p>
@@ -104,7 +104,9 @@ export default function Advertisement() {
 
   return(
     <section>
+      <div className="containerAdvertissement">
         {renderAdvertisements()}
+      </div>
     </section>
   )
 }

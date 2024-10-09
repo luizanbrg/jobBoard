@@ -64,20 +64,21 @@ exports.getAllAdvertisements = async (req, res) => {
 // Créer une nouvelle annonce
 exports.createAdvertisement = async (req, res) => {
   try {
-    const { title, content, skills_id, salary, city, contract_type, company_id, found, publication_date, remote_work, distance } = req.body;
-
+    // const { title, content, skills_id, salary, city, contract_type, company_id, found, publication_date, remote_work, distance } = req.body;
+    const {title, content, salary, city} = req.body;
+    
     const advertisement = await Advertisement.create({
       title,
       content,
-      skills_id,
+      // skills_id,
       salary,
       city,
-      contract_type,
-      company_id,
-      found,
-      publication_date,
-      remote_work,
-      distance
+      // contract_type,
+      // company_id,
+      // found,
+      // publication_date,
+      // remote_work,
+      // distance
     });
 
     res.status(201).json(advertisement);

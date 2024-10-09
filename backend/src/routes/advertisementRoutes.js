@@ -3,7 +3,7 @@ const router = express.Router();
 const advertisementController = require('../controllers/advertisement_controller');
 
 // Route pour créer une nouvelle annonce
-// router.post('/', advertisementController.createAdvertisement);
+router.post('/create', advertisementController.createAdvertisement);
 
 // Route pour récupérer toutes les annonces
 router.get('/', advertisementController.getAllAdvertisements);
