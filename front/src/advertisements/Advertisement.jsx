@@ -7,12 +7,11 @@ export default function Advertisement() {
 
   const [advertisement, setAdvertsement] = useState([]);
 
-console.log(`url :`, urlAdvertisementIndex);
-
-console.log((`advertisement`, advertisement));
+  console.log((`advertisement`, advertisement));
 
 
-
+  // -----------------------------------------------
+  //  Advertisement | GET
   const getAdvertisementIndex = async () => {
     try {
       const options = {
@@ -44,10 +43,15 @@ console.log((`advertisement`, advertisement));
     return advertisement?.map((element, index) => {
         return (
           <>
-          <div key={element.id}>
-            <h1>{element.title}</h1>
-            <p>{element.content}</p>
-          </div>
+            <div className="containerAdvertisement" key={element.id}>
+              <div className='advertisementDescription'>
+                <h1>{element.title}</h1>
+                <p>{element.content}</p>
+              </div>
+              <div>
+                <button className="learMore">Lear more</button>
+              </div>
+            </div>
           </>
         )})
   }
@@ -58,17 +62,8 @@ console.log((`advertisement`, advertisement));
 
 
   return(
-
     <section>
-      <div className="containerAdvertisement">
-      {/* <p>{advertisement}</p> */}
-        <h4 className='advertisementTitle'>Title</h4>
-        <p className="advertisementDescription">Short description</p>
-
-        <div>{renderAdvertisements()}</div>
-        <button className="learMore">Lear more</button>
-      </div>
-
+        {renderAdvertisements()}
     </section>
   )
 }

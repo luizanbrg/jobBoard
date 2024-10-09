@@ -1,6 +1,3 @@
-const express = require('express');
-const cors = require('cors');
-
 const { DataTypes, Sequelize } = require('sequelize');
 require('dotenv').config();
 
@@ -52,7 +49,7 @@ testConnection();
 
 // Synchronisation des modèles avec la base de données
 sequelize
-  .sync({ force: false })
+  .sync({ alter: true })
   .then(() => {
     console.log('Les tables ont été synchronisées.');
   })
@@ -60,14 +57,5 @@ sequelize
     console.error('Erreur lors de la synchronisation :', err);
   });
 
-// app.use((req, res, next) => {
-//   res.setHeader('Access-Control-Allow-Origin', '*');
-//   res.setHeader(
-//     'Access-Control-Allow-Headers',
-//     'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization',
-//   );
-//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-//   next();
-// });
 
 module.exports = sequelize;

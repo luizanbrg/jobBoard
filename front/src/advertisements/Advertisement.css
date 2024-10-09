@@ -8,6 +8,10 @@
   width: 15rem;
   height: 15rem;
   border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 0 .5rem;
 }
 
 .advertisementTitle{
