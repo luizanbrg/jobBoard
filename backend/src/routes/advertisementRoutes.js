@@ -3,7 +3,7 @@ const router = express.Router();
 const advertisementController = require('../controllers/advertisement_controller');
 
 // Route pour créer une nouvelle annonce
-// router.post('/', advertisementController.createAdvertisement);
+router.post('/create', advertisementController.createAdvertisement);
 
 // Route pour récupérer toutes les annonces
 router.get('/', advertisementController.getAllAdvertisements);
@@ -15,6 +15,6 @@ router.get('/', advertisementController.getAllAdvertisements);
 // router.put('/:id', advertisementController.updateAdvertisement);
 
 // Route pour supprimer une annonce
-// router.delete('/:id', advertisementController.deleteAdvertisement);
+router.delete('/:id', advertisementController.deleteAdvertisement);
 
 module.exports = router;
