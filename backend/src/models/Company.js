@@ -1,38 +1,47 @@
-const { DataTypes } = require('sequelize');
+const { Model } = require('sequelize');
 
-module.exports = (sequelize) => {
-  if (!sequelize) {
-    throw new Error('sequelize instance is required');
+module.exports = (sequelize, DataTypes) => {
+  class Company extends Model{
+    //Associations
+    static associate(models) {
+      Company.hasMany(models.Advertisement, {
+        foreignKey: 'company_id',
+        as: 'advertisements',
+      });
+    }
   }
 
-  const Company = sequelize.define('Company', {
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
+  //Table
+  Company.init(
+    {
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      city: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      address: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      content: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
+      picture: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
     },
-    city: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    address: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    content: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-    },
-    picture: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-  });
-  Company.associate = (models) => {
-    Company.hasMany(models.Advertisement, {
-      foreignKey: 'company_id',
-      as: 'advertisements',
-    });
-  };
+    {
+      sequelize,
+      modelName: 'Company', 
+      tableName: 'Company',  // Spécifier le nom de la table
+      underscored: true,
+    }
+  )
 
   return Company;
 };

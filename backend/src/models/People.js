@@ -1,4 +1,4 @@
-const { Model, DataTypes } = require('sequelize');
+const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class People extends Model {
@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
       role_id: {
         type: DataTypes.INTEGER,
         references: {
-          model: 'Roles',
+          model: 'Role',
           key: 'id',
         },
         allowNull: false,

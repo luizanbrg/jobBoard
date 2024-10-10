@@ -1,5 +1,5 @@
 const { DataTypes, Sequelize } = require('sequelize');
-const People_Skill = require('./People_Skill');
+// const People_Skill = require('./People_Skill');
 require('dotenv').config();
 
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
@@ -14,7 +14,7 @@ const Advertisement = require('./Advertisement')(sequelize, Sequelize.DataTypes)
 const People = require('./People')(sequelize, Sequelize.DataTypes);
 const Application = require('./Application')(sequelize, Sequelize.DataTypes);
 const Skill = require('./Skill')(sequelize, Sequelize.DataTypes);
-const PeopleSkills = require('./People_Skill')(sequelize, Sequelize.DataTypes);
+const People_Skill = require('./People_Skill')(sequelize, Sequelize.DataTypes);
 const Role = require('./Role')(sequelize, Sequelize.DataTypes);
 const ContractType = require('./ContractType')(sequelize, Sequelize.DataTypes);
 
@@ -25,7 +25,7 @@ const models = {
   People,
   Application,
   Skill,
-  PeopleSkills,
+  People_Skill,
   Role,
   ContractType,
 };
