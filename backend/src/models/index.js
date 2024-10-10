@@ -8,7 +8,6 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
   port: process.env.DB_PORT,
 });
 
-
 const Company = require('./Company')(sequelize, Sequelize.DataTypes);
 const Advertisement = require('./Advertisement')(sequelize, Sequelize.DataTypes);
 const People = require('./People')(sequelize, Sequelize.DataTypes);
@@ -61,15 +60,14 @@ sequelize
     console.error('Erreur lors de la synchronisation :', err);
   });
 
-  module.exports = {
-    sequelize,
-    Advertisement,
-    Role,
-    Company,
-    Application,
-    Skill,
-    ContractType,
-    People,
-    People_Skill,
-  };
-
+module.exports = {
+  sequelize,
+  Advertisement,
+  Role,
+  Company,
+  Application,
+  Skill,
+  ContractType,
+  People,
+  People_Skill,
+};
