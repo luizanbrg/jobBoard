@@ -40,7 +40,7 @@ module.exports = sequelize => {
       as: 'skills',
     });
     People.belongsTo(models.Role, {
-      foreignKey: 'people_id',
+      foreignKey: 'role_id',
       as: 'role',
     });
   };
