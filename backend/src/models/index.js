@@ -8,6 +8,7 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
   port: process.env.DB_PORT,
 });
 
+
 const Company = require('./Company')(sequelize, Sequelize.DataTypes);
 const Advertisement = require('./Advertisement')(sequelize, Sequelize.DataTypes);
 const People = require('./People')(sequelize, Sequelize.DataTypes);
@@ -36,7 +37,6 @@ Object.keys(models).forEach(modelName => {
   }
 });
 
-
 // Advertisement.associate({ Company, Application, Skill });
 
 // Tester la connexion et synchroniser les modèles
@@ -61,7 +61,6 @@ sequelize
     console.error('Erreur lors de la synchronisation :', err);
   });
 
-
   module.exports = {
     sequelize,
     Advertisement,
@@ -73,3 +72,4 @@ sequelize
     People,
     People_Skill,
   };
+

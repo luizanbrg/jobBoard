@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 
-module.exports = (sequelize) => {
+module.exports = sequelize => {
   const Skill = sequelize.define('Skill', {
     skill_name: {
       type: DataTypes.STRING,
@@ -8,7 +8,7 @@ module.exports = (sequelize) => {
     },
   });
 
-  Skill.associate = (models) => {
+  Skill.associate = models => {
     Skill.belongsTo(models.Advertisement, {
       foreignKey: 'advertisement_id',
       as: 'advertisement',
