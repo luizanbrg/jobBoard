@@ -1,21 +1,11 @@
 const { Model, DataTypes } = require('sequelize');
 
-module.exports = (sequelize, DataTypes) => {
+module.exports = sequelize => {
   class People extends Model {
     static associate(models) {
-      People.hasMany(models.Application, {
-        foreignKey: 'people_id',
-        as: 'applications',
-      });
-      People.hasMany(models.Skill, {
-        // through: models.PeopleSkills,
-        foreignKey: 'people_id',
-        as: 'skills',
-      });
-      People.belongsTo(models.Role, {
-        foreignKey: 'role_id',
-        as: 'role',
-      });
+      People.hasMany(models.Application, { foreignKey: 'people_id', as: 'applications' });
+      People.hasMany(models.Skill, { foreignKey: 'people_id', as: 'skills' });
+      People.belongsTo(models.Role, { foreignKey: 'role_id', as: 'role' });
     }
   }
 
@@ -52,7 +42,11 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'People',
       tableName: 'People',
       underscored: true,
+      timestamps: true, // Assurez-vous que cette option est définie
+      createdAt: 'created_at', // Configure le nom de la colonne pour createdAt
+      updatedAt: 'updated_at', // Configure le nom de la colonne pour updatedAt
     },
   );
+
   return People;
 };
