@@ -1,16 +1,30 @@
-const { DataTypes } = require('sequelize');
+const { Model } = require('sequelize');
 
-module.exports = (sequelize) => {
-  const PeopleSkills = sequelize.define('PeopleSkills', {
-    people_id: {
-      type: DataTypes.BIGINT,
-      allowNull: false,
-    },
-    skills_id: {
-      type: DataTypes.BIGINT,
-      allowNull: false,
-    },
-  });
+module.exports = (sequelize, DataTypes) => {
+  class People_Skill extends Model{
+  //Associations
+    static associate(models) {
+    }
+  }
 
-  return PeopleSkills;
+  People_Skill.init(
+    {
+      people_id: {
+        type: DataTypes.BIGINT,
+        allowNull: false,
+      },
+      skills_id: {
+        type: DataTypes.BIGINT,
+        allowNull: false,
+      },
+    },
+    {
+      sequelize,
+      modelName: 'People_Skill',  
+      tableName: 'People_Skill',  // Spécifier le nom de la table
+      underscored: true,
+    }
+  )
+
+  return People_Skill;
 };
