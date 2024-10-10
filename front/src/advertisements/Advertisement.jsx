@@ -6,7 +6,13 @@ export default function Advertisement() {
   const urlAdvertisementIndex = `${process.env.REACT_APP_API_ADVERTISEMENT_INDEX}`;
 
   const [advertisement, setAdvertsement] = useState([]);
+  
+  const [showMore, setShowMore] = useState(false);
 
+  // Fonction pour gérer le clic sur le bouton
+  const handleLearnMore = () => {
+    setShowMore(!showMore); // Bascule entre afficher et masquer
+  };
   console.log((`advertisement`, advertisement));
 
 
@@ -84,14 +90,50 @@ export default function Advertisement() {
         
     return advertisement?.map((element, index) => {
         return (
-            <div className="renderAdvertisement" key={element.id}>
-              <div className='advertisementDescription'>
-                <h1>{element.title}</h1>
+            <div className="bg-white p-6 rounded-lg shadow-lg text-center" key={element.id}>
+              
+              {/* -- Element -- */}
+                <h1 className="text-5x1 font-bold mb-2">{element.title}</h1>
+                <p>{element.city}</p>
+                {/* <p>{element.salary}</p> */}
                 <p>{element.content}</p>
-              </div>
-              <div>
-                <button className="learMore">Lear more</button>
-                <button type="submit" className="btnDelete" onClick={() => deleteAdvertisement(element.id)}>Delete</button>
+                
+              {/* -- Button -- */}
+              <div className="flex justify-between gap-6 mt-4 md:flex-row flex-col">
+                
+                {/* --> Learn More */}
+                <button className="bg-white transition-colors delay-50 duration-300 
+                hover:bg-teal-700
+                text-teal-500
+                hover:text-white
+                font-bold
+                text-center
+                rounded text-2x1
+                px-4 py-2
+                hover:animate-none"
+                onClick={handleLearnMore}>
+                 {showMore ? 'Show Less' : 'Learn More'}
+                </button>
+                {/* Si showMore est vrai, on affiche les informations supplémentaires */}
+              {showMore && (
+                <div className="extra-info">
+                  <p>Additional Information</p>
+                </div>
+              )}
+                  
+                  {/* --> Delete */}
+                  <button type="submit" className="bg-grey transition-colors delay-50 duration-300 
+                hover:text-white
+                font-bold
+                text-center
+                rounded text-2x1
+                px-4 py-2
+                bg-grey-700
+                border
+                border-grey
+                text-gray-800
+                hover:bg-red-600
+                hover:border-red-600" onClick={() => deleteAdvertisement(element.id)}>Delete</button>
               </div>
             </div>
         )})
@@ -103,9 +145,14 @@ export default function Advertisement() {
 
 
   return(
-    <section>
-      <div className="containerAdvertissement">
-        {renderAdvertisements()}
+    <section className="pt-0 py-28 bg-gray-100">
+      <div className="container mx-auto px-6" >
+        <h4 className="text-2xl font-bold text-center text-black mb-12 pt-2">
+          Les annonces
+        </h4>    
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {renderAdvertisements()}
+        </div>
       </div>
     </section>
   )
