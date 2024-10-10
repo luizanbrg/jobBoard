@@ -1,6 +1,6 @@
 const { Model } = require('sequelize');
 
-module.exports = sequelize => {
+module.exports = (sequelize, DataTypes) => {
   class People extends Model {
     static associate(models) {
       People.hasMany(models.Application, { foreignKey: 'people_id', as: 'applications' });
