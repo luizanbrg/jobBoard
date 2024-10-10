@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 
-module.exports = (sequelize) => {
+module.exports = sequelize => {
   const People = sequelize.define('People', {
     first_name: {
       type: DataTypes.STRING,
@@ -19,17 +19,29 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    role_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Roles',
+        key: 'id',
+      },
+      allowNull: false,
+    },
   });
 
-  People.associate = (models) => {
+  People.associate = models => {
     People.hasMany(models.Application, {
       foreignKey: 'people_id',
       as: 'applications',
     });
-    People.belongsToMany(models.Skill, {
-      through: models.PeopleSkills,
+    People.hasMany(models.Skill, {
+      // through: models.PeopleSkills,
       foreignKey: 'people_id',
       as: 'skills',
+    });
+    People.belongsTo(models.Role, {
+      foreignKey: 'people_id',
+      as: 'role',
     });
   };
 
