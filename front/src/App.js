@@ -1,6 +1,7 @@
 import './App.css';
 import Advertisement from '../src/advertisements/Advertisement.jsx';
 import AdvertisementCreate from './advertisements/AdvertisementCreate.jsx';
+import Footer from './layouts/Footer.jsx';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         </a> */}
         <Advertisement/>
         <AdvertisementCreate />
+        <Footer/>
       </header>
     </div>
   );
