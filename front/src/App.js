@@ -1,7 +1,8 @@
 import './App.css';
 import Advertisement from '../src/advertisements/Advertisement.jsx';
 import AdvertisementCreate from './advertisements/AdvertisementCreate.jsx';
-import Footer from '../src/components/layouts/Footer.jsx'
+import Footer from './layouts/Footer.jsx';
+import SignUp from './auth/signup.jsx';
 
 function App() {
   return (
@@ -16,9 +17,10 @@ function App() {
         >
           Learn React
         </a> */}
-        <Advertisement/>
+        <Advertisement />
         <AdvertisementCreate />
-        <Footer/>
+        <SignUp />
+        <Footer />
       </header>
     </div>
   );

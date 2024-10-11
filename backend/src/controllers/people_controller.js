@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const { People } = require('../models');
+const jwt = require('jsonwebtoken');
 
 exports.signup = (req, res, next) => {
   bcrypt
@@ -27,7 +28,36 @@ exports.signup = (req, res, next) => {
     });
 };
 
-exports.login = (req, res, next) => {};
+exports.login = (req, res, next) => {
+  People.findOne({ where: { email: req.body.email } })
+    .then(people => {
+      if (people === null) {
+        res.status(401).json({ message: 'Mot de passe et/ou e-mail incorrects' });
+      } else {
+        bcrypt
+          .compare(req.body.password, people.password)
+          .then(valid => {
+            if (!valid) {
+              res.status(401).json({ message: 'Mot de passe et/ou e-mail incorrects' });
+            } else {
+              res.status(200).json({
+                peopleId: people.id,
+                token: jwt.sign({ peopleId: people.id }, `${process.env.TOKEN}`, {
+                  expiresIn: '24h',
+                }),
+              });
+            }
+          })
+          .catch(error => {
+            console.log('deu ruim na autentificacao');
+            res.status(500).json({ error });
+          });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({ error });
+    });
+};
 
 // exports.getPeopleById = async (req, res) => {
 //   try {
