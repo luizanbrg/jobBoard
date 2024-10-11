@@ -1,22 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+import Advertisement from '../src/advertisements/Advertisement.jsx';
+import AdvertisementCreate from './advertisements/AdvertisementCreate.jsx';
+import Footer from './layouts/Footer.jsx';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
+        <h1 className="indexTitle">Job Board</h1>
+        {/* <a
           className="App-link"
           href="https://reactjs.org"
           target="_blank"
           rel="noopener noreferrer"
         >
           Learn React
-        </a>
+        </a> */}
+        <Advertisement/>
+        <AdvertisementCreate />
+        <Footer/>
       </header>
     </div>
   );

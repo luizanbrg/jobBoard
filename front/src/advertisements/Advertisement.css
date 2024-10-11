@@ -1,0 +1,28 @@
+
+/* ------------------------------- */
+
+.containerAdvertissement{
+  display: flex;
+  min-height: 15rem;
+  flex-wrap: wrap;
+}
+
+.renderAdvertisement{
+  width: 15rem;
+  height: 15rem;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 0 .5rem;
+}
+
+.advertisementTitle{
+  font-size: 1.5rem;
+}
+
+.advertisementDescription{
+  color: var(--color-main);
+  background-color: lightgray;
+}
+

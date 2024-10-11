@@ -1,4 +1,44 @@
-.App {
+/* -------- VARIABLES CSS -------- */
+:root{
+  --color-main: black;
+  --color-button-main: white;
+  --bg-button-create: hsl(117, 49%, 72%);
+  --bg-button-delete: hsl(352, 72%, 50%);
+}
+
+.indexTitle{
+  font-size: 3rem;
+}
+
+.App{
+  text-align: center;
+}
+
+/* BUTTON */
+.btnDelete{
+  background-color: var(--bg-button-delete);
+  color: var(--color-button-main);
+}
+
+.btnCreate{
+  background-color: var(--bg-button-create);
+}
+
+.btnDelete, .btnCreate {
+  border: none;
+  width: 4rem;
+  padding: .3rem 0;
+  border-radius: 6px;
+}
+
+
+
+.containerForm{
+  display: flex;
+  flex-direction: column;
+}
+
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +75,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
