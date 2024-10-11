@@ -95,8 +95,8 @@ export default function AdvertisementCreate() {
                         border
                         border-grey
                         text-gray-800
-                        hover:bg-emerald-600
-                        hover:border-emerald-600">
+                        hover:bg-cyan-600
+                        hover:border-cyan-600">
                             Create
                         </button>
                     </form>
