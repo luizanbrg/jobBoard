@@ -7,11 +7,11 @@ export default function Advertisement() {
 
   const [advertisement, setAdvertsement] = useState([]);
   
-  const [showMore, setShowMore] = useState(false);
+  const [showMore, setShowMore] = useState(null);
 
   // Fonction pour gérer le clic sur le bouton
-  const handleLearnMore = () => {
-    setShowMore(!showMore); // Bascule entre afficher et masquer
+  const handleLearnMore = (id) => {
+    setShowMore(showMore === id ? null : id);; // Bascule entre afficher et masquer
   };
   console.log((`advertisement`, advertisement));
 
@@ -111,11 +111,11 @@ export default function Advertisement() {
                 rounded text-2x1
                 px-4 py-2
                 hover:animate-none"
-                onClick={handleLearnMore}>
-                 {showMore ? 'Show Less' : 'Learn More'}
+                onClick={() => handleLearnMore(element.id)}>
+                 {showMore === element.id ? 'Show Less' : 'Learn More'}
                 </button>
                 {/* Si showMore est vrai, on affiche les informations supplémentaires */}
-              {showMore && (
+              {showMore === element.id && (
                 <div className="extra-info">
                   <p>Additional Information</p>
                 </div>
