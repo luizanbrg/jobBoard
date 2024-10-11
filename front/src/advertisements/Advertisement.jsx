@@ -1,15 +1,23 @@
 import React, { useState, useEffect } from 'react';
+import Form from '../advertisements/Form'
 import './Advertisement.css'
 
 export default function Advertisement() {
-
   const urlAdvertisementIndex = `${process.env.REACT_APP_API_ADVERTISEMENT_INDEX}`;
 
-  const [advertisement, setAdvertsement] = useState([]);
-  
+  const [advertisement, setAdvertsement] = useState([]);  
   const [showMore, setShowMore] = useState(null);
+  const [showApply, setShowApply] = useState(null);
 
-  // Fonction pour gérer le clic sur le bouton
+  // =================================================================================================
+  // ----------- Function : Apply | BUTTON ---------------
+  const handleApply = (id) => {
+    setShowApply(showApply === id ? null : id);; // Bascule entre afficher et masquer
+  };
+  console.log((`Button Apply :`, handleApply));
+
+  // =================================================================================================
+  // ----------- Function : Learn More | BUTTON ---------------
   const handleLearnMore = (id) => {
     setShowMore(showMore === id ? null : id);; // Bascule entre afficher et masquer
   };
@@ -92,50 +100,64 @@ export default function Advertisement() {
         return (
             <div className="bg-white p-6 rounded-lg shadow-lg text-center" key={element.id}>
               
-              {/* -- Element -- */}
-                <h1 className="text-5x1 font-bold mb-2">{element.title}</h1>
-                <p>{element.city}</p>
-                {/* <p>{element.salary}</p> */}
-                <p>{element.content}</p>
+              {/* ---------- Element Base | Start ---------- */}
+              <h1 className="text-5x1 font-bold mb-2">
+                {element.title}
                 
-              {/* -- Button -- */}
-              <div className="flex justify-between gap-6 mt-4 md:flex-row flex-col">
-                
-                {/* --> Learn More */}
-                <button className="bg-white transition-colors delay-50 duration-300 
-                hover:bg-teal-700
-                text-teal-500
-                hover:text-white
-                font-bold
-                text-center
-                rounded text-2x1
-                px-4 py-2
-                hover:animate-none"
-                onClick={() => handleLearnMore(element.id)}>
-                 {showMore === element.id ? 'Show Less' : 'Learn More'}
-                </button>
-                {/* Si showMore est vrai, on affiche les informations supplémentaires */}
-              {showMore === element.id && (
-                <div className="extra-info">
-                  <p>Additional Information</p>
-                </div>
-              )}
-                  
+              </h1>
+              <p>{element.city}</p>
+              <p>{element.salary}</p>
+              <p>
+                {element.content.indexOf('.') !== -1 ? (
+                  <>
+                    {element.content.substring(0, element.content.indexOf('.') + 1)}
+                  </>
+                ) : (
+                  <>{element.content.length > 200 ? element.content.substr(0, 200) + "..." : element.content}</>
+                )}
+              </p>
+              {/* ---------- Button | Start ---------- */}
+
+              <div className="flex flex-col">
+                {/* ---------- Button Row ---------- */}
+                <div className="flex justify-between gap-6 mt-4 md:flex-row flex-col border-t border-b pt-1 pb-1">
+                  {/* --> Learn More */}
+                  <button className="bg-teal-500 text-white transition-colors delay-50 duration-300 
+                    hover:bg-grey-700 hover:text-white font-bold text-center rounded text-1xl px-4 py-2"
+                    onClick={() => handleLearnMore(element.id)}>
+                    {showMore === element.id ? 'Voir moins' : 'Détails de l\'offre'}
+                  </button>
+
+                  {/* --> Apply */}
+                  <button className="bg-grey-700 text-gray-800 transition-colors delay-50 duration-300 
+                    hover:bg-teal-600 hover:text-white font-bold text-center rounded text-1xl px-4 py-2"
+                    onClick={() => handleApply(element.id)}>
+                    {showApply === element.id ? 'Annuler' : 'Postuler'}
+                  </button>
+
                   {/* --> Delete */}
-                  <button type="submit" className="bg-grey transition-colors delay-50 duration-300 
-                hover:text-white
-                font-bold
-                text-center
-                rounded text-2x1
-                px-4 py-2
-                bg-grey-700
-                border
-                border-grey
-                text-gray-800
-                hover:bg-red-600
-                hover:border-red-600" onClick={() => deleteAdvertisement(element.id)}>Delete</button>
+                  <button className="bg-grey-700 text-gray-800 transition-colors delay-50 duration-300 
+                    hover:bg-red-600 hover:text-white font-bold text-center rounded text-1xl px-4 py-2"
+                    onClick={() => deleteAdvertisement(element.id)}>
+                    Supprimer
+                  </button>
+              </div>
+
+              {/* ---------- Extra Info ---------- */}
+              <div className="mt-4">
+                {showMore === element.id && (
+                  <div className="extra-info">
+                    <p>{element.content}</p>
+                  </div>
+                )}
+                {showApply === element.id && (
+                  <div className="extra-info">
+                    <Form/>
+                  </div>
+                )}
               </div>
             </div>
+          </div>
         )})
   }
 
@@ -150,7 +172,7 @@ export default function Advertisement() {
         <h4 className="text-2xl font-bold text-center text-black mb-12 pt-2">
           Les annonces
         </h4>    
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 gap-6">
           {renderAdvertisements()}
         </div>
       </div>
