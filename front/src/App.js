@@ -1,7 +1,7 @@
 import './App.css';
 import Advertisement from '../src/advertisements/Advertisement.jsx';
 import AdvertisementCreate from './advertisements/AdvertisementCreate.jsx';
-import Footer from './layouts/Footer.jsx';
+import Footer from './components/layouts/Footer.jsx';
 import SignUp from './auth/signup.jsx';
 
 function App() {
