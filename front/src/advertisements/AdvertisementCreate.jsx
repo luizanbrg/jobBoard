@@ -57,7 +57,7 @@ export default function AdvertisementCreate() {
 
     return (
         <>
-            <section className="pt-0 py-28 bg-teal-900">
+            <section className="pt-0 py-28 bg-teal-900 pt-20">
                 <h2 className="text-5xl font-bold text-center text-white mb-12 pt-2">
                     Création d'annonce
                 </h2>                

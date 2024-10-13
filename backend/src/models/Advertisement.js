@@ -17,6 +17,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'advertisement_id',
         as: 'skills',
       });
+      Advertisement.belongsTo(models.ContractType, {
+        foreignKey: 'advertisement_id',
+        as: 'contractType',
+      });
     }
   }
 
@@ -30,12 +34,20 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
         allowNull: true,
       },
-      salary: {
+      wages: {
         type: DataTypes.FLOAT,
         allowNull: true,
       },
       city: {
         type: DataTypes.STRING,
+        allowNull: true,
+      },
+      working_time: {
+        type: DataTypes.INT,
+        allowNull: true,
+      },
+      contract_type: {
+        type: DataTypes.INT,
         allowNull: true,
       },
       found: {

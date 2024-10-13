@@ -101,12 +101,16 @@ export default function Advertisement() {
             <div className="bg-white p-6 rounded-lg shadow-lg text-center" key={element.id}>
               
               {/* ---------- Element Base | Start ---------- */}
-              <h1 className="text-5x1 font-bold mb-2">
+              <h1 className="text-2xl font-bold mb-2">
                 {element.title}
                 
               </h1>
-              <p>{element.city}</p>
-              <p>{element.salary}</p>
+              <div className="flex items-center justify-center">
+                <i className="fa-solid fa-location-dot"></i>
+                <p className="pl-2">{element.city}</p>
+              </div>
+              
+              <p className="bg-teal-100 rounded-full inline-block px-2 my-2">{element.salary} €</p>
               <p>
                 {element.content.indexOf('.') !== -1 ? (
                   <>
@@ -151,7 +155,7 @@ export default function Advertisement() {
                   </div>
                 )}
                 {showApply === element.id && (
-                  <div className="extra-info">
+                  <div className="extra-info my-4">
                     <Form/>
                   </div>
                 )}
@@ -169,10 +173,10 @@ export default function Advertisement() {
   return(
     <section className="pt-0 py-28 bg-gray-100">
       <div className="container mx-auto px-6" >
-        <h4 className="text-2xl font-bold text-center text-black mb-12 pt-2">
+        {/* <h4 className="text-2xl font-bold text-center text-black mb-12 pt-2">
           Les annonces
-        </h4>    
-        <div className="grid grid-cols-1 gap-6">
+        </h4>     */}
+        <div className="grid grid-cols-1 gap-6 pt-20">
           {renderAdvertisements()}
         </div>
       </div>
