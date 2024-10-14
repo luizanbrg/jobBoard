@@ -6,6 +6,11 @@
   --bg-button-delete: hsl(352, 72%, 50%);
 }
 
+section{
+  width: 100%;
+  height: 100%;
+}
+
 .indexTitle{
   font-size: 3rem;
 }
