@@ -20,11 +20,15 @@ export default function Account() {
   useEffect(()=>{
     const getCandidateProfile = async () => {
       try {
+
+        const authToken = localStorage.getItem('token');
+        console.log(authToken);
+
         let options = {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            // Authorization: `Bearer ${authToken}`,
+            Authorization: `Bearer ${authToken}`,
           }
         };
   

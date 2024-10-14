@@ -11,6 +11,8 @@ export default function Login() {
     e.preventDefault();
 
     const people = { email, password };
+    console.log(urlLogin);
+    
 
     try {
       const response = await fetch(urlLogin, {
