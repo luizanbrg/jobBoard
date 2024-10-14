@@ -4,7 +4,10 @@ module.exports = (sequelize, DataTypes) => {
   class ContractType extends Model{
     //Associations
       static associate(models) {
-      // 
+        ContractType.hasMany(models.ContractType, {
+          foreignKey: 'advertisement_id',
+          as: 'advertisements',
+        });
       }
     }
 
