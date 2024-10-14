@@ -110,7 +110,7 @@ export default function Advertisement() {
                 <p className="pl-2">{element.city}</p>
               </div>
               
-              <p className="bg-teal-100 rounded-full inline-block px-2 my-2">{element.salary} €</p>
+              <p className="bg-teal-100 rounded-full inline-block px-2 my-2">{element.wages} €</p>
               <p>
                 {element.content.indexOf('.') !== -1 ? (
                   <>

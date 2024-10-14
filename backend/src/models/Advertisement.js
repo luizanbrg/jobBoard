@@ -43,11 +43,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
       },
       working_time: {
-        type: DataTypes.INT,
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
       contract_type: {
-        type: DataTypes.INT,
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
       found: {
