@@ -84,7 +84,7 @@ function App() {
             <Route path='*' element={<Error />}/>
             <Route path='/form' element={<Form />}/>
             {/* <Route path='/account/:value' element={<Account/>}/> */}
-            <Route path='/account' element={<Account/>}/>
+            <Route path='/account/:value' element={<Account/>}/>
 
             {/* ====================================== */}
             {/* ~~~~~~~~~~ Auth ~~~~~~~~~~ */}
