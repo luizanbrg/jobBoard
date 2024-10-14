@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 // import secureLocalStorage from "react-secure-storage";
 
 export default function Account() {
-
   // const [authenticated, setAuthenticated] = useState(false);
   // const [admin, setAdmin] = useState(false);
   // const authToken = secureLocalStorage.getItem("@TokenUser");
@@ -16,69 +15,118 @@ export default function Account() {
   //     }
   // }, []);
 
-  // const handleLogout = () => {
-  //     secureLocalStorage.removeItem("@TokenUser");
-  //     secureLocalStorage.removeItem("@UserId");
-  //     secureLocalStorage.removeItem("@TypeUser");
-  //     // cookies.remove('access_token');
-  //     window.location.href = "/";
-  //     //alert("Vous êtes déconnecté");
-  //     setAuthenticated(false);
-  // };
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    window.location.href = '/login';
+  };
 
-
-  return(
+  return (
     <>
-
       <nav className="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">JobBoard</span>
-        </a>
-        <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          {}
-            <button type="button" className="bg-transparent text-teal-500 border-teal hover:bg-teal-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-transparent dark:border border-teal-500 dark:hover:bg-teal-500 dark:focus:ring-blue-800">
-              <a href="/signup">S'enregistrer</a></button>
-            <button type="button" className="text-white bg-teal-700 hover:bg-teal-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-teal-600 dark:font-bold dark:hover:bg-teal-700 dark:focus:ring-blue-800">Connexion</button>
-            <button type="button"  className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-rose-600 dark:font-bold dark:hover:bg-rose-700 dark:focus:ring-blue-800">Déconnexion</button>
-            <button data-collapse-toggle="navbar-sticky" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
+          <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
+            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+              JobBoard
+            </span>
+          </a>
+          <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+            {}
+            <button
+              type="button"
+              className="bg-transparent text-teal-500 border-teal hover:bg-teal-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-transparent dark:border border-teal-500 dark:hover:bg-teal-500 dark:focus:ring-blue-800"
+            >
+              <a href="/signup">S'enregistrer</a>
+            </button>
+            <button
+              type="button"
+              className="text-white bg-teal-700 hover:bg-teal-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-teal-600 dark:font-bold dark:hover:bg-teal-700 dark:focus:ring-blue-800"
+            >
+              <a href="/login">Connexion</a>
+            </button>
+            <button
+              onClick={handleLogout}
+              type="button"
+              className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-rose-600 dark:font-bold dark:hover:bg-rose-700 dark:focus:ring-blue-800"
+            >
+              Déconnexion
+            </button>
+            <button
+              data-collapse-toggle="navbar-sticky"
+              type="button"
+              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              aria-controls="navbar-sticky"
+              aria-expanded="false"
+            >
               <span className="sr-only">Open main menu</span>
-              <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15"/>
+              <svg
+                className="w-5 h-5"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 17 14"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M1 1h15M1 7h15M1 13h15"
+                />
               </svg>
-          </button>
-        </div>
-        <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
-          <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-            <li>
-              <a href="/" className="block py-2 px-3 text-white font-bold bg-teal-700 rounded md:bg-transparent md:text-teal-700 md:p-0 md:dark:text-teal-500" aria-current="page">Accueil</a>
-            </li>
-            <li>
-              <a href="/advertisementCreate" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-teal-700 md:p-0 md:dark:hover:text-teal-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Créer une annonce</a>
-            </li>
-            {/* <li>
+            </button>
+          </div>
+          <div
+            className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+            id="navbar-sticky"
+          >
+            <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+              <li>
+                <a
+                  href="/"
+                  className="block py-2 px-3 text-white font-bold bg-teal-700 rounded md:bg-transparent md:text-teal-700 md:p-0 md:dark:text-teal-500"
+                  aria-current="page"
+                >
+                  Accueil
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/advertisementCreate"
+                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-teal-700 md:p-0 md:dark:hover:text-teal-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                >
+                  Créer une annonce
+                </a>
+              </li>
+              {/* <li>
               <a href="/" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Créer un membre</a>
             </li> */}
-             {/* {admin ? (
+              {/* {admin ? (
               <> */}
-                <li>
-                  <a href="/dashboard" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-teal-700 md:p-0 md:dark:hover:text-teal-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Dashboard</a>
-                </li>
+              <li>
+                <a
+                  href="/dashboard"
+                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-teal-700 md:p-0 md:dark:hover:text-teal-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                >
+                  Dashboard
+                </a>
+              </li>
               {/* </>
              ):(
               <> */}
-                <li>
-                  <a href="/account" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-teal-700 md:p-0 md:dark:hover:text-teal-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Mon profil</a>
-                </li>
+              <li>
+                <a
+                  href="/account"
+                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-teal-700 md:p-0 md:dark:hover:text-teal-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                >
+                  Mon profil
+                </a>
+              </li>
               {/* </>
              )}  */}
-
-          </ul>
-        </div>
+            </ul>
+          </div>
         </div>
       </nav>
-
-
     </>
-  )
+  );
 }
