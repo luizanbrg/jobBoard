@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
         as: 'skills',
       });
       Advertisement.belongsTo(models.ContractType, {
-        foreignKey: 'advertisement_id',
+        foreignKey: 'contractType_id',
         as: 'contractType',
       });
     }
@@ -43,6 +43,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
       },
       working_time: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      experiences: {
         type: DataTypes.INTEGER,
         allowNull: true,
       },
