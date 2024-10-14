@@ -59,6 +59,36 @@ exports.login = (req, res, next) => {
     });
 };
 
+
+// =================================================================================================
+// Récupérer toutes l'utilisateur | GET
+exports.getCandidateById = async (req, res) => {
+  try {
+    // Récupération de l'ID depuis les paramètres de l'URL
+    const { id } = req.params;
+
+    // Recherche du candidat par ID dans la base de données
+    const getProfile = await People.findByPk(id);
+    console.log(getProfile);
+
+    // Vérification si le candidat existe
+    if (!getProfile) {
+      return res.status(404).json({ message: "Profil non trouvé" });
+    }
+    
+    // Envoi des données en réponse avec un statut 200
+    res.status(200).json({ message: "Profil affiché avec succès", data: getProfile });
+
+  } catch (error) {
+    // Gestion d'erreur avec un statut 500 et un message
+    console.error("Erreur lors de la récupération du candidat :", error);
+    res.status(500).json({ message: "Erreur lors de la récupération des données du candidat" });
+  }
+};
+
+
+
+
 // exports.getPeopleById = async (req, res) => {
 //   try {
 //     const { id } = req.params;

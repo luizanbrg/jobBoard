@@ -3,48 +3,11 @@ const { Advertisement } = require('../models');
 // const sequelize = require('../models/index'); 
 // const { DataTypes } = require('sequelize');
 
-////MODEL
-  // const Advertisement = sequelize.define('Advertisement', {
-  //   title: {
-  //     type: DataTypes.STRING,
-  //     allowNull: false,
-  //   },
-  //   content: {
-  //     type: DataTypes.TEXT,
-  //     allowNull: true,
-  //   },
-  //   salary: {
-  //     type: DataTypes.FLOAT,
-  //     allowNull: true,
-  //   },
-  //   city: {
-  //     type: DataTypes.STRING,
-  //     allowNull: true,
-  //   },
-  //   found: {
-  //     type: DataTypes.BOOLEAN,
-  //     defaultValue: false,
-  //   },
-  // });
 
-  // Advertisement.associate = (models) => {
-  //   Advertisement.belongsTo(models.Company, {
-  //     foreignKey: 'company_id',
-  //     as: 'company',
-  //   });
-  //   Advertisement.hasMany(models.Application, {
-  //     foreignKey: 'advertisement_id',
-  //     as: 'applications',
-  //   });
-  //   Advertisement.hasMany(models.Skill, {
-  //     foreignKey: 'advertisement_id',
-  //     as: 'skills',
-  //   });
-  // };
-////FIN MODEL
 
 console.log(`Advertissement`, Advertisement);
 
+// =================================================================================================
 // Récupérer toutes les annonces
 exports.getAllAdvertisements = async (req, res) => {
   try {
@@ -62,6 +25,7 @@ exports.getAllAdvertisements = async (req, res) => {
 };
 
 
+// =================================================================================================
 // Créer une nouvelle annonce
 exports.createAdvertisement = async (req, res) => {
   try {

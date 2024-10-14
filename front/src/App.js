@@ -68,6 +68,7 @@ function App() {
             ) : (
                 <></>
             )}  */}
+
           <Route path="/dashboard" element={<Dashboard />} />
 
           {/* ====================================== */}
@@ -79,15 +80,14 @@ function App() {
           {/* ~~~~~~~~~~ PAGES ~~~~~~~~~~ */}
           <Route path="*" element={<Error />} />
           <Route path="/form" element={<Form />} />
-          {/* <Route path='/account/:value' element={<Account/>}/> */}
-          <Route path="/account" element={<Account />} />
+          <Route path='/account/:value' element={<Account/>}/>
 
           {/* ====================================== */}
           {/* ~~~~~~~~~~ Auth ~~~~~~~~~~ */}
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
-          {/* <Route path='/login' element={<Login />}/>  */}
         </Routes>
+
       </Router>
     </>
   );

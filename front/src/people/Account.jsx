@@ -1,10 +1,57 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 
 export default function Account() {
 
+  // const value = useLocation().state;
+  const { value } = useParams(); // Supposons que l'ID du candidat soit passé dans l'URL
+  const urlProfileCandidate = `${process.env.REACT_APP_API_ACCOUNT_CANDIDATE}`;
+  
+  const [candidate, setCandidate] = useState({});
   const [editing, setEditing] = useState(false);
+
+
+
   // =================================================================================================
-  // ----------- Function : member | GET ---------------
+  // ----------- Function : candidate | GET ---------------
+
+  console.log(`Get Candidate Profil | Value AVANT Fetch :`, value);
+
+  useEffect(()=>{
+    const getCandidateProfile = async () => {
+      try {
+        let options = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            // Authorization: `Bearer ${authToken}`,
+          }
+        };
+  
+        console.log(`Get Candidate Profil | Options :`, options);
+        console.log(`Get Candidate Profil | Value APRES Fetch :`, value);
+  
+        const response = await fetch(`${urlProfileCandidate}/${value}`, options)
+        const data = await response.json()
+  
+        console.log(`Get Candidate Profil | Response :`, response);
+  
+  
+        if (response.ok) {
+          setCandidate(data)
+          console.log(`Candidate Profile data : `, data);
+        } else {
+          console.error(`Echec du fetch de la data du Candidate Profile`);
+        }
+  
+      } catch (error) {
+        console.error(`Fetch error back-end Candidate Profile: `, error);
+      }
+    }
+    
+    getCandidateProfile();
+  }, []);
+
 
   // =================================================================================================
   // ----------- Function : member | UPDATE ---------------b
@@ -13,6 +60,7 @@ export default function Account() {
     <>
       <section className="pt-0 py-28 bg-gray-100 pt-20">
         {editing ? (
+          // ============================| BOX  UPDATE --- Start |========================================= //
           <>
             <h2 className="text-1xl font-bold text-center uppercase tracking-wider text-black mb-2 pt-2">
               Modification du profil
@@ -26,11 +74,11 @@ export default function Account() {
               <div className="grid gap-6 mb-6 md:grid-cols-2 items-between pt-2">
                   <div>
                     <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Nom*</label>
-                    <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required />
+                    <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" lastname={candidate.last_name} required />
                   </div>
                   <div>
                     <label htmlFor="last_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Prénom*</label>
-                    <input type="text" id="last_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required />
+                    <input type="text" id="last_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" firstname={candidate.first_name} required />
                   </div>
                   <div>
                     <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Téléphone*</label>
@@ -83,7 +131,9 @@ export default function Account() {
               </div>
             </form>
           </>
+          // ============================| BOX  UPDATE --- End |========================================= //
         ):(
+          // ============================| BOX  SHOW --- Start |========================================= //
           <>
             <h2 className="text-1xl font-bold text-center uppercase tracking-wider text-black mb-2 pt-2">
               Mon profil
@@ -92,27 +142,27 @@ export default function Account() {
               <div className="grid gap-6 mb-6 md:grid-cols-2 items-between pt-2">
                 <div>
                     <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Nom*</label>
-                    <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required />
+                    <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  placeholder="John" disabled>{candidate.last_name}</input>
                 </div>
                 <div>
                     <label htmlFor="last_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Prénom*</label>
-                    <input type="text" id="last_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required />
+                    <input type="text" id="last_name" value={candidate.last_name} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" disabled />
                 </div>
                 <div>
                     <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Téléphone*</label>
-                    <input type="tel" id="phone" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="06-00-00-00-00" pattern="[0-9]{2}-[0-9]{2}-[0-9]{2}" required />
+                    <input type="tel" id="phone" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="06-00-00-00-00" pattern="[0-9]{2}-[0-9]{2}-[0-9]{2}" disabled />
                 </div>
                 <div>
                     <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Email*</label>
-                    <input type="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="john.doe@company.com" required />
+                    <input type="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="john.doe@company.com" disabled />
                 </div>
                 <div>
                     <label htmlFor="location" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Localisation*</label>
-                    <input type="location" id="location" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="ville" required />
+                    <input type="location" id="location" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="ville" disabled />
                 </div>
                 <div>
                   <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black" htmlFor="file_input">CV à importer</label>
-                  <input className="block large p-2 w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file" />
+                  <input className="block large p-2 w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file" disabled/>
                 </div>
                 <button
                 className="bg-orange-400 transition-colors delay-50 duration-300 
@@ -134,6 +184,7 @@ export default function Account() {
               </div>
             </div>
           </>
+          // ============================| BOX  SHOW --- End |========================================= //
         )}
       </section>
     </>
