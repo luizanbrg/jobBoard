@@ -22,16 +22,25 @@ export default function Login() {
       });
 
       const responseData = await response.json();
+      console.log(responseData);
 
       if (!response.ok) {
         console.error('Error:', responseData);
         throw new Error('Login failed');
       }
-
       // garde le token dans le localstorage
       localStorage.setItem('token', responseData.token);
-      // redirection à la page souhaitée
-      window.location.href = '/';
+      // garde l'id du role
+      localStorage.setItem('role_id', responseData.role_id);
+      console.log('Role stored:', localStorage.getItem('role_id'));
+
+      const role = localStorage.getItem('role_id');
+      if (role == 1) {
+        // redirection à la page souhaitée
+        window.location.href = '/';
+      } else {
+        window.location = '/dashboard';
+      }
     } catch (error) {
       setError('Mot de passe et/ou email incorrects');
       console.log('Login error:', error);
