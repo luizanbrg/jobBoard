@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // import secureLocalStorage from  "react-secure-storage";
 import './App.css';
 
@@ -9,7 +9,8 @@ import AdvertisementCreate from './advertisements/AdvertisementCreate.jsx';
 
 // ------- Section Pages -------
 import SignUp from './auth/signup.jsx';
-import Dashboard from './admin/Dashboard.jsx'
+import Login from './auth/login.jsx';
+import Dashboard from './admin/Dashboard.jsx';
 import Account from './people/Account.jsx';
 import Form from './advertisements/Form.jsx';
 
@@ -17,26 +18,24 @@ import Form from './advertisements/Form.jsx';
 import Error from './features/Error.jsx';
 
 // ------- Section layouts -------
-import Navigation from './components/layouts/Navigation.jsx'
+import Navigation from './components/layouts/Navigation.jsx';
 import Footer from './components/layouts/Footer.jsx';
 
-
 function App() {
+  //   const [authTypeApp, setAuthTypeApp] = useState(null);
+  //   setAuthTypeApp(type_app);
+  //   useEffect(() => {
+  //     const checkStorage = () => {
+  //     const token_app = secureLocalStorage.getItem("@TokenUser");
+  //     const type_app = secureLocalStorage.getItem("@TypeUser");
+  //     //console.log(token_app);
+  //     setAuthTokenApp(token_app);
+  //     setAuthTypeApp(type_app);
 
-//   const [authTypeApp, setAuthTypeApp] = useState(null);
-//   setAuthTypeApp(type_app);
-//   useEffect(() => {
-//     const checkStorage = () => {
-//     const token_app = secureLocalStorage.getItem("@TokenUser");
-//     const type_app = secureLocalStorage.getItem("@TypeUser");
-//     //console.log(token_app);
-//     setAuthTokenApp(token_app);
-//     setAuthTypeApp(type_app);
+  //     };
 
-//     };
-
-//     setTimeout(checkStorage, 200);
-// }, []);
+  //     setTimeout(checkStorage, 200);
+  // }, []);
 
   return (
     // <div className="App">
@@ -58,39 +57,37 @@ function App() {
     // </div>
     <>
       <Router>
-        <Navigation/>
-          <Routes>
-            {/* ==================================== */}
-            {/* ~~~~~~~~~~ ADMIN ~~~~~~~~~~ */}
-            {/* { authTypeApp == 'admin' ? (
+        <Navigation />
+        <Routes>
+          {/* ==================================== */}
+          {/* ~~~~~~~~~~ ADMIN ~~~~~~~~~~ */}
+          {/* { authTypeApp == 'admin' ? (
                 <>
                   <Route path='/dashboard' element={<Dashboard/>}/>
                 </>
             ) : (
                 <></>
             )}  */}
-            <Route path='/dashboard' element={<Dashboard/>}/>
+          <Route path="/dashboard" element={<Dashboard />} />
 
-            
-            {/* ====================================== */}
-            {/* ~~~~~~~~~~ ADVERTISEMENT ~~~~~~~~~~ */}
-            <Route path='/' element={<Advertisement />}/>
-            <Route path='/advertisementCreate' element={<AdvertisementCreate/>}/>
+          {/* ====================================== */}
+          {/* ~~~~~~~~~~ ADVERTISEMENT ~~~~~~~~~~ */}
+          <Route path="/" element={<Advertisement />} />
+          <Route path="/advertisementCreate" element={<AdvertisementCreate />} />
 
+          {/* ====================================== */}
+          {/* ~~~~~~~~~~ PAGES ~~~~~~~~~~ */}
+          <Route path="*" element={<Error />} />
+          <Route path="/form" element={<Form />} />
+          {/* <Route path='/account/:value' element={<Account/>}/> */}
+          <Route path="/account" element={<Account />} />
 
-
-            {/* ====================================== */}
-            {/* ~~~~~~~~~~ PAGES ~~~~~~~~~~ */}
-            <Route path='*' element={<Error />}/>
-            <Route path='/form' element={<Form />}/>
-            {/* <Route path='/account/:value' element={<Account/>}/> */}
-            <Route path='/account' element={<Account/>}/>
-
-            {/* ====================================== */}
-            {/* ~~~~~~~~~~ Auth ~~~~~~~~~~ */}
-            <Route path='/signup' element={<SignUp />}/>
-            {/* <Route path='/login' element={<Login />}/>  */}
-          </Routes>
+          {/* ====================================== */}
+          {/* ~~~~~~~~~~ Auth ~~~~~~~~~~ */}
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+          {/* <Route path='/login' element={<Login />}/>  */}
+        </Routes>
       </Router>
     </>
   );
