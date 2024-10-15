@@ -28,6 +28,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      city: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      resume: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       role_id: {
         type: DataTypes.INTEGER,
         references: {
