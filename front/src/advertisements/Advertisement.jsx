@@ -114,7 +114,7 @@ export default function Advertisement() {
               <p>
                 {element.content.indexOf('.') !== -1 ? (
                   <>
-                    {element.content.substring(0, element.content.indexOf('.') + 1)}
+                    {element.content.substring(0, element.content.indexOf('.') + 1)}...
                   </>
                 ) : (
                   <>{element.content.length > 200 ? element.content.substr(0, 200) + "..." : element.content}</>
@@ -133,8 +133,14 @@ export default function Advertisement() {
                   </button>
 
                   {/* --> Apply */}
-                  <button className="bg-grey-700 text-gray-800 transition-colors delay-50 duration-300 
-                    hover:bg-teal-600 hover:text-white font-bold text-center rounded text-1xl px-4 py-2"
+                  <button 
+                  // className="bg-grey-700 text-gray-800 transition-colors delay-50 duration-300 
+                  //   hover:bg-teal-600 hover:text-white font-bold text-center rounded text-1xl px-4 py-2"
+                    className={`transition-colors delay-50 duration-300 font-bold text-center rounded text-1xl px-4 py-2 cursor-pointer ${
+                      showApply === element.id
+                        ? 'bg-orange-600 text-white' // Couleur de fond et texte pour "Annuler"
+                        : 'bg-grey-700 text-gray-800 hover:bg-teal-600 hover:text-white' // Couleur de fond et texte pour "Postuler"
+                    }`}
                     onClick={() => handleApply(element.id)}>
                     {showApply === element.id ? 'Annuler' : 'Postuler'}
                   </button>
