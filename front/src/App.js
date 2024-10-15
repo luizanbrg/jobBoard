@@ -6,6 +6,8 @@ import './App.css';
 // ------- Section Advertisement -------
 import Advertisement from '../src/advertisements/Advertisement.jsx';
 import AdvertisementCreate from './advertisements/AdvertisementCreate.jsx';
+import AdminAdvertising from './admin/AdminAdvertising.jsx';
+import AdvertisementShow from './advertisements/AdvertisementShow.jsx';
 
 // ------- Section Pages -------
 import SignUp from './auth/signup.jsx';
@@ -53,25 +55,26 @@ function App() {
             )}  */}
 
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/listAdvertisement" element={<AdminAdvertising />} />
 
           {/* ====================================== */}
           {/* ~~~~~~~~~~ ADVERTISEMENT ~~~~~~~~~~ */}
           <Route path="/" element={<Advertisement />} />
           <Route path="/advertisementCreate" element={<AdvertisementCreate />} />
+          <Route path="/advertisement/:id" element={<AdvertisementShow />} />
 
           {/* ====================================== */}
           {/* ~~~~~~~~~~ PAGES ~~~~~~~~~~ */}
           <Route path="*" element={<Error />} />
           <Route path="/form" element={<Form />} />
           {/* <Route path='/account/:value' element={<Account/>}/> */}
-          <Route path='/account' element={<Account/>}/>
+          <Route path="/account" element={<Account />} />
 
           {/* ====================================== */}
           {/* ~~~~~~~~~~ Auth ~~~~~~~~~~ */}
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
         </Routes>
-
       </Router>
     </>
   );
