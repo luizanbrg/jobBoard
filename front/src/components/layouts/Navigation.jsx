@@ -2,23 +2,30 @@ import React, { useState, useEffect } from 'react';
 // import secureLocalStorage from "react-secure-storage";
 
 export default function Account() {
-  // const [authenticated, setAuthenticated] = useState(false);
-  // const [admin, setAdmin] = useState(false);
-  // const authToken = secureLocalStorage.getItem("@TokenUser");
-  // const typeUser = secureLocalStorage.getItem("@TypeUser");
-  // useEffect(() => {
-  //     if (authToken) {
-  //         setAuthenticated(true);
-  //     }
-  //     if (typeUser === "admin"){
-  //         setAdmin(true);
-  //     }
-  // }, []);
+  const authToken = localStorage.getItem('token');
+  const typeUser = localStorage.getItem('role_id');
+
+  const [authenticated, setAuthenticated] = useState(false);
+  const [admin, setAdmin] = useState(false);
+
+
+  useEffect(() => {
+      if (authToken) {
+        const candidateId = localStorage.getItem('id');
+          setAuthenticated(true);
+      }
+      if (typeUser === "3"){
+          setAdmin(true);
+      }
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    setAuthenticated(false);
     window.location.href = '/login';
   };
+
+
 
   return (
     <>
@@ -30,26 +37,35 @@ export default function Account() {
             </span>
           </a>
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-            {}
-            <button
-              type="button"
-              className="bg-transparent text-teal-500 border-teal hover:bg-teal-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-transparent dark:border border-teal-500 dark:hover:bg-teal-500 dark:focus:ring-blue-800"
-            >
-              <a href="/signup">S'enregistrer</a>
-            </button>
-            <button
-              type="button"
-              className="text-white bg-teal-700 hover:bg-teal-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-teal-600 dark:font-bold dark:hover:bg-teal-700 dark:focus:ring-blue-800"
-            >
-              <a href="/login">Connexion</a>
-            </button>
-            <button
-              onClick={handleLogout}
-              type="button"
-              className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-rose-600 dark:font-bold dark:hover:bg-rose-700 dark:focus:ring-blue-800"
-            >
-              Déconnexion
-            </button>
+            {authenticated ? (
+              <>
+                <button
+                  onClick={handleLogout}
+                  type="button"
+                  className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-rose-600 dark:font-bold dark:hover:bg-rose-700 dark:focus:ring-blue-800"
+                >
+                  Déconnexion
+                </button>
+              </>
+            ):(
+              <>
+                <div className="flex space-x-4">
+                  <button
+                    type="button"
+                    className="bg-transparent text-teal-500 border-teal hover:bg-teal-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-transparent dark:font-bold dark:border border-teal-500 dark:hover:bg-teal-500 dark:focus:ring-blue-800"
+                  >
+                    <a href="/signup">S'enregistrer</a>
+                  </button>
+                  <button
+                    type="button"
+                    className="text-white bg-teal-700 hover:bg-teal-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-teal-600 dark:font-bold dark:hover:bg-teal-700 dark:focus:ring-blue-800"
+                  >
+                    <a href="/login">Connexion</a>
+                  </button>
+                </div>
+              </>
+            )}
+
             <button
               data-collapse-toggle="navbar-sticky"
               type="button"
@@ -90,39 +106,51 @@ export default function Account() {
                 </a>
               </li>
               <li>
-                <a
-                  href="/advertisementCreate"
-                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-teal-700 md:p-0 md:dark:hover:text-teal-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-teal-700 md:p-0 md:dark:hover:text-teal-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
-                  Créer une annonce
+                  Mes candidatures
                 </a>
               </li>
-              {/* <li>
-              <a href="/" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Créer un membre</a>
-            </li> */}
-              {/* {admin ? (
-              <> */}
-              <li>
-                <a
-                  href="/dashboard"
-                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-teal-700 md:p-0 md:dark:hover:text-teal-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  Dashboard
-                </a>
-              </li>
-              {/* </>
-             ):(
-              <> */}
-              <li>
-                <a
-                  href="/account"
-                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-teal-700 md:p-0 md:dark:hover:text-teal-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  Mon profil
-                </a>
-              </li>
-              {/* </>
-             )}  */}
+
+              {(authenticated) ? (
+                <>
+                  <li>
+                    <a
+                      href="/advertisementCreate"
+                      className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-teal-700 md:p-0 md:dark:hover:text-teal-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                    >
+                      Créer une annonce
+                    </a>
+                  </li>
+                  {admin ? (
+                    <>
+                      <li>
+                        <a
+                          href="/dashboard"
+                          className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-teal-700 md:p-0 md:dark:hover:text-teal-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                        >
+                          Dashboard
+                        </a>
+                      </li>
+                    </>
+                  ):(
+                    <>
+                      <li>
+                        <a
+                          href="/account"
+                          className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-teal-700 md:p-0 md:dark:hover:text-teal-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                        >
+                          Mon profil
+                        </a>
+                      </li>
+                    </>
+                  )} 
+                </>
+              ):(
+                <>
+                </>
+              )}
+
             </ul>
           </div>
         </div>

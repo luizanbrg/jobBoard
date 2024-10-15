@@ -32,6 +32,8 @@ export default function Login() {
       }
       // garde le token dans le localstorage
       localStorage.setItem('token', responseData.token);
+      // injecter l'id dans le localstorage
+      localStorage.setItem('id', responseData.id )
       // garde l'id du role
       localStorage.setItem('role_id', responseData.role_id);
       console.log('Role stored:', localStorage.getItem('role_id'));

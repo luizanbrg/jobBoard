@@ -44,19 +44,20 @@ export default function SignUp() {
 
   return (
     <>
-      <section className="pt-0 py-28 bg-teal-900">
-        <h2 className="text-5xl font-bold text-center text-white mb-12 pt-2">Créer un compte</h2>
+      <section className="pt-20  bg-slate-100 min-h-screen">
+        <h2 className="text-5xl font-bold text-center text-black tracking-wider py-5">Création d'un compte</h2>
 
         <div>
-          <p className="text-1xl text-center italic text-white mb-4">
+          <p className="text-1xl text-center italic text-black mb-4">
             <span className="font-bold border-b">Information</span> : Tous les champs avec * sont
             obligatoires
           </p>
         </div>
-        <div className="containerForm">
-          <form onSubmit={createPeople}>
-            <div className="containerForm">
-              <label htmlFor="firstName" className="text-1xl text-center text-white mb-2">
+      
+        <form onSubmit={createPeople}>
+          <div className="grid gap-6 mb-6 md:grid-cols-1 items-between pt-2 px-3">
+            <div>
+              <label htmlFor="firstName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
                 Prénom*:
               </label>
               <input
@@ -66,12 +67,13 @@ export default function SignUp() {
                 value={first_name}
                 onChange={e => setFirstName(e.target.value)}
                 placeholder="Prénom"
-                className="border-2 p-2 rounded-sm"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                required
               />
             </div>
 
-            <div className="containerForm mt-4">
-              <label htmlFor="lastName" className="text-1xl text-center text-white mb-2">
+            <div>
+              <label htmlFor="lastName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
                 Nom de famille*:
               </label>
               <input
@@ -81,12 +83,13 @@ export default function SignUp() {
                 value={last_name}
                 onChange={e => setLastName(e.target.value)}
                 placeholder="Nom de famille"
-                className="border-2 p-2 rounded-sm"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                required              
               />
             </div>
 
-            <div className="containerForm mt-4">
-              <label htmlFor="email" className="text-1xl text-center text-white mb-2">
+            <div>
+              <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
                 Email*:
               </label>
               <input
@@ -96,12 +99,12 @@ export default function SignUp() {
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 placeholder="Email"
-                className="border-2 p-2 rounded-sm"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
               />
             </div>
 
-            <div className="containerForm mt-4">
-              <label htmlFor="password" className="text-1xl text-center text-white mb-2">
+            <div>
+              <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
                 Mot de passe*:
               </label>
               <input
@@ -111,30 +114,32 @@ export default function SignUp() {
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 placeholder="Mot de passe"
-                className="border-2 p-2 rounded-sm"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                required
               />
             </div>
 
             <button
               type="submit"
-              className="bg-white transition-colors delay-50 duration-300
-            hover:text-white
-            font-bold
-            text-center
-            rounded text-2xl
-            px-4 py-2
-            mt-4
-            bg-grey-700
-            border
-            border-grey
-            text-gray-800
-            hover:bg-emerald-600
-            hover:border-emerald-600"
+              className="bg-slate-300   transition-colors delay-50 duration-300 
+              font-bold
+              text-center
+              rounded text-2x1
+              px-4 py-2
+              mt-4
+              bg-grey-700
+              border
+              border-grey
+              text-gray-800
+              hover:text-white
+              hover:bg-teal-800
+              hover:border-teal-800"
             >
               Créer compte
             </button>
-          </form>
-        </div>
+            </div>
+          </form> 
+
       </section>
     </>
   );

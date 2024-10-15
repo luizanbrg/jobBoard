@@ -59,8 +59,8 @@ export default function AdvertisementCreate() {
 
     return (
         <>
-            <section className="pt-0  bg-slate-100 rounded">
-                <h2 className="text-1xl font-bold text-center uppercase tracking-wider text-black mb-2 pt-2">
+            <section className="pt-2  bg-slate-100 px-2">
+                <h2 className="text-2xl font-bold text-center uppercase tracking-wider text-black mb-2 pt-2">
                     Candidature
                 </h2>                
 
@@ -87,8 +87,7 @@ export default function AdvertisementCreate() {
                             <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="john.doe@company.com" required />
                         </div> 
                         <button type="submit"
-                        className="bg-white transition-colors delay-50 duration-300 
-                        hover:text-white
+                        className="bg-slate-300 mb-3 col-span-full transition-colors delay-50 duration-300 
                         font-bold
                         text-center
                         rounded text-2x1
@@ -98,8 +97,10 @@ export default function AdvertisementCreate() {
                         border
                         border-grey
                         text-gray-800
-                        hover:bg-cyan-600
-                        hover:border-cyan-600">
+                        hover:text-white
+                        hover:bg-teal-800
+                        hover:border-teal-800"
+                        >
                             Soumettre
                         </button>
                     </div>
