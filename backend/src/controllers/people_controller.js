@@ -93,6 +93,10 @@ exports.getCandidateById = async (req, res) => {
       return res.status(404).json({ message: 'Profil non trouvé' });
     }
 
+    // Convertir le modèle Sequelize en objet brut et supprimer le champ password
+    const candidateData = getProfile.get({ plain: true });
+    delete candidateData.password;  // Suppression du mot de passe
+
     // Envoi des données en réponse avec un statut 200
     res.status(200).json({ message: 'Profil affiché avec succès', data: getProfile });
   } catch (error) {
@@ -123,7 +127,7 @@ exports.deletePeople = async (req, res) => {
 exports.updatePeople = async (req, res) => {
   try {
     const { id } = req.params;
-    const { first_name, last_name, email, password, city, resume, role_id } = req.body;
+    const { first_name, last_name, email, password, city, role_id } = req.body;
 
     const people = await People.findByPk(id);
 
@@ -137,7 +141,7 @@ exports.updatePeople = async (req, res) => {
       email,
       password,
       city,
-      resume,
+      // resume,
       role_id,
     });
 
