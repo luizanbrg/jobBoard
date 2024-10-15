@@ -61,6 +61,22 @@ exports.login = (req, res, next) => {
 };
 
 // =================================================================================================
+
+exports.getAllPeople = async (req, res) => {
+  try {
+    // Appel direct à la base de données sans synchronisation répétée
+    const peoples = await People.findAll();
+    console.log(peoples);
+
+    // Envoi des données en réponse avec un statut 200
+    res.status(200).json(advertisements);
+  } catch (error) {
+    // Gestion d'erreur avec un statut 500 et un message
+    console.error('Erreur lors de la récupération des utilisateurs :', error);
+    res.status(500).json({ message: 'Erreur lors de la récupération des utilisateurs' });
+  }
+};
+
 // Récupérer toutes l'utilisateur | GET
 exports.getCandidateById = async (req, res) => {
   try {
@@ -85,13 +101,48 @@ exports.getCandidateById = async (req, res) => {
   }
 };
 
-// exports.getPeopleById = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const people = await People.findByPk(id);
+exports.deletePeople = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const people = await People.findByPk(id);
 
-//     if (!people) {
-//       return res.status(404).json({ message: "Utilisateur ou mot de passe non trouvés" })
-//     }
-//   }
-// }
+    if (!people) {
+      return res.status(404).json({ message: 'Utilisateur non trouvée' });
+    }
+
+    await people.destroy();
+
+    res.status(200).json({ message: 'Utilisateur supprimée avec succès' });
+  } catch (error) {
+    console.error("Erreur lors de la suppression de l'utilisateur : ", error);
+    res.status(500).json({ message: "Erreur de la suppression de l'utilisateur" });
+  }
+};
+
+exports.updatePeople = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { first_name, last_name, email, password, city, resume, role_id } = req.body;
+
+    const people = await People.findByPk(id);
+
+    if (!people) {
+      return res.status(404).json({ message: 'Utilisateur non trouvée' });
+    }
+
+    await people.update({
+      first_name,
+      last_name,
+      email,
+      password,
+      city,
+      resume,
+      role_id,
+    });
+
+    res.status(200).json(people);
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour de l'utilisateur :", error);
+    res.status(500).json({ message: "Erreur lors de la mise à jour de l'utilisateur" });
+  }
+};
