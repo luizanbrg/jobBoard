@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       People.hasMany(models.Application, { foreignKey: 'people_id', as: 'applications' });
       People.hasMany(models.Skill, { foreignKey: 'people_id', as: 'skills' });
+      People.hasMany(models.Advertisement, { foreignKey: 'people_id', as: 'advertisement' });
       People.belongsTo(models.Role, { foreignKey: 'role_id', as: 'role' });
     }
   }
@@ -22,7 +23,6 @@ module.exports = (sequelize, DataTypes) => {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
       },
       password: {
         type: DataTypes.STRING,

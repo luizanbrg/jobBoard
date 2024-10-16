@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const { People } = require('../models');
+const { Role } = require('../models/Role');
 const jwt = require('jsonwebtoken');
 
 exports.signup = (req, res, next) => {
@@ -29,7 +30,15 @@ exports.signup = (req, res, next) => {
 };
 
 exports.login = (req, res, next) => {
-  People.findOne({ where: { email: req.body.email } })
+  People.findOne({
+    where: { email: req.body.email },
+    // include: [
+    //   {
+    //     model: Role,
+    //     as: 'role',
+    //   },
+    // ],
+  })
     .then(people => {
       if (people === null) {
         res.status(401).json({ message: 'Mot de passe et/ou e-mail incorrects' });
@@ -41,12 +50,15 @@ exports.login = (req, res, next) => {
               res.status(401).json({ message: 'Mot de passe et/ou e-mail incorrects' });
             } else {
               res.status(200).json({
-                peopleId: people.id,
-                token: jwt.sign({ peopleId: people.id }, `${process.env.TOKEN}`, {
-                  expiresIn: '24h',
-                }),
-                role_id: people.role_id,
-                id: people.id,
+                token: jwt.sign(
+                  { peopleId: people.id, role_id: people.role_id },
+                  `${process.env.TOKEN}`,
+                  {
+                    expiresIn: '24h',
+                  },
+                ),
+                // id: people.id,
+                // role_id: people.role_id,
               });
             }
           })
@@ -95,7 +107,7 @@ exports.getCandidateById = async (req, res) => {
 
     // Convertir le modèle Sequelize en objet brut et supprimer le champ password
     const candidateData = getProfile.get({ plain: true });
-    delete candidateData.password;  // Suppression du mot de passe
+    delete candidateData.password; // Suppression du mot de passe
 
     // Envoi des données en réponse avec un statut 200
     res.status(200).json({ message: 'Profil affiché avec succès', data: getProfile });

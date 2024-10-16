@@ -84,7 +84,7 @@ export default function AdvertisementShow() {
 
   return (
     <>
-      <section className="pt-0 py-28 bg-gray-100 pt-20">
+      <section className="py-28 min-h-screen bg-gray-100 pt-20">
         {editing ? (
           <>
             <h2 className="text-1xl font-bold text-center uppercase tracking-wider text-black mb-2 pt-2">

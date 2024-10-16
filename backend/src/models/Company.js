@@ -1,13 +1,13 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class Company extends Model{
+  class Company extends Model {
     //Associations
     static associate(models) {
-      Company.hasMany(models.Advertisement, {
-        foreignKey: 'company_id',
-        as: 'advertisements',
-      });
+      // Company.hasMany(models.Advertisement, {
+      //   foreignKey: 'company_id',
+      //   as: 'advertisements',
+      // });
     }
   }
 
@@ -37,11 +37,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'Company', 
-      tableName: 'Company',  // Spécifier le nom de la table
+      modelName: 'Company',
+      tableName: 'Company', // Spécifier le nom de la table
       underscored: true,
-    }
-  )
+    },
+  );
 
   return Company;
 };

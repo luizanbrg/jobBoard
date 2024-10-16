@@ -1,11 +1,46 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 export default function AdminAdvertising() {
-  const urlAdminDashboard = `${process.env.REACT_APP_API_PROTECTED_ROUTE}`;
-  const urlAdvertisementIndex = `${process.env.REACT_APP_API_ADVERTISEMENT_INDEX}`;
+  const { id } = useParams();
+
+  // const urlAdminDashboard = `${process.env.REACT_APP_API_PROTECTED_ROUTE}`;
+  const urlAdvertisementShow = `${process.env.REACT_APP_API_ADVERTISEMENT_INDEX}`;
   const [advertisement, setAdvertisement] = useState([]);
 
   // ----- retrouver un advertisement par l'id ------
+  const getAdvertisementById = async () => {
+    if (!id) {
+      console.error('No advertisement ID');
+      return;
+    }
+
+    try {
+      const authToken = localStorage.getItem('token');
+
+      let options = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${authToken}`,
+        },
+      };
+      console.log(`Get Advertisement Page | Options :`, options);
+
+      const response = await fetch(`${urlAdvertisementShow}/${id}`);
+
+      if (!response.ok) {
+        throw new Error('Erreur de fetch ');
+      }
+
+      const data = await response.json();
+      setAdvertisement([data]);
+      console.log('Get Advertisement Show data: ', data);
+    } catch (error) {
+      console.error('Erreur de fetch advertisement:', error);
+    }
+  };
+
   const getAdvertisementIndex = async () => {
     try {
       const options = {
@@ -14,7 +49,7 @@ export default function AdminAdvertising() {
       };
       console.log(`Advertisement List | Options: `, options);
 
-      const response = await fetch(urlAdvertisementIndex, options);
+      const response = await fetch(urlAdvertisementShow, options);
       const data = await response.json();
 
       if (Array.isArray(data)) {
@@ -36,13 +71,10 @@ export default function AdminAdvertising() {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${authToken}`,
       },
-      // body: JSON.stringify({
-      //   id: id,
-      // })
     };
 
     try {
-      const response = await fetch(`${urlAdvertisementIndex}/${id}`, options);
+      const response = await fetch(`${urlAdvertisementShow}/${id}`, options);
 
       console.log(`AdvertisementDelete (options) : `, options);
 
@@ -52,12 +84,12 @@ export default function AdminAdvertising() {
 
       const data = await response.json();
 
-      //console.log(`Advertisement Delete (data) : `, data);
+      console.log(`Advertisement Delete (data) : `, data);
 
-      if (data) {
-        //alert(data.message);
-        window.location.href = `/`;
-      }
+      // if (data) {
+      //   //alert(data.message);
+      //   alert('Annonce supprimé');
+      // }
     } catch (error) {
       console.error("Erreur lors de la récupération de l'annonce : ", error);
     }
@@ -91,11 +123,15 @@ export default function AdminAdvertising() {
   };
 
   useEffect(() => {
-    getAdvertisementIndex();
-  }, []);
+    if (id) {
+      getAdvertisementById();
+    } else {
+      getAdvertisementIndex();
+    }
+  }, [id]);
 
   return (
-    <section className="pt-0 py-28 bg-gray-100">
+    <section className="pt-20  bg-slate-100 min-h-screen">
       <div className="container mx-auto px-6">
         <h4 className="text-2xl font-bold text-center text-black mb-12 pt-2">Les annonces</h4>
         <table className="min-w-full bg-white">
