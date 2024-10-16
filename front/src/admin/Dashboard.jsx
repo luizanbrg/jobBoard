@@ -28,7 +28,7 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <section className="pt-25 py-28 bg-gray-100">
+    <section className="pt-20 bg-slate-100 min-h-screen">
       <div className="container mx-auto px-6">
         <h4 className="text-2xl font-bold text-center text-black mb-12 pt-2">Dashboard</h4>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-20">

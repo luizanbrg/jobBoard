@@ -1,13 +1,13 @@
 const { Model } = require('sequelize');
-// const sequelize = require('../database'); 
+// const sequelize = require('../database');
 
 module.exports = (sequelize, DataTypes) => {
-  class Advertisement extends Model{
-  //Associations
+  class Advertisement extends Model {
+    //Associations
     static associate(models) {
-      Advertisement.belongsTo(models.Company, {
-        foreignKey: 'company_id',
-        as: 'company',
+      Advertisement.belongsTo(models.People, {
+        foreignKey: 'people_id',
+        as: 'people',
       });
       Advertisement.hasMany(models.Application, {
         foreignKey: 'advertisement_id',
@@ -61,11 +61,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'Advertisement',  // Utiliser 'Advertisement' avec un 'A' majuscule
-      tableName: 'Advertisement',  // Spécifier le nom de la table
+      modelName: 'Advertisement', // Utiliser 'Advertisement' avec un 'A' majuscule
+      tableName: 'Advertisement', // Spécifier le nom de la table
       underscored: true,
-    }
-  )
+    },
+  );
 
   return Advertisement;
-}
+};

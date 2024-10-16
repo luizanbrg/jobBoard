@@ -120,6 +120,7 @@ exports.updateAdvertisement = async (req, res) => {
 exports.deleteAdvertisement = async (req, res) => {
   try {
     const { id } = req.params;
+    console.log('Deleting advertisement with id:', id);
     const advertisement = await Advertisement.findByPk(id);
 
     if (!advertisement) {

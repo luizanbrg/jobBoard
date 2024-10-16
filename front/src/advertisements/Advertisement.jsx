@@ -82,7 +82,7 @@ export default function Advertisement() {
 
       if (data) {
         //alert(data.message);
-        window.location.href = `/`;
+        setAdvertsement(prevAdvertisements => prevAdvertisements.filter(ad => ad.id !== id));
       }
     } catch (error) {
       console.error("Erreur lors de la récupération de l'annonce : ", error);
@@ -161,7 +161,7 @@ export default function Advertisement() {
               )}
               {showApply === element.id && (
                 <div className="extra-info my-4">
-                  <Form advertisement_id={element.id}/>
+                  <Form advertisement_id={element.id} />
                 </div>
               )}
             </div>
