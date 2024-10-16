@@ -57,8 +57,8 @@ exports.login = (req, res, next) => {
                     expiresIn: '24h',
                   },
                 ),
-                // id: people.id,
-                // role_id: people.role_id,
+                id: people.id,
+                role_id: people.role_id,
               });
             }
           })

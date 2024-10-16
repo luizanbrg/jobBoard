@@ -12,7 +12,6 @@ export default function Login() {
 
     const people = { email, password };
     console.log(urlLogin);
-    
 
     try {
       const response = await fetch(urlLogin, {
@@ -33,13 +32,14 @@ export default function Login() {
       // garde le token dans le localstorage
       localStorage.setItem('token', responseData.token);
       // injecter l'id dans le localstorage
-      localStorage.setItem('id', responseData.id )
+      localStorage.setItem('id', responseData.id);
       // garde l'id du role
       localStorage.setItem('role_id', responseData.role_id);
       console.log('Role stored:', localStorage.getItem('role_id'));
 
-      const role = localStorage.getItem('role_id');
-      if (role == 1) {
+      const role = Number(localStorage.getItem('role_id'));
+      console.log('Role:', role);
+      if (role === 1) {
         // redirection à la page souhaitée
         window.location.href = '/';
       } else {
@@ -56,11 +56,13 @@ export default function Login() {
       <section className="pt-20  bg-teal-700 min-h-screen">
         <h2 className="text-5xl font-bold text-center text-white tracking-wider py-5">Connexion</h2>
 
-        
-          <form onSubmit={handleLogin}>
+        <form onSubmit={handleLogin}>
           <div className="grid gap-6 mb-6 md:grid-cols-1 items-between pt-2 px-3">
             <div>
-              <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+              <label
+                htmlFor="email"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
                 Email*:
               </label>
               <input
@@ -70,12 +72,15 @@ export default function Login() {
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 placeholder="Email"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 required
               />
             </div>
             <div>
-              <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+              <label
+                htmlFor="password"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
                 Mot de passe*:
               </label>
               <input
@@ -85,14 +90,14 @@ export default function Login() {
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 placeholder="Mot de passe"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 required
               />
             </div>
 
             <button
               type="submit"
-              className="bg-slate-300   transition-colors delay-50 duration-300 
+              className="bg-slate-300   transition-colors delay-50 duration-300
               font-bold
               text-center
               rounded text-2x1
@@ -109,8 +114,8 @@ export default function Login() {
               Se connecter
             </button>
             {error && <p>{error}</p>}
-            </div>
-          </form>
+          </div>
+        </form>
       </section>
     </>
   );
