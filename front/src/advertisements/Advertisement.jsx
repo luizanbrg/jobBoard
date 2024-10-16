@@ -5,9 +5,14 @@ import './Advertisement.css';
 export default function Advertisement() {
   const urlAdvertisementIndex = `${process.env.REACT_APP_API_ADVERTISEMENT_INDEX}`;
 
+  const authToken = localStorage.getItem('token');
+  const typeUser = localStorage.getItem('role_id');
+
   const [advertisement, setAdvertsement] = useState([]);
   const [showMore, setShowMore] = useState(null);
   const [showApply, setShowApply] = useState(null);
+  const [authenticated, setAuthenticated] = useState(false);
+  const [admin, setAdmin] = useState(false);
 
   // =================================================================================================
   // ----------- Function : Apply | BUTTON ---------------
@@ -50,8 +55,35 @@ export default function Advertisement() {
     }
   };
 
+    // =================================================================================================
+  // ----------- Function : Advertisement Id | GET ---------------
+  // const getAdvertisementId = async () => {
+  //   try {
+  //     const options = {
+  //       method: 'GET',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         // Authorization: `Bearer ${authToken}`,
+  //       },
+  //     };
+
+  //     console.log(`Advertisement List | Options :`, options);
+
+  //     const response = await fetch(urlAdvertisementIndex, options);
+  //     const data = await response.json();
+
+  //     if (Array.isArray(data)) {
+  //       setAdvertsement(data);
+  //     } else {
+  //       // console.error(`Advertisement Index | data : `, data);
+  //     }
+  //   } catch (error) {
+  //     console.error(`Fetch error back-end advertisement Index: `, error);
+  //   }
+  // };
+
   // =================================================================================================
-  // ----------- Function : Advertisement List | DELETE ---------------
+  // ----------- Function : Advertisement | DELETE ---------------
   const deleteAdvertisement = async id => {
     const authToken = localStorage.getItem('token');
     console.log(`Advertisement Delete (id) : `, id);
@@ -135,21 +167,45 @@ export default function Advertisement() {
                 className={`transition-colors delay-50 duration-300 font-bold text-center rounded text-1xl px-4 py-2 cursor-pointer ${
                   showApply === element.id
                     ? 'bg-orange-600 text-white' // Couleur de fond et texte pour "Annuler"
-                    : 'bg-grey-700 text-gray-800 hover:bg-teal-600 hover:text-white' // Couleur de fond et texte pour "Postuler"
+                    : "bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" // Couleur de fond et texte pour "Postuler"
                 }`}
                 onClick={() => handleApply(element.id)}
               >
                 {showApply === element.id ? 'Annuler' : 'Postuler'}
               </button>
 
-              {/* --> Delete */}
-              <button
-                className="bg-grey-700 text-gray-800 transition-colors delay-50 duration-300
-                    hover:bg-red-600 hover:text-white font-bold text-center rounded text-1xl px-4 py-2"
-                onClick={() => deleteAdvertisement(element.id)}
-              >
-                Supprimer
-              </button>
+              {(authenticated) ? (
+                <>
+                  {admin ? (
+                    <>
+                      {/* --> Delete */}
+                      <button
+                        // className="bg-grey-700 text-gray-800 transition-colors delay-50 duration-300
+                        //     hover:bg-red-600 hover:text-white font-bold text-center rounded text-1xl px-4 py-2"
+                        className="text-white bg-red-700 hover:bg-red-800 focus:ring-3 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-rose-600 dark:font-bold dark:hover:bg-rose-700 dark:focus:ring-blue-800"
+                        onClick={() => deleteAdvertisement(element.id)}
+                      >
+                        <i className="fa-solid fa-xmark"></i>
+                      </button>
+                    </>
+                  ):(
+                    <>
+                      {/* --> Submit */}
+                      <button
+                        className="bg-emerald-300 text-white transition-colors delay-50 duration-300
+                             font-bold text-center rounded-full text-1xl px-6"
+                        disabled
+                      >
+                        Envoyé
+                      </button>
+                    </>
+                  )} 
+                </>
+              ):(
+                <>
+                </>
+              )}
+
             </div>
 
             {/* ---------- Extra Info ---------- */}
@@ -172,6 +228,13 @@ export default function Advertisement() {
   };
 
   useEffect(() => {
+    if (authToken) {
+      const candidateId = localStorage.getItem('id');
+        setAuthenticated(true);
+    }
+    if (typeUser === "3"){
+        setAdmin(true);
+    }
     getAdvertisementIndex();
   }, []);
 

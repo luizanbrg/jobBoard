@@ -27,13 +27,13 @@ exports.getAllAdvertisements = async (req, res) => {
 exports.createAdvertisement = async (req, res) => {
   try {
     // const { title, content, skills_id, salary, city, contract_type, company_id, found, publication_date, remote_work, distance } = req.body;
-    const { title, content, salary, city } = req.body;
+    const { title, content, wages, city } = req.body;
 
     const advertisement = await Advertisement.create({
       title,
       content,
       // skills_id,
-      salary,
+      wages,
       city,
       // contract_type,
       // company_id,

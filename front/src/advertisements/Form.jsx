@@ -7,12 +7,11 @@ export default function Form({advertisement_id}) {
     const urlProfileCandidate = `${process.env.REACT_APP_API_ACCOUNT_CANDIDATE}`;
 
     const authToken = localStorage.getItem('token');
+    const people_id = localStorage.getItem('id');
 
 
     const [authenticated, setAuthenticated] = useState(false);
     const [candidate, setCandidate] = useState({});
-    const [people_id, SetPeopleId] = useState("");
-    // const [advertisement_id, setAdvertisementId] = useState("");
 
     const [last_name, setLastName] = useState("");
     const [first_name, setFirstName] = useState("");
@@ -135,20 +134,23 @@ export default function Form({advertisement_id}) {
                             <div className="grid gap-6 mb-6 md:grid-cols-2 items-between pt-2">
                                 <div>
                                     <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Nom*</label>
-                                    <input type="text" id="first_name" value={candidate.last_name || ''} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nom" required />
+                                    <input type="text" id="first_name" value={candidate.last_name || ''} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nom" disabled required />
                                 </div>
                                 <div>
                                     <label htmlFor="last_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Prénom*</label>
-                                    <input type="text" id="last_name" value={candidate.first_name || ''} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Prenom" required />
+                                    <input type="text" id="last_name" value={candidate.first_name || ''} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Prenom" disabled required />
                                 </div>
                                 <div>
                                     <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Téléphone*</label>
-                                    <input type="tel" id="phone" value={candidate.phone || ''}  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Téléphone" 
-                                    pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required />
+                                    <input type="tel" id="phone" value={candidate.phone || ''}  
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                    placeholder="Téléphone"
+                                    disabled 
+                                    required />
                                 </div>
                                 <div className="mb-6">
                                     <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Email*</label>
-                                    <input type="email" id="email" value={candidate.email || ''} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="email" required />
+                                    <input type="email" id="email" value={candidate.email || ''} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="email" disabled required />
                                 </div> 
                                 <button type="submit"
                                 onClick={createApply}
@@ -180,21 +182,21 @@ export default function Form({advertisement_id}) {
                                     <input type="text" id="first_name" 
                                     value={first_name}
                                     onChange={e => setFirstName(e.target.value)}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required />
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Prénom" required />
                                 </div>
                                 <div>
                                     <label htmlFor="last_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Prénom*</label>
                                     <input type="text" id="last_name" 
                                     value={last_name}
                                     onChange={e => setLastName(e.target.value)}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required />
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nom" required />
                                 </div>
                                 <div>
                                     <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Téléphone*</label>
                                     <input type="tel" id="phone" 
                                     value={phone}
                                     onChange={e => setPhone(e.target.value)}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="123-45-678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required />
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="phone" required />
                                 </div>
                                 <div className="mb-6">
                                     <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Email*</label>
