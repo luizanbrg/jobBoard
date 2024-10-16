@@ -134,15 +134,15 @@ export default function Account() {
                   </div>
                   <div>
                     <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Téléphone*</label>
-                    <input type="tel" id="phone" value={candidate.phone || ''} onChange={(e) => setCandidate({ ...candidate, phone: e.target.value })} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="06-00-00-00-00" pattern="[0-9]{2}-[0-9]{2}-[0-9]{2}"  />
+                    <input type="tel" id="phone" value={candidate.phone || ''} onChange={(e) => setCandidate({ ...candidate, phone: e.target.value })} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="téléphone"  />
                   </div>
                   <div>
                     <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Email*</label>
                     <input type="email" id="email" value={candidate.email || ''} onChange={(e) => setCandidate({ ...candidate, email: e.target.value })} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="john.doe@company.com" required />
                   </div>
                   <div>
-                    <label htmlFor="location" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Localisation*</label>
-                    <input type="location" id="location" value={candidate.location || ''} onChange={(e) => setCandidate({ ...candidate, location: e.target.value })} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="ville" required />
+                    <label htmlFor="location" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Ville*</label>
+                    <input type="location" id="location" value={candidate.city || ''} onChange={(e) => setCandidate({ ...candidate, city: e.target.value })} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="ville" required />
                   </div>
                   <div>
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black" htmlFor="file_input">CV à importer</label>
@@ -195,27 +195,28 @@ export default function Account() {
               <div className="grid gap-6 mb-6 md:grid-cols-2 items-between pt-2">
                 <div>
                     <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Nom</label>
-                    <input type="text" id="first_name" value={candidate.last_name || ''} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="nom"  disabled />
+                    <input type="text" id="first_name" value={candidate.last_name || ''} 
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="nom"  disabled />
                 </div>
                 <div>
                     <label htmlFor="last_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Prénom</label>
-                    <input type="text" id="last_name" value={candidate.first_name || ''} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="prénom" disabled />
+                    <input type="text" id="last_name" value={candidate.first_name || ''} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="prénom" disabled />
                 </div>
                 <div>
                     <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Téléphone</label>
-                    <input type="tel" id="phone" value={candidate.phone || ''} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="phone" pattern="[0-9]{2}-[0-9]{2}-[0-9]{2}" disabled />
+                    <input type="tel" id="phone" value={candidate.phone || ''} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="téléphone" disabled />
                 </div>
                 <div>
                     <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Email</label>
-                    <input type="email" id="email" value={candidate.email || ''} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="email" disabled />
+                    <input type="email" id="email" value={candidate.email || ''} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="email" disabled />
                 </div>
                 <div>
-                    <label htmlFor="location" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Localisation</label>
-                    <input type="location" id="location" value={candidate.location || ''} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="ville" disabled />
+                    <label htmlFor="location" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Ville</label>
+                    <input type="location" id="location" value={candidate.city || ''} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="ville" disabled />
                 </div>
                 <div>
                   <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black" htmlFor="file_input">CV à importer</label>
-                  <input value={candidate.resume || ''} className="block large p-2 w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file"  disabled/>
+                  <input value={candidate.resume || ''} className="block large p-2 w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file" disabled/>
                 </div>
                 <button
                 className="bg-orange-400 transition-colors delay-50 duration-300 

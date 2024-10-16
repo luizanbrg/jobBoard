@@ -4,10 +4,10 @@ export default function AdvertisementCreate() {
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [salary, setSalary] = useState('');
+  const [wages, setWages] = useState('');
   const [city, setCity] = useState('');
 
-  let offer = { title, content, salary, city };
+  let offer = { title, content, wages, city };
 
   const createAdvertisement = async e => {
     e.preventDefault();
@@ -53,68 +53,78 @@ export default function AdvertisementCreate() {
 
   return (
     <>
-      <section className="pt-0 py-28 bg-teal-900 pt-20">
-        <h2 className="text-5xl font-bold text-center text-white mb-12 pt-2">Création d'annonce</h2>
+       <section className="pt-20  bg-slate-100 min-h-screen">
+        <h2 className="text-5xl font-bold text-center text-black mb-12 pt-2">Création d'annonce</h2>
 
         <div>
-          <p className="text-1xl  text-center italic text-white mb-4">
-            <span className="font-bold border-b">Information</span> : Les éléments munient d'un *
+          <p className="text-1xl  text-center italic text-black mb-4">
+            <span className="font-bold border-b border-black">Information</span> : Les éléments munient d'un *
             doivent être remplis obligatoirement pour valider votre demande
           </p>
         </div>
-        <div className="containerForm">
-          <form method="post" action="">
-            <div className="containerForm">
-              <label htmlFor="title" className="text-1xl  text-center text-white mb-2">
-                Titre de l'annonce :
+        
+        <form method="post" action="">
+          <div className="grid gap-6 mb-6 md:grid-cols-1 items-between pt-2 px-3">
+            <div >
+              <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+                Titre de l'annonce* :
               </label>
               <input
+                required
                 type="text"
                 name="titleAdvertisement"
                 id="titleAdvertisement"
                 value={title}
                 onChange={e => setTitle(e.target.value)}
-                placeholder="Title"
-                className="border-2 p-2 rounded-sm"
+                placeholder="Titre de l'annonce"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
               />
             </div>
             <div className="containerForm mt-4">
-              <label htmlFor="content" className="text-1xl  text-center text-white mb-2">
-                Contenu :
+              <label htmlFor="content" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+                Contenu* :
               </label>
               <input
+                required
                 type="text"
                 name="contentAdvertisement"
                 id="contentAdvertisement"
                 value={content}
                 onChange={e => setContent(e.target.value)}
-                placeholder="Content"
+                placeholder="Description de l'annonce"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+
               />
             </div>
             <div className="containerForm mt-4">
-              <label htmlFor="title" className="text-1xl  text-center text-white mb-2">
-                Localisation :
+              <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+                Localisation* :
               </label>
               <input
+                required
                 type="text"
-                name="samaryAdvertisement"
-                id="samaryAdvertisement"
-                value={city}
-                onChange={e => setCity(e.target.value)}
-                placeholder="City"
-              />
-            </div>
-            <div className="containerForm mt-4">
-              <label htmlFor="title" className="text-1xl  text-center text-white mb-2">
-                Salaire :
-              </label>
-              <input
-                type="number"
                 name="cityAdvertisement"
                 id="cityAdvertisement"
-                value={salary}
-                onChange={e => setSalary(e.target.value)}
+                value={city}
+                onChange={e => setCity(e.target.value)}
+                placeholder="Localisation"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+
+              />
+            </div>
+            <div className="containerForm mt-4">
+              <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+                Salaire* :
+              </label>
+              <input
+                required
+                type="number"
+                name="wagesAdvertisement"
+                id="wagesAdvertisement"
+                value={wages}
+                onChange={e => setWages(e.target.value)}
                 placeholder="Salaire"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
               />
             </div>
             <button
@@ -131,14 +141,14 @@ export default function AdvertisementCreate() {
                         border
                         border-grey
                         text-gray-800
+                        shadow
                         hover:bg-cyan-600
                         hover:border-cyan-600"
             >
-              Create
+              Créer une nouvelle annonce
             </button>
+            </div>
           </form>
-        </div>
-        <div></div>
       </section>
     </>
   );
