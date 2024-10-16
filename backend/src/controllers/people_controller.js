@@ -127,7 +127,7 @@ exports.deletePeople = async (req, res) => {
 exports.updatePeople = async (req, res) => {
   try {
     const { id } = req.params;
-    const { first_name, last_name, email, password, city, role_id } = req.body;
+    const { first_name, last_name, email, password, phone, city, role_id } = req.body;
 
     const people = await People.findByPk(id);
 
@@ -141,6 +141,7 @@ exports.updatePeople = async (req, res) => {
       email,
       password,
       city,
+      phone,
       // resume,
       role_id,
     });

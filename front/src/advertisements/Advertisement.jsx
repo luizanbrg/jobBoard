@@ -161,7 +161,7 @@ export default function Advertisement() {
               )}
               {showApply === element.id && (
                 <div className="extra-info my-4">
-                  <Form />
+                  <Form advertisement_id={element.id}/>
                 </div>
               )}
             </div>

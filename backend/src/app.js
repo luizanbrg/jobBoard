@@ -33,8 +33,10 @@ app.use(express.json());
 // Routes pour les annonces
 const advertisementRoutes = require('./routes/advertisementRoutes');
 const peopleRoutes = require('./routes/peopleRoutes');
+const applicationRoutes = require('./routes/applicationRoutes')
 app.use('/api/advertisements', advertisementRoutes);
 app.use('/api/account', peopleRoutes);
+app.use('/api/apply', applicationRoutes)
 
 //module.exports = sequelize;
 module.exports = app;
