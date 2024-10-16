@@ -75,21 +75,19 @@ export default function AdminAdvertising() {
 
     try {
       const response = await fetch(`${urlAdvertisementShow}/${id}`, options);
-
       console.log(`AdvertisementDelete (options) : `, options);
 
       if (!response.ok) {
         alert(`HTTP error! Status: ${response.status}`);
+        return;
       }
 
       const data = await response.json();
-
       console.log(`Advertisement Delete (data) : `, data);
 
-      // if (data) {
-      //   //alert(data.message);
-      //   alert('Annonce supprimé');
-      // }
+      setAdvertisement(prevAdvertisements => prevAdvertisements.filter(ad => ad.id !== id));
+
+      alert('Annonce supprime !!!!!');
     } catch (error) {
       console.error("Erreur lors de la récupération de l'annonce : ", error);
     }
