@@ -11,6 +11,7 @@ exports.createApplication = async (req, res) => {
       first_name: req.body.first_name,
       last_name: req.body.last_name,
       email: req.body.email,
+      phone: req.body.phone,
       advertisement_id: req.body.advertisement_id,
       people_id: req.body.people_id, // Ajouter si nécessaire
     });
@@ -28,24 +29,24 @@ exports.createApplication = async (req, res) => {
 
 // =================================================================================================
 // Vérifier si le candidat a postulé pour une annonce spécifique
-exports.checkIfApplied = async (req, res) => {
-  try {
-    const { advertisement_id, people_id } = req.params;
+// exports.checkIfApplied = async (req, res) => {
+//   try {
+//     const { advertisement_id, people_id } = req.params;
 
-    const application = await Application.findOne({
-      where: {
-        advertisement_id: advertisement_id,
-        people_id: people_id,
-      },
-    });
+//     const application = await Application.findOne({
+//       where: {
+//         advertisement_id: advertisement_id,
+//         people_id: people_id,
+//       },
+//     });
 
-    if (application) {
-      res.status(200).json({ hasApplied: true });
-    } else {
-      res.status(200).json({ hasApplied: false });
-    }
-  } catch (error) {
-    console.error("Erreur lors de la vérification de la candidature :", error);
-    res.status(500).json({ message: "Erreur lors de la vérification de la candidature" });
-  }
-};
+//     if (application) {
+//       res.status(200).json({ hasApplied: true });
+//     } else {
+//       res.status(200).json({ hasApplied: false });
+//     }
+//   } catch (error) {
+//     console.error("Erreur lors de la vérification de la candidature :", error);
+//     res.status(500).json({ message: "Erreur lors de la vérification de la candidature" });
+//   }
+// };
