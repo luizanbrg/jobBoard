@@ -22,6 +22,23 @@ module.exports = (sequelize, DataTypes) => {
           type: DataTypes.BOOLEAN,
           defaultValue: false,
         },
+        first_name: {
+          type: DataTypes.STRING,
+          allowNull: false,
+        },
+        last_name: {
+          type: DataTypes.STRING,
+          allowNull: false,
+        },
+        email: {
+          type: DataTypes.STRING,
+          allowNull: false,
+          unique: false,
+        },
+        phone: {
+          type: DataTypes.STRING,
+          allowNull: true,
+        },
       },
       {
         sequelize,

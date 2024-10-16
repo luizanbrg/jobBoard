@@ -52,7 +52,7 @@ testConnection();
 
 // Synchronisation des modèles avec la base de données
 sequelize
-  .sync({ force: false })
+  .sync({ alter: true })
   .then(() => {
     console.log('Les tables ont été synchronisées.');
   })
