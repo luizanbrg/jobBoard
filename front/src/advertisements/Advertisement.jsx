@@ -174,7 +174,7 @@ export default function Advertisement() {
             </div>
             <div className="flex items-center justify-center bg-slate-200 rounded-full inline-block px-2 mx-4 my-2">
               <i className="fa-regular fa-file-lines"></i>
-              <p className="pl-2">{element.contractType.name}</p>
+              {/* <p className="pl-2">{element.contractType.name}</p> */}
             </div>
 
             <p className="bg-slate-200 rounded-full inline-block px-2 my-2">{element.wages} €</p>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 export default function Footer() {
 
@@ -9,6 +9,9 @@ export default function Footer() {
                 <div className="container mx-auto flex justify-between px-6">
                     <p>&copy; 2024 Aslinn et Luiza. All rights reserved.</p>
                     <div className="flex space-x-4"></div>
+                </div>
+                <div>
+                    <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Epitech.png/799px-Epitech.png"></a>
                 </div>
             </section>
         </>

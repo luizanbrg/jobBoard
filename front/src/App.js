@@ -22,6 +22,7 @@ import Error from './features/Error.jsx';
 // ------- Section layouts -------
 import Navigation from './components/layouts/Navigation.jsx';
 import Footer from './components/layouts/Footer.jsx';
+import ButtonAdd from './components/buttons/ButtonAdd.jsx';
 
 function App() {
   //   const [authTypeApp, setAuthTypeApp] = useState(null);
@@ -71,10 +72,15 @@ function App() {
           <Route path="/account" element={<Account />} />
 
           {/* ====================================== */}
+          {/* ~~~~~~~~~~ PAGES ~~~~~~~~~~ */}
+          <Route path="/buttonAdd" element={<ButtonAdd />} />
+
+          {/* ====================================== */}
           {/* ~~~~~~~~~~ Auth ~~~~~~~~~~ */}
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
         </Routes>
+        <Footer />
       </Router>
     </>
   );

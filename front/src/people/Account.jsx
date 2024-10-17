@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+
 
 export default function Account() {
 
   // const value = useLocation().state;
-  const { value } = useParams(); // Supposons que l'ID du candidat soit passé dans l'URL
+
   const urlProfileCandidate = `${process.env.REACT_APP_API_ACCOUNT_CANDIDATE}`;
   
   const [candidate, setCandidate] = useState({});

@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-let user_id;
-
 export default function Form({advertisement_id}) {
     const urlApplyCreate = `${process.env.REACT_APP_API_APPLY_CREATE}`;
     const urlProfileCandidate = `${process.env.REACT_APP_API_ACCOUNT_CANDIDATE}`;
