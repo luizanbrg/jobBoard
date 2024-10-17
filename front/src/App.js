@@ -25,6 +25,7 @@ import Footer from './components/layouts/Footer.jsx';
 import ButtonAdd from './components/buttons/ButtonAdd.jsx';
 import AdminApplications from './admin/AdminApplications.jsx';
 import ApplicationCreate from './applications/ApplicationCreate.jsx';
+import ApplicationShow from './applications/ApplicationShow.jsx';
 
 function App() {
   //   const [authTypeApp, setAuthTypeApp] = useState(null);
@@ -70,6 +71,7 @@ function App() {
           {/* ====================================== */}
           {/* ~~~~~~~~~~ APPLICATIONS ~~~~~~~~~~ */}
           <Route path="/applicationCreate" element={<ApplicationCreate />} />
+          <Route path="/apply/:id" element={<ApplicationShow />} />
 
           {/* ====================================== */}
           {/* ~~~~~~~~~~ PAGES ~~~~~~~~~~ */}

@@ -5,7 +5,8 @@ import ButtonAdd from '../components/buttons/ButtonAdd';
 export default function AdminApplications() {
   // const { id } = useParams();
 
-  // const urlAdminDashboard = `${process.env.REACT_APP_API_PROTECTED_ROUTE}`;
+  const urlApply = `${process.env.REACT_APP_API_APPLY}`;
+  const urlApplyShow = `${process.env.REACT_APP_API_APPLY_SHOW}`;
   const urlApplicationList = `${process.env.REACT_APP_API_APPLY_LIST}`;
   const [applications, setApplications] = useState([]);
 
@@ -37,7 +38,7 @@ export default function AdminApplications() {
 
   // =================================================================================================
   // ----- retrouver un advertisement par l'id ------
-  // const getAdvertisementById = async () => {
+  // const getApplicationById = async (id) => {
   //   if (!id) {
   //     console.error('No advertisement ID');
   //     return;
@@ -53,19 +54,19 @@ export default function AdminApplications() {
   //         Authorization: `Bearer ${authToken}`,
   //       },
   //     };
-  //     console.log(`Get Advertisement Page | Options :`, options);
+  //     console.log(`Get Application Show | Options :`, options);
 
-  //     const response = await fetch(`${urlApplicationList}/${id}`);
+  //     const response = await fetch(`${urlApply}${id}`);
 
   //     if (!response.ok) {
   //       throw new Error('Erreur de fetch ');
   //     }
 
   //     const data = await response.json();
-  //     setApplication([data]);
-  //     console.log('Get Advertisement Show data: ', data);
+  //     setApplications([data]);
+  //     console.log('Get Application Show data: ', data);
   //   } catch (error) {
-  //     console.error('Erreur de fetch advertisement:', error);
+  //     console.error('Erreur de fetch application:', error);
   //   }
   // };
 
@@ -75,36 +76,36 @@ export default function AdminApplications() {
 
   // =================================================================================================
   // ----------- Function : Apply  | DELETE ---------------
-  // const deleteAdvertisement = async id => {
-  //   const authToken = localStorage.getItem('token');
-  //   console.log(`Advertisement Delete (id) : `, id);
-  //   let options = {
-  //     method: 'DELETE',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Authorization: `Bearer ${authToken}`,
-  //     },
-  //   };
+  const deleteApplication = async (id) => {
+    const authToken = localStorage.getItem('token');
+    console.log(`Application Delete (id) : `, id);
+    let options = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
 
-  //   try {
-  //     const response = await fetch(`${urlAdvertisementShow}/${id}`, options);
-  //     console.log(`Application Delete (options) : `, options);
+    try {
+      const response = await fetch(`${urlApply}/${id}`, options);
+      console.log(`Application Delete (options) : `, options);
 
-  //     if (!response.ok) {
-  //       alert(`HTTP error! Status: ${response.status}`);
-  //       return;
-  //     }
+      if (!response.ok) {
+        alert(`HTTP error! Status: ${response.status}`);
+        return;
+      }
 
-  //     const data = await response.json();
-  //     console.log(`Application Delete (data) : `, data);
+      const data = await response.json();
+      console.log(`Application Delete (data) : `, data);
 
-  //     setApplication(prevAdvertisements => prevAdvertisements.filter(ad => ad.id !== id));
+      setApplications(prevApplications => prevApplications.filter(ad => ad.id !== id));
 
-  //     alert('Annonce supprime !!!!!');
-  //   } catch (error) {
-  //     console.error("Erreur lors de la récupération de l'annonce : ", error);
-  //   }
-  // };
+      alert('La candidature a été supprimé');
+    } catch (error) {
+      console.error("Erreur lors de la récupération de la candidature : ", error);
+    }
+  };
 
 
   // =================================================================================================
@@ -113,28 +114,39 @@ export default function AdminApplications() {
     return applications.map(element => {
       return (
         <tr key={element.id}>
-          <td className="border px-4 py-2">{element.id}</td>
-          <td className="border px-4 py-2">{element.advertisement.title}</td>
-          <td className="border px-4 py-2">{element.last_name}</td>
-          <td className="border px-4 py-2">{element.first_name}</td>
-          <td className="border px-4 py-2">
+          <td className="border px-4 py-2 text-center">{element.id}</td>
+          <td className="border px-4 py-2 ">{element.advertisement.title}</td>
+          <td className="border px-4 py-2 text-center">{element.last_name}</td>
+          <td className="border px-4 py-2 text-center">{element.first_name}</td>
+          <td className="border px-4 py-2 text-center">
             {/* Supprimer */}
-            {/* <button
-              className="bg-red-600 text-white px-4 py-2 mx-2 rounded hover:bg-red-700"
-              onClick={() => deleteAdvertisement(element.id)}
+            <button
+              className="bg-red-600 text-white px-4 py-2 mx-2 rounded shadow hover:bg-red-700"
+              onClick={() => deleteApplication(element.id)}
             >
               <i className="fa-solid fa-xmark"></i>
 
-            </button> */}
+            </button>
 
             {/* Voir */}
             {/* <button
-              className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-              onClick={() => (window.location.href = `/advertisement/${element.id}`)}
+              className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 shadow"
+              onClick={() => (window.location.href = `${urlApplyShow}/${element.id}`)}
             >
               <i className="fa-solid fa-magnifying-glass"></i>
 
             </button> */}
+              <Link
+                to={`/apply/${element.id}`}
+                state={element.id}
+              >
+                <button
+                  type="submit"
+                  className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 shadow"
+                >
+                  <i className="fa-solid fa-magnifying-glass"></i>
+                </button>
+              </Link>
           </td>
         </tr>
       );
@@ -155,7 +167,7 @@ export default function AdminApplications() {
 
   return (
     <section className="pt-20  bg-slate-100 min-h-screen">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-6 overflow-x-auto">
         <h4 className="text-2xl font-bold text-center text-black mb-12 pt-2">Les candidatures</h4>
         <table className="min-w-full bg-white">
           <thead>
@@ -164,14 +176,15 @@ export default function AdminApplications() {
               <th className="py-2 px-4 bg-gray-200">Annonce</th>
               <th className="py-2 px-4 bg-gray-200">Nom</th>
               <th className="py-2 px-4 bg-gray-200">Prénom</th>
+              <th className="py-2 px-4 bg-gray-200">Modification</th>
             </tr>
           </thead>
           <tbody>{renderAdvertisements()}</tbody>
         </table>
         <div>
-        <Link to={`/applicationCreate`}>
-          <ButtonAdd />
-        </Link>
+
+
+
       </div>
       </div>
     </section>

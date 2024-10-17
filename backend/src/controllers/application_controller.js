@@ -4,7 +4,7 @@ const { Application, Advertisement } = require('../models');
 // Récupérer toutes les candidatures
 exports.getAllApplications = async (req, res) => {
   try {
-    // Appel direct à la base de données sans synchronisation répétée
+
     const applications = await Application.findAll({
       attributes: ['id','last_name', 'first_name', 'phone','email', 'created_at', 'advertisement_id', 'people_id'],
       include: [{
@@ -16,10 +16,9 @@ exports.getAllApplications = async (req, res) => {
     console.log(applications);
     console.log(applications.map(app => app.advertisement_id));
 
-    // Envoi des données en réponse avec un statut 200
+    // Envoi de la réponse après la sauvegarde
     res.status(200).json(applications);
   } catch (error) {
-    // Gestion d'erreur avec un statut 500 et un message
     console.error('Erreur lors de la récupération des annonces :', error);
     res.status(500).json({ message: 'Erreur lors de la récupération des annonces' });
   }
@@ -38,19 +37,60 @@ exports.createApplication = async (req, res) => {
       email: req.body.email,
       phone: req.body.phone,
       advertisement_id: req.body.advertisement_id,
-      people_id: req.body.people_id, // Ajouter si nécessaire
+      people_id: req.body.people_id,
     });
 
     // Sauvegarde de l'application dans la base de données
     await application.save();
 
-    // Envoi de la réponse après la sauvegarde
+
     res.status(201).json({ message: 'Apply créé', data: application });
   } catch (error) {
     console.error("Erreur lors de la création d'une apply :", error);
     res.status(500).json({ message: "Erreur lors de la création d'une apply", error: error.message });
   }
 };
+
+
+// =================================================================================================
+// Récupérer une annonce par ID
+exports.getApplicationById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const application = await Application.findByPk(id);
+
+    if (!application) {
+      return res.status(404).json({ message: 'Candidature non trouvée' });
+    }
+
+    res.status(200).json(application);
+  } catch (error) {
+    console.error("Erreur lors de la récupération de l'annonce :", error);
+    res.status(500).json({ message: "Erreur lors de la récupération de l'annonce" });
+  }
+};
+
+// =================================================================================================
+// Supprimer une annonce
+exports.deleteApplication = async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log('Deleting application with id:', id);
+    const application = await Application.findByPk(id);
+
+    if (!application) {
+      return res.status(404).json({ message: 'Candidature non trouvée' });
+    }
+
+    await application.destroy();
+
+    res.status(200).json({ message: 'Candidature supprimée avec succès' });
+  } catch (error) {
+    console.error("Erreur lors de la suppression de la candidature : ", error);
+    res.status(500).json({ message: "Erreur de la suppression de la candidature" });
+  }
+};
+
 
 // =================================================================================================
 // Vérifier si le candidat a postulé pour une annonce spécifique
