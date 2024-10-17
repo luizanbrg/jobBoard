@@ -105,14 +105,16 @@ export default function AdminAdvertising() {
               className="bg-red-600 text-white px-4 py-2 mx-2 rounded hover:bg-red-700"
               onClick={() => deleteAdvertisement(element.id)}
             >
-              Supprimer
+              <i className="fa-solid fa-xmark"></i>
+              {/* Supprimer */}
             </button>
 
             <button
               className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
               onClick={() => (window.location.href = `/advertisement/${element.id}`)}
             >
-              Voir
+              <i className="fa-solid fa-magnifying-glass"></i>
+              {/* Voir */}
             </button>
           </td>
         </tr>
