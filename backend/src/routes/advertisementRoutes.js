@@ -10,6 +10,9 @@ router.post('/create', auth, advertisementController.createAdvertisement);
 // Route pour récupérer toutes les annonces
 router.get('/', advertisementController.getAllAdvertisements);
 
+// Route pour récupérer toutes les annonces
+router.get('/detail/:id', advertisementController.getAdvertisementsDetail);
+
 // Route pour récupérer une annonce par ID
 router.get('/:id', advertisementController.getAdvertisementById);
 

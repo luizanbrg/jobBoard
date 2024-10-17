@@ -4,8 +4,8 @@ module.exports = (sequelize, DataTypes) => {
   class ContractType extends Model{
     //Associations
       static associate(models) {
-        ContractType.hasMany(models.ContractType, {
-          foreignKey: 'advertisement_id',
+        ContractType.hasMany(models.Advertisement, {
+          foreignKey: 'contract_type_id',
           as: 'advertisements',
         });
       }
@@ -13,27 +13,10 @@ module.exports = (sequelize, DataTypes) => {
 
     ContractType.init(
       {
-        cdd: {
+        name: {
           type: DataTypes.STRING,
+          allowNull: false,
         },
-        cdi: {
-          type: DataTypes.STRING,
-        },
-        part_time: {
-          type: DataTypes.STRING,
-        },
-        alternance: {
-          type: DataTypes.STRING,
-        },
-        internship: {
-          type: DataTypes.STRING,
-        },
-        freelance: {
-          type: DataTypes.STRING,
-        },
-        full_time: {
-          type: DataTypes.STRING,
-        }
       },
       {
         sequelize,

@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
         as: 'skills',
       });
       Advertisement.belongsTo(models.ContractType, {
-        foreignKey: 'contractType_id',
+        foreignKey: 'contract_type_id',
         as: 'contractType',
       });
     }
@@ -50,10 +50,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: true,
       },
-      contract_type: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-      },
+      // contract_type: {
+      //   type: DataTypes.INTEGER,
+      //   allowNull: true,
+      // },
       found: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,

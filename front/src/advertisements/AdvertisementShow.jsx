@@ -117,22 +117,6 @@ export default function AdvertisementShow() {
                 </div>
                 <div>
                   <label
-                    htmlFor="content"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
-                  >
-                    Description*
-                  </label>
-                  <input
-                    type="text"
-                    id="content"
-                    value={advertisement.content || ''}
-                    onChange={e => setAdvertisement({ ...advertisement, content: e.target.value })}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    required
-                  />
-                </div>
-                <div>
-                  <label
                     htmlFor="city"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
                   >
@@ -217,18 +201,39 @@ export default function AdvertisementShow() {
                     required
                   />
                 </div>
+              </div>
+              
+              <div>
+                <label
+                  htmlFor="content"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+                >
+                  Description*
+                </label>
+                <textarea
+                  type="text"
+                  id="content"
+                  rows={10}
+                  value={advertisement.content || ''}
+                  onChange={e => setAdvertisement({ ...advertisement, content: e.target.value })}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  required
+                />
+              </div>
+
                 {/* Buttons */}
+              <div className="grid gap-6 mb-6 md:grid-cols-2 items-between pt-2">  
                 <button
                   type="submit"
                   onClick={handleSave}
-                  className="bg-teal-700 transition-colors delay-50 duration-300 font-bold text-center rounded text-2xl px-4 py-2 mt-4 border text-white hover:bg-teal-400"
+                  className="bg-teal-700 transition-colors delay-50 duration-300 font-bold text-center rounded text-1xl px-4 py-2 mt-4 border text-white hover:bg-teal-400"
                 >
                   Sauvegarder
                 </button>
                 <button
                   type="button"
                   onClick={() => window.location.reload()}
-                  className="bg-grey-700 transition-colors delay-50 duration-300 hover:text-white font-bold text-center rounded text-2xl px-4 py-2 mt-4 border text-gray-800 hover:bg-rose-600"
+                  className="bg-grey-700 transition-colors delay-50 duration-300 hover:text-white font-bold text-center rounded text-1xl px-4 py-2 mt-4 border text-gray-800 hover:bg-rose-600"
                 >
                   Annuler
                 </button>
@@ -257,21 +262,7 @@ export default function AdvertisementShow() {
                     disabled
                   />
                 </div>
-                <div>
-                  <label
-                    htmlFor="content"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
-                  >
-                    Description*
-                  </label>
-                  <input
-                    type="text"
-                    id="content"
-                    value={advertisement.content || ''}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    disabled
-                  />
-                </div>
+
                 <div>
                   <label
                     htmlFor="city"
@@ -347,15 +338,37 @@ export default function AdvertisementShow() {
                     disabled
                   />
                 </div>
+                
               </div>
+              <div>
+                <label
+                  htmlFor="content"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+                >
+                  Description*
+                </label>
+                <textarea
+                  type="text"
+                  id="content"
+                  rows={10}
+                  value={advertisement.content || ''}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  disabled
+                />
+              </div>
+
+
+            </div>
+            <div className="grid gap-6 mb-6 md:grid-cols-1 items-between pt-2 px-2">
               <button
                 type="button"
                 onClick={() => setEditing(true)}
-                className="bg-teal-700 transition-colors delay-50 duration-300 font-bold text-center rounded text-2xl px-4 py-2 mt-4 border text-white hover:bg-teal-400"
+                className="bg-orange-400 transition-colors delay-50 duration-300 font-bold text-center rounded text-1xl px-4 py-2 mt-4 border text-white hover:bg-orange-600
+                hover:border-orange-600"
               >
                 Modifier
               </button>
-            </div>
+              </div>
           </>
         )}
       </section>

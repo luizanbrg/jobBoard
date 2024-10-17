@@ -4,6 +4,7 @@ import './Advertisement.css';
 
 export default function Advertisement() {
   const urlAdvertisementIndex = `${process.env.REACT_APP_API_ADVERTISEMENT_INDEX}`;
+  const urlAdvertisementDetail = `${process.env.REACT_APP_API_ADVERTISEMENT_DETAIL}`;
 
   const authToken = localStorage.getItem('token');
   const typeUser = localStorage.getItem('role_id');
@@ -11,8 +12,10 @@ export default function Advertisement() {
   const [advertisement, setAdvertsement] = useState([]);
   const [showMore, setShowMore] = useState(null);
   const [showApply, setShowApply] = useState(null);
-  const [authenticated, setAuthenticated] = useState(false);
+  const [advertisementDetail, setAdvertsementDetail] = useState([]);
   const [admin, setAdmin] = useState(false);
+
+  
 
   // =================================================================================================
   // ----------- Function : Apply | BUTTON ---------------
@@ -24,6 +27,9 @@ export default function Advertisement() {
   // =================================================================================================
   // ----------- Function : Learn More | BUTTON ---------------
   const handleLearnMore = id => {
+    getAdvertisementDetail(id);
+
+    
     setShowMore(showMore === id ? null : id); // Bascule entre afficher et masquer
   };
   console.log((`advertisement`, advertisement));
@@ -55,6 +61,38 @@ export default function Advertisement() {
     }
   };
 
+
+    // =================================================================================================
+  // ----------- Function : Advertisement Détails | GET ---------------
+  const getAdvertisementDetail = async (id) => {
+    try {
+      const options = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          // Authorization: `Bearer ${authToken}`,
+        },
+      };
+      console.log(id);
+      console.log(`Advertisement Détails | Options :`, options);
+
+      const response = await fetch(`${urlAdvertisementDetail}/${id}`, options);
+      const data = await response.json();
+
+      if (data) {
+        setAdvertsementDetail(data);
+
+        
+        console.log(`Advertisement Détails | Data :`, data);
+
+        
+      } else {
+        // console.error(`Advertisement details | data : `, data);
+      }
+    } catch (error) {
+      console.error(`Fetch error back-end advertisement details: `, error);
+    }
+  };
     // =================================================================================================
   // ----------- Function : Advertisement Id | GET ---------------
   // const getAdvertisementId = async () => {
@@ -129,12 +167,19 @@ export default function Advertisement() {
         <div className="bg-white p-6 rounded-lg shadow-lg text-center" key={element.id}>
           {/* ---------- Element Base | Start ---------- */}
           <h1 className="text-2xl font-bold mb-2">{element.title}</h1>
-          <div className="flex items-center justify-center">
-            <i className="fa-solid fa-location-dot"></i>
-            <p className="pl-2">{element.city}</p>
+          <div className="flex col items-center justify-center">
+            <div className="flex items-center justify-center bg-slate-200 rounded-full inline-block px-2 my-2">
+              <i className="fa-solid fa-location-dot"></i>
+              <p className="pl-2">{element.city}</p>
+            </div>
+            <div className="flex items-center justify-center bg-slate-200 rounded-full inline-block px-2 mx-4 my-2">
+              <i className="fa-regular fa-file-lines"></i>
+              <p className="pl-2">{element.contractType.name}</p>
+            </div>
+
+            <p className="bg-slate-200 rounded-full inline-block px-2 my-2">{element.wages} €</p>
           </div>
 
-          <p className="bg-teal-100 rounded-full inline-block px-2 my-2">{element.wages} €</p>
           <p>
             {element.content.indexOf('.') !== -1 ? (
               <>{element.content.substring(0, element.content.indexOf('.') + 1)}...</>
@@ -174,37 +219,23 @@ export default function Advertisement() {
                 {showApply === element.id ? 'Annuler' : 'Postuler'}
               </button>
 
-              {(authenticated) ? (
+              {admin ? (
                 <>
-                  {admin ? (
-                    <>
-                      {/* --> Delete */}
-                      <button
-                        // className="bg-grey-700 text-gray-800 transition-colors delay-50 duration-300
-                        //     hover:bg-red-600 hover:text-white font-bold text-center rounded text-1xl px-4 py-2"
-                        className="text-white bg-red-700 hover:bg-red-800 focus:ring-3 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-rose-600 dark:font-bold dark:hover:bg-rose-700 dark:focus:ring-blue-800"
-                        onClick={() => deleteAdvertisement(element.id)}
-                      >
-                        <i className="fa-solid fa-xmark"></i>
-                      </button>
-                    </>
-                  ):(
-                    <>
-                      {/* --> Submit */}
-                      <button
-                        className="bg-emerald-300 text-white transition-colors delay-50 duration-300
-                             font-bold text-center rounded-full text-1xl px-6"
-                        disabled
-                      >
-                        Envoyé
-                      </button>
-                    </>
-                  )} 
+                  {/* --> Delete */}
+                  <button
+                    // className="bg-grey-700 text-gray-800 transition-colors delay-50 duration-300
+                    //     hover:bg-red-600 hover:text-white font-bold text-center rounded text-1xl px-4 py-2"
+                    className="text-white bg-red-700 hover:bg-red-800 focus:ring-3 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-rose-600 dark:font-bold dark:hover:bg-rose-700 dark:focus:ring-blue-800"
+                    onClick={() => deleteAdvertisement(element.id)}
+                  >
+                    <i className="fa-solid fa-xmark"></i>
+                  </button>
                 </>
               ):(
                 <>
                 </>
-              )}
+              )} 
+
 
             </div>
 
@@ -212,7 +243,18 @@ export default function Advertisement() {
             <div className="mt-4">
               {showMore === element.id && (
                 <div className="extra-info">
-                  <p>{element.content}</p>
+
+                  <div className="flex col items-center justify-center">
+                    <div className="flex items-center justify-center bg-slate-400 rounded-full inline-block px-6 my-2">
+                      <p className='tracking-wider'> Temps de travail : </p>
+                      <p className="pl-2">{advertisementDetail.working_time} h</p>
+                    </div>
+                    <div className="flex items-center justify-center bg-slate-400 rounded-full inline-block px-6 mx-4 my-2">
+                      <p className="tracking-wider">Expériences : </p>
+                      <p className="pl-2">{advertisementDetail.experiences} ans</p>
+                    </div>
+                  </div>
+                  <p>{advertisementDetail.content}</p>
                 </div>
               )}
               {showApply === element.id && (
@@ -230,7 +272,6 @@ export default function Advertisement() {
   useEffect(() => {
     if (authToken) {
       const candidateId = localStorage.getItem('id');
-        setAuthenticated(true);
     }
     if (typeUser === "3"){
         setAdmin(true);

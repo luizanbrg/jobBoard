@@ -1,4 +1,4 @@
-const { Advertisement } = require('../models');
+const { Advertisement, ContractType } = require('../models');
 
 // const sequelize = require('../models/index');
 // const { DataTypes } = require('sequelize');
@@ -10,7 +10,14 @@ console.log(`Advertissement`, Advertisement);
 exports.getAllAdvertisements = async (req, res) => {
   try {
     // Appel direct à la base de données sans synchronisation répétée
-    const advertisements = await Advertisement.findAll();
+    const advertisements = await Advertisement.findAll({
+      attributes: ['id','title', 'content', 'wages', 'created_at', 'city', 'contract_type_id'],
+      include: [{
+        model: ContractType,
+        as: 'contractType',  
+        attributes: ['name'], 
+      }],
+    });
     console.log(advertisements);
 
     // Envoi des données en réponse avec un statut 200
@@ -21,6 +28,29 @@ exports.getAllAdvertisements = async (req, res) => {
     res.status(500).json({ message: 'Erreur lors de la récupération des annonces' });
   }
 };
+
+
+// =================================================================================================
+// Récupérer le détail de l'annonce
+exports.getAdvertisementsDetail = async (req, res) => {
+  try {
+    const { id } = req.params;
+    // Appel direct à la base de données sans synchronisation répétée
+    const advertisements = await Advertisement.findByPk(id, {
+      attributes: ['content', 'working_time', 'experiences'],
+    });
+
+    console.log(advertisements);
+
+    // Envoi des données en réponse avec un statut 200
+    res.status(200).json(advertisements);
+  } catch (error) {
+    // Gestion d'erreur avec un statut 500 et un message
+    console.error('Erreur lors de la récupération des annonces :', error);
+    res.status(500).json({ message: 'Erreur lors de la récupération des annonces' });
+  }
+};
+
 
 // =================================================================================================
 // Créer une nouvelle annonce
