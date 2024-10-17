@@ -20,6 +20,8 @@ export default function Account() {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('role_id');
+    localStorage.removeItem('id');
     setAuthenticated(false);
     window.location.href = '/login';
   };
