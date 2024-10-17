@@ -46,6 +46,13 @@ export default function Dashboard() {
               Voir utilisateurs
             </a>
           </div>
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <h5 className="text-lg font-semibold mb-4">Candidatures</h5>
+            {/* <p className="mb-4">Voir les utilisateurs.</p> */}
+            <a href="/listApplication" className="text-blue-500 hover:underline">
+              Voir les candidatures
+            </a>
+          </div>
         </div>
         {/* Passa os dados obtidos para o componente de Anúncios */}
         {/* <div className="pt-20">

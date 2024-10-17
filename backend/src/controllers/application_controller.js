@@ -1,8 +1,33 @@
-const { Application } = require('../models');
+const { Application, Advertisement } = require('../models');
+
+// =================================================================================================
+// Récupérer toutes les candidatures
+exports.getAllApplications = async (req, res) => {
+  try {
+    // Appel direct à la base de données sans synchronisation répétée
+    const applications = await Application.findAll({
+      attributes: ['id','last_name', 'first_name', 'phone','email', 'created_at', 'advertisement_id', 'people_id'],
+      include: [{
+        model: Advertisement,
+        as: 'advertisement',  
+        attributes: ['title'], 
+      }],
+    });
+    console.log(applications);
+    console.log(applications.map(app => app.advertisement_id));
+
+    // Envoi des données en réponse avec un statut 200
+    res.status(200).json(applications);
+  } catch (error) {
+    // Gestion d'erreur avec un statut 500 et un message
+    console.error('Erreur lors de la récupération des annonces :', error);
+    res.status(500).json({ message: 'Erreur lors de la récupération des annonces' });
+  }
+};
 
 
 // =================================================================================================
-// Créer une nouvelle annonce
+// Créer une nouvelle candidature
 exports.createApplication = async (req, res) => {
   try {
     // Création d'une nouvelle application avec les données reçues

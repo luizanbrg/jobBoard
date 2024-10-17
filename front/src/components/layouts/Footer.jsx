@@ -11,7 +11,8 @@ export default function Footer() {
                     <div className="flex space-x-4"></div>
                 </div>
                 <div>
-                    <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Epitech.png/799px-Epitech.png"></a>
+                    <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Epitech.png/799px-Epitech.png"
+                    className="p"></a>
                 </div>
             </section>
         </>

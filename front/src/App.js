@@ -23,6 +23,8 @@ import Error from './features/Error.jsx';
 import Navigation from './components/layouts/Navigation.jsx';
 import Footer from './components/layouts/Footer.jsx';
 import ButtonAdd from './components/buttons/ButtonAdd.jsx';
+import AdminApplications from './admin/AdminApplications.jsx';
+import ApplicationCreate from './applications/ApplicationCreate.jsx';
 
 function App() {
   //   const [authTypeApp, setAuthTypeApp] = useState(null);
@@ -57,12 +59,17 @@ function App() {
 
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/listAdvertisement" element={<AdminAdvertising />} />
+          <Route path="/listApplication" element={<AdminApplications />} />
 
           {/* ====================================== */}
           {/* ~~~~~~~~~~ ADVERTISEMENT ~~~~~~~~~~ */}
           <Route path="/" element={<Advertisement />} />
           <Route path="/advertisementCreate" element={<AdvertisementCreate />} />
           <Route path="/advertisement/:id" element={<AdvertisementShow />} />
+
+          {/* ====================================== */}
+          {/* ~~~~~~~~~~ APPLICATIONS ~~~~~~~~~~ */}
+          <Route path="/applicationCreate" element={<ApplicationCreate />} />
 
           {/* ====================================== */}
           {/* ~~~~~~~~~~ PAGES ~~~~~~~~~~ */}

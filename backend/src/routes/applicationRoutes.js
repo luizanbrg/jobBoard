@@ -8,7 +8,7 @@ const applicationController = require('../controllers/application_controller.js'
 router.post('/create', applicationController.createApplication);
 
 // Route pour récupérer toutes les candidature
-// router.get('/', applicationController.getAllApplication);
+router.get('/list', applicationController.getAllApplications);
 
 // // Route pour récupérer une candidature par ID
 // router.get('/:id', applicationController.getApplicationById);
