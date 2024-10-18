@@ -9,10 +9,9 @@ const checkPeopleOwnership = require('../middleware/checkPeopleOwnership');
 router.post('/signup', peopleController.signup);
 router.post('/login', peopleController.login);
 
+// router.get('/lists', auth, peopleController.getAllPeople);
 //Route pour récupérer l'utilisateur par ID
 router.get('/:id', auth, checkPeopleOwnership, peopleController.getCandidateById);
-
-router.get('/lists', auth, peopleController.getAllPeople);
 
 router.delete('/:id', auth, checkPeopleOwnership, peopleController.deletePeople);
 
