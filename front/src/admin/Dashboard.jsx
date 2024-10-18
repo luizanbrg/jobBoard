@@ -1,31 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 export default function Dashboard() {
-  const urlAdvertisementIndex = `${process.env.REACT_APP_API_ADVERTISEMENT_INDEX}`;
+  // const urlAdvertisementIndex = `${process.env.REACT_APP_API_ADVERTISEMENT_INDEX}`;
 
-  const [advertisements, setAdvertisements] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // const [advertisements, setAdvertisements] = useState([]);
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchAdvertisements = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(urlAdvertisementIndex);
-        if (!response.ok) {
-          throw new Error('Pas possible de trouver');
-        }
-        const data = await response.json();
-        setAdvertisements(data);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchAdvertisements = async () => {
+  //     try {
+  //       setLoading(true);
+  //       const response = await fetch(urlAdvertisementIndex);
+  //       if (!response.ok) {
+  //         throw new Error('Pas possible de trouver');
+  //       }
+  //       const data = await response.json();
+  //       setAdvertisements(data);
+  //     } catch (error) {
+  //       setError(error.message);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchAdvertisements();
-  }, []);
+  //   fetchAdvertisements();
+  // }, []);
 
   return (
     <section className="pt-20 bg-slate-100 min-h-screen">

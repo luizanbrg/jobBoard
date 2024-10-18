@@ -11,12 +11,14 @@ exports.getAllAdvertisements = async (req, res) => {
   try {
     // Appel direct à la base de données sans synchronisation répétée
     const advertisements = await Advertisement.findAll({
-      attributes: ['id','title', 'content', 'wages', 'created_at', 'city', 'contract_type_id'],
-      include: [{
-        model: ContractType,
-        as: 'contractType',  
-        attributes: ['name'], 
-      }],
+      attributes: ['id', 'title', 'content', 'wages', 'created_at', 'city', 'contract_type_id'],
+      include: [
+        {
+          model: ContractType,
+          as: 'contractType',
+          attributes: ['name'],
+        },
+      ],
     });
     console.log(advertisements);
 
@@ -28,7 +30,6 @@ exports.getAllAdvertisements = async (req, res) => {
     res.status(500).json({ message: 'Erreur lors de la récupération des annonces' });
   }
 };
-
 
 // =================================================================================================
 // Récupérer le détail de l'annonce
@@ -51,14 +52,13 @@ exports.getAdvertisementsDetail = async (req, res) => {
   }
 };
 
-
 // =================================================================================================
 // Créer une nouvelle annonce
 exports.createAdvertisement = async (req, res) => {
   try {
     const people_id = req.people.id;
     // const { title, content, skills_id, salary, city, contract_type, company_id, found, publication_date, remote_work, distance } = req.body;
-    const { title, content, wages, city } = req.body;
+    const { title, content, wages, city, contract_type } = req.body;
 
     const advertisement = await Advertisement.create({
       title,
@@ -67,7 +67,7 @@ exports.createAdvertisement = async (req, res) => {
       wages,
       city,
       people_id,
-      // contract_type,
+      contract_type,
       // company_id,
       // found,
       // publication_date,

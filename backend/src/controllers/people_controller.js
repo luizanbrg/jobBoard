@@ -80,9 +80,12 @@ exports.getAllPeople = async (req, res) => {
     // Appel direct à la base de données sans synchronisation répétée
     const peoples = await People.findAll();
     console.log(peoples);
+    if (!peoples || peoples.length === 0) {
+      return res.status(404).json({ message: 'Aucun utilisateur trouvé' });
+    }
 
     // Envoi des données en réponse avec un statut 200
-    res.status(200).json(advertisements);
+    res.status(200).json(peoples);
   } catch (error) {
     // Gestion d'erreur avec un statut 500 et un message
     console.error('Erreur lors de la récupération des utilisateurs :', error);

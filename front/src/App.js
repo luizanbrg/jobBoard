@@ -22,6 +22,7 @@ import Error from './features/Error.jsx';
 // ------- Section layouts -------
 import Navigation from './components/layouts/Navigation.jsx';
 import Footer from './components/layouts/Footer.jsx';
+import AdminPeople from './admin/AdminPeople.jsx';
 
 function App() {
   //   const [authTypeApp, setAuthTypeApp] = useState(null);
@@ -56,6 +57,8 @@ function App() {
 
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/listAdvertisement" element={<AdminAdvertising />} />
+          <Route path="/people" element={<AdminPeople />} />
+          <Route path="/people/:id" element={<AdminPeople />} />
 
           {/* ====================================== */}
           {/* ~~~~~~~~~~ ADVERTISEMENT ~~~~~~~~~~ */}
