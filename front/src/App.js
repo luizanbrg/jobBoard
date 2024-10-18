@@ -29,6 +29,9 @@ import ApplicationCreate from './applications/ApplicationCreate.jsx';
 import ApplicationShow from './applications/ApplicationShow.jsx';
 
 import AdminPeople from './admin/AdminPeople.jsx';
+import AdminCompany from './admin/AdminCompany.jsx';
+import CompanyCreate from './company/CompanyCreate.jsx';
+import CompanyShow from './company/CompanyShow.jsx';
 
 function App() {
   //   const [authTypeApp, setAuthTypeApp] = useState(null);
@@ -62,10 +65,11 @@ function App() {
             )}  */}
 
           <Route path="/dashboard" element={<Dashboard />} />
+
           <Route path="/listAdvertisement" element={<AdminAdvertising />} />
-
           <Route path="/listApplication" element={<AdminApplications />} />
-
+          <Route path="/listCompany" element={<AdminCompany />} />
+          
           <Route path="/people" element={<AdminPeople />} />
           <Route path="/people/:id" element={<AdminPeople />} />
 
@@ -80,6 +84,10 @@ function App() {
           {/* ~~~~~~~~~~ APPLICATIONS ~~~~~~~~~~ */}
           <Route path="/applicationCreate" element={<ApplicationCreate />} />
           <Route path="/apply/:id" element={<ApplicationShow />} />
+
+          {/* ~~~~~~~~~~ APPLICATIONS ~~~~~~~~~~ */}
+          <Route path="/companyCreate" element={<CompanyCreate />} />
+          <Route path="/company/:id" element={<CompanyShow />} />
 
           {/* ====================================== */}
           {/* ~~~~~~~~~~ PAGES ~~~~~~~~~~ */}

@@ -34,10 +34,12 @@ app.use(express.json());
 const advertisementRoutes = require('./routes/advertisementRoutes');
 const peopleRoutes = require('./routes/peopleRoutes');
 const applicationRoutes = require('./routes/applicationRoutes');
+const companyRoutes = require('./routes/companyRoutes')
 const adminRoutes = require('./routes/adminRoutes');
 app.use('/api/advertisements', advertisementRoutes);
 app.use('/api/account', peopleRoutes);
 app.use('/api/apply', applicationRoutes);
+app.use('/api/company', companyRoutes)
 app.use('/api', adminRoutes);
 
 //module.exports = sequelize;
