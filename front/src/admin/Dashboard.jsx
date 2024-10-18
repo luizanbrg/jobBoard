@@ -34,22 +34,25 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-20">
           <div className="bg-white p-6 rounded-lg shadow-md">
             <h5 className="text-lg font-semibold mb-4">Annonces</h5>
-            <p className="mb-4">Voir les annonces</p>
             <a href="/listAdvertisement" className="text-blue-500 hover:underline">
               Voir annonces
             </a>
           </div>
           <div className="bg-white p-6 rounded-lg shadow-md">
             <h5 className="text-lg font-semibold mb-4">Utilisateurs</h5>
-            <p className="mb-4">Voir les utilisateurs.</p>
             <a href="/people" className="text-blue-500 hover:underline">
               Voir utilisateurs
             </a>
           </div>
           <div className="bg-white p-6 rounded-lg shadow-md">
             <h5 className="text-lg font-semibold mb-4">Candidatures</h5>
-            {/* <p className="mb-4">Voir les utilisateurs.</p> */}
             <a href="/listApplication" className="text-blue-500 hover:underline">
+              Voir les candidatures
+            </a>
+          </div>
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <h5 className="text-lg font-semibold mb-4">Candidatures</h5>
+            <a href="/listCompany" className="text-blue-500 hover:underline">
               Voir les candidatures
             </a>
           </div>
