@@ -11,7 +11,7 @@ router.post('/create', applicationController.createApplication);
 router.get('/list', applicationController.getAllApplications);
 
 // // Route pour récupérer une candidature par ID
-router.get('/:id', applicationController.getApplicationById);
+router.get('/show/:id', applicationController.getApplicationById);
 
 // // Route pour mettre à jour une candidature
 // router.put('/:id', auth, checkApplicationOwnership, applicationController.updateApplication);

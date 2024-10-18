@@ -59,6 +59,14 @@ exports.getApplicationById = async (req, res) => {
     const { id } = req.params;
     const application = await Application.findByPk(id);
 
+        // const application = await Application.findByPk(id, {
+    //   include: [{
+    //   model: Advertisement,
+    //   as: 'advertisement',  
+    //   attributes: ['title'], 
+    //   }],
+    // });
+
     if (!application) {
       return res.status(404).json({ message: 'Candidature non trouvée' });
     }

@@ -182,9 +182,9 @@ export default function AdminApplications() {
           <tbody>{renderAdvertisements()}</tbody>
         </table>
         <div>
-
-
-
+        <Link to={`/applicationCreate`}>
+          <ButtonAdd />
+        </Link>
       </div>
       </div>
     </section>
