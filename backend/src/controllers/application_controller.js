@@ -1,17 +1,28 @@
 const { Application, Advertisement } = require('../models');
+const sendMail = require('../mailsender');
 
 // =================================================================================================
 // Récupérer toutes les candidatures
 exports.getAllApplications = async (req, res) => {
   try {
-
     const applications = await Application.findAll({
-      attributes: ['id','last_name', 'first_name', 'phone','email', 'created_at', 'advertisement_id', 'people_id'],
-      include: [{
-        model: Advertisement,
-        as: 'advertisement',  
-        attributes: ['title'], 
-      }],
+      attributes: [
+        'id',
+        'last_name',
+        'first_name',
+        'phone',
+        'email',
+        'created_at',
+        'advertisement_id',
+        'people_id',
+      ],
+      include: [
+        {
+          model: Advertisement,
+          as: 'advertisement',
+          attributes: ['title'],
+        },
+      ],
     });
     console.log(applications);
     console.log(applications.map(app => app.advertisement_id));
@@ -23,7 +34,6 @@ exports.getAllApplications = async (req, res) => {
     res.status(500).json({ message: 'Erreur lors de la récupération des annonces' });
   }
 };
-
 
 // =================================================================================================
 // Créer une nouvelle candidature
@@ -43,14 +53,25 @@ exports.createApplication = async (req, res) => {
     // Sauvegarde de l'application dans la base de données
     await application.save();
 
+    const jobTitle = await Advertisement.findOne({
+      where: { id: req.body.advertisement_id },
+      attributes: ['title'],
+    });
+
+    if (jobTitle) {
+      await sendMail(req.body.email, jobTitle.title);
+    } else {
+      console.log("Annonce non trouvée pour envoyer l'e-mail.");
+    }
 
     res.status(201).json({ message: 'Apply créé', data: application });
   } catch (error) {
     console.error("Erreur lors de la création d'une apply :", error);
-    res.status(500).json({ message: "Erreur lors de la création d'une apply", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Erreur lors de la création d'une apply", error: error.message });
   }
 };
-
 
 // =================================================================================================
 // Récupérer une annonce par ID
@@ -59,11 +80,11 @@ exports.getApplicationById = async (req, res) => {
     const { id } = req.params;
     const application = await Application.findByPk(id);
 
-        // const application = await Application.findByPk(id, {
+    // const application = await Application.findByPk(id, {
     //   include: [{
     //   model: Advertisement,
-    //   as: 'advertisement',  
-    //   attributes: ['title'], 
+    //   as: 'advertisement',
+    //   attributes: ['title'],
     //   }],
     // });
 
@@ -94,11 +115,10 @@ exports.deleteApplication = async (req, res) => {
 
     res.status(200).json({ message: 'Candidature supprimée avec succès' });
   } catch (error) {
-    console.error("Erreur lors de la suppression de la candidature : ", error);
-    res.status(500).json({ message: "Erreur de la suppression de la candidature" });
+    console.error('Erreur lors de la suppression de la candidature : ', error);
+    res.status(500).json({ message: 'Erreur de la suppression de la candidature' });
   }
 };
-
 
 // =================================================================================================
 // Vérifier si le candidat a postulé pour une annonce spécifique
