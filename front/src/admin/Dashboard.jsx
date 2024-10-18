@@ -51,9 +51,9 @@ export default function Dashboard() {
             </a>
           </div>
           <div className="bg-white p-6 rounded-lg shadow-md">
-            <h5 className="text-lg font-semibold mb-4">Candidatures</h5>
+            <h5 className="text-lg font-semibold mb-4">Entreprises</h5>
             <a href="/listCompany" className="text-blue-500 hover:underline">
-              Voir les candidatures
+              Voir les entreprises
             </a>
           </div>
         </div>

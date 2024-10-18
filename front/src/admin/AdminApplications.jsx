@@ -129,13 +129,6 @@ export default function AdminApplications() {
             </button>
 
             {/* Voir */}
-            {/* <button
-              className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 shadow"
-              onClick={() => (window.location.href = `${urlApplyShow}/${element.id}`)}
-            >
-              <i className="fa-solid fa-magnifying-glass"></i>
-
-            </button> */}
               <Link
                 to={`/apply/${element.id}`}
                 state={element.id}
@@ -153,13 +146,6 @@ export default function AdminApplications() {
     });
   };
 
-  // useEffect(() => {
-  //   if (id) {
-  //     getAdvertisementById();
-  //   } else {
-  //     getApplicationList();
-  //   }
-  // }, [id]);
 
   useEffect(() =>{
     getApplicationList();

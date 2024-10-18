@@ -5,19 +5,19 @@ export default function CompanyShow() {
     // const { id } = useParams();
     const value = useLocation().state;
 
-    const urlApply= `${process.env.REACT_APP_API_APPLY}`;
-    const urlApplyShow = `${process.env.REACT_APP_API_APPLY_SHOW}`;
+    const urlCompanyUpdate = `${process.env.REACT_APP_API_COMPANY_UPDATE}`;
+    const urlCompanyShow = `${process.env.REACT_APP_API_COMPANY_SHOW}`;
 
-    const [application, setApplication] = useState({});
+    const [company, setCompany] = useState({});
     const [editing, setEditing] = useState(false);
 
 
 
 
     // =================================================================================================
-    // ----------- Function : Application | GET ---------------   
+    // ----------- Function : COMPANY | GET ---------------   
     useEffect(() => {
-    const getApplicationShow = async () => {
+    const getCompanyShow = async () => {
         try {
         const authToken = localStorage.getItem('token');
 
@@ -28,68 +28,69 @@ export default function CompanyShow() {
             Authorization: `Bearer ${authToken}`,
             },
         };
-        console.log(`Get Application Show | Options :`, options);
+        console.log(`Get Company Show | Options :`, options);
 
-        console.log(`URL utilisée: ${urlApplyShow}/${value}`);
+        console.log(`URL utilisée: ${urlCompanyShow}/${value}`);
 
-        const response = await fetch(`${urlApplyShow}/${value}`, options);
+        const response = await fetch(`${urlCompanyShow}/${value}`, options);
         const data = await response.json();
 
-        console.log('Get Application Show | Response: ', response);
+        console.log('Get Company Show | Response: ', response);
 
         if (response.ok) {
-            setApplication(data);
+            setCompany(data);
 
         } else {
             throw new Error('Erreur de fetch ');
         }
 
         } catch (error) {
-        console.error('Erreur de fetch application:', error);
+        console.error('Erreur de fetch Company:', error);
 
         }
     };
     console.log(`Miaou`);
-        getApplicationShow();
+    getCompanyShow();
     }, []);
 
 
     // =================================================================================================
-    // ----------- Function : Application | Update ---------------
-    // const updateAdvertisements = async id => {
-    //     const authToken = localStorage.getItem('token');
-    //     const options = {
-    //     method: 'PUT',
-    //     headers: {
-    //         'Content-Type:': 'application/json',
-    //         Authorization: `Bearer ${authToken}`,
-    //     },
-    //     };
+    // ----------- Function : Application | UPDATE ---------------
+    const handleUpdateProfile = async () => {
+        const authToken = localStorage.getItem('token');
+        const options = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${authToken}`,
+        },
+        body: JSON.stringify(company),
+        };
 
-    //     try {
-    //     const response = await fetch(`${urlApply}${id})`, options);
+        try {
+        const response = await fetch(`${urlCompanyUpdate}/${value})`, options);
 
-    //     console.log(`Application Update | Options:`, options);
+        console.log(`Application Update | Options:`, options);
 
-    //     if (!response.ok) {
-    //         alert(`HTTP error. Status: ${response.status}`);
-    //     }
+        if (!response.ok) {
+            alert(`HTTP error. Status: ${response.status}`);
+        }
 
-    //     const data = await response.json();
+        const data = await response.json();
 
-    //     if (data) {
-    //         window.location.href = `/dashboard`;
-    //     }
-    //     } catch (error) {
-    //     console.error("Erreur lors de la modification de la candidature: ", error);
-    //     }
-    // };
+        if (data) {
+            window.location.href = `/dashboard`;
+        }
+        } catch (error) {
+        console.error("Erreur lors de la modification de la candidature: ", error);
+        }
+    };
 
   
 
 
     const handleSave = () => {
-        // updateAdvertisements();
+        handleUpdateProfile();
         setEditing(false);
     };
 
@@ -100,7 +101,7 @@ export default function CompanyShow() {
                 {editing ? (
                     <>
                         <h2 className="text-1xl font-bold text-center uppercase tracking-wider text-black mb-2 pt-2">
-                        Modification de l'annonce
+                        Modification de l'entreprise
                         </h2>
                         <div>
                         <p className="text-1xl text-center italic text-black mb-4">
@@ -113,72 +114,98 @@ export default function CompanyShow() {
                             
                                 <div>
                                     <label
-                                        htmlFor="title"
+                                        htmlFor="name"
                                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
                                     >
                                         Nom*
                                     </label>
                                     <input
                                         type="text"
-                                        id="titre"
-                                        value={application.last_name || ''}
-                                        onChange={e => setApplication({ ...application, last_name: e.target.value })}
+                                        id="name"
+                                        name="name"
+                                        value={company.name || ''}
+                                        onChange={e => setCompany({ ...company, name: e.target.value })}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         required
                                     />
                                 </div>
                                 <div>
                                     <label
-                                        htmlFor="city"
+                                        htmlFor="address"
                                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
                                     >
-                                        Prénom*
+                                        Adresse de la société*
                                     </label>
                                     <input
                                         type="text"
-                                        id="titre"
-                                        value={application.first_name || ''}
-                                        onChange={e => setApplication({ ...application, first_name: e.target.value })}
+                                        id="address"
+                                        name="address"
+                                        value={company.address || ''}
+                                        onChange={e => setCompany({ ...company, address: e.target.value })}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         required
                                     />
                                 </div>
                                 <div>
                                     <label
-                                        htmlFor="wages"
+                                        htmlFor="location"
                                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
                                     >
-                                        Email*
+                                        Ville*
                                     </label>
                                     <input
                                         type="text"
-                                        id="titre"
-                                        value={application.email || ''}
-                                        onChange={e => setApplication({ ...application, email: e.target.value })}
+                                        id="location"
+                                        name="city"
+                                        value={company.city || ''}
+                                        onChange={e => setCompany({ ...company, city: e.target.value })}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         required
                                     />
                                 </div>
                                 <div>
-                                <label
-                                    htmlFor="working_time"
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
-                                >
-                                    Téléphone*
-                                </label>
-                                <input
-                                    type="text"
-                                    id="working_time"
-                                    value={application.phone || ''}
-                                    onChange={e =>
-                                    setApplication({ ...application, phone: e.target.value })
-                                    }
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                    required
-                                />
+                                    <label
+                                        htmlFor="picture"
+                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+                                    >
+                                        Logo de la société
+                                    </label>
+                                    <input
+                                        type="file"
+                                        accept=".jpg, .jpeg, .png"
+                                        size="small"
+                                        id="picture"
+                                        name='picture'
+                                        value={company.picture || ''}
+                                        onChange={e => setCompany({ ...company, picture: e.target.value })}
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        disabled
+                                        // required
+                                    />
+                                    {/* <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                                        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
+                                        <span>Download</span>
+                                        </button> */}
                                 </div>
                             </div>
-                        
+                            <div>
+                                <label
+                                htmlFor="content"
+                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+                                >
+                                Description*
+                                </label>
+                                <textarea
+                                type="text"
+                                id="content"
+                                name='content'
+                                rows={10}
+                                value={company.content || ''}
+                                onChange={e => setCompany({ ...company, content: e.target.value })}
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                
+                                />
+                            </div>
 
 
                                 {/* Buttons */}
@@ -203,37 +230,21 @@ export default function CompanyShow() {
                 ) : (
                     <>
                         <h2 className="text-1xl font-bold text-center uppercase tracking-wider text-black mb-2 pt-2">
-                        Annonce
+                        Fiche de l'entreprise
                         </h2>
                         <div className="p-2">
                             <div className="grid gap-6 mb-6 md:grid-cols-2 items-between pt-2">
                                 <div>
-                                    
                                     <label
-                                        htmlFor="last_name"
+                                        htmlFor="name"
                                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
                                     >
-                                        Titre de l'annonce
+                                        Nom de la société
                                     </label>
                                     <input
                                         type="text"
                                         id="last_name"
-                                        // value={application.advertisement.title || ''}
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                        disabled
-                                    />
-                                </div>
-                                <div>
-                                    <label
-                                        htmlFor="last_name"
-                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
-                                    >
-                                        Nom du candidat
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="last_name"
-                                        value={application.last_name || ''}
+                                        value={company.name || ''}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         disabled
                                     />
@@ -241,49 +252,71 @@ export default function CompanyShow() {
 
                                 <div>
                                     <label
-                                        htmlFor="first_name"
+                                        htmlFor="address"
                                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
                                     >
-                                        Prénom du candidat
+                                        Adresse de la société
                                     </label>
                                     <input
                                         type="text"
-                                        id="first_name"
-                                        value={application.first_name || ''}
+                                        id="address"
+                                        value={company.address || ''}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         disabled
                                     />
                                 </div>
                                 <div>
                                     <label
-                                        htmlFor="email"
+                                        htmlFor="location"
                                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
                                     >
-                                        Email
+                                        Ville
                                     </label>
                                     <input
                                         type="text"
-                                        id="email"
-                                        value={application.email || ''}
+                                        id="location"
+                                        value={company.city || ''}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         disabled
                                     />
                                 </div>
                                 <div>
                                     <label
-                                        htmlFor="phone"
+                                        htmlFor="picture"
                                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
                                     >
-                                        Téléphone
+                                        Logo de la société
                                     </label>
                                     <input
-                                        type="text"
-                                        id="phone"
-                                        value={application.phone || ''}
+                                        type="file"
+                                        accept=".jpg, .jpeg, .png"
+                                        size="small"
+                                        id="picture"
+                                        value={company.picture || ''}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         disabled
                                     />
+                                    {/* <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                                        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
+                                        <span>Download</span>
+                                        </button> */}
                                 </div>
+                            </div>
+                            <div>
+                                <label
+                                htmlFor="content"
+                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+                                >
+                                Description*
+                                </label>
+                                <textarea
+                                type="text"
+                                id="content"
+                                rows={10}
+                                value={company.content || ''}
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                disabled
+                                />
                             </div>
                         </div>
                             <div className="grid gap-6 mb-6 md:grid-cols-1 items-between pt-2 px-2">

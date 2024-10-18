@@ -8,11 +8,19 @@ export default function CompanyCreate() {
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
   const [content, setContent] = useState('');
+  const [picture, setPicture] = useState(null);
 
   let company = { name, address, content, city };
 
   const createCompany = async e => {
     e.preventDefault();
+
+    // const formData = new FormData();
+    // formData.append("name", name);
+    // formData.append("content", content);
+    // formData.append("city", city);
+    // formData.append("address", address);
+    // formData.append("picture", picture);
 
     const authToken = localStorage.getItem('token');
 
@@ -23,6 +31,7 @@ export default function CompanyCreate() {
         Authorization: `Bearer ${authToken}`,
       },
       body: JSON.stringify(company),
+      // body: formData,
     };
 
     console.log(`Advertisement Create | options :`, options);
@@ -98,8 +107,8 @@ export default function CompanyCreate() {
                 name="addressCompany"
                 id="addressCompany"
                 value={address}
-                onChange={e => setContent(e.target.value)}
-                placeholder="Description de l'annonce"
+                onChange={e => setAddress(e.target.value)}
+                placeholder="Addresse de la société"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             </div>
@@ -117,7 +126,7 @@ export default function CompanyCreate() {
                 id="contentCompany"
                 value={content}
                 onChange={e => setContent(e.target.value)}
-                placeholder="Description de l'annonce"
+                placeholder="Description de la société"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             </div>
@@ -135,7 +144,7 @@ export default function CompanyCreate() {
                 id="cityCompany"
                 value={city}
                 onChange={e => setCity(e.target.value)}
-                placeholder="Localisation"
+                placeholder="Ville"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             </div>
@@ -148,8 +157,11 @@ export default function CompanyCreate() {
               </label>
               <input
                 required
-                type="picture"
-                name="pictureCompany"
+                accept=".jpg, .jpeg, .png"
+                component="label"
+                name="picture"
+                size="large"
+                type="file"
                 id="pictureCompany"
                 value={picture}
                 onChange={e => setPicture(e.target.value)}
