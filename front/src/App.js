@@ -22,6 +22,12 @@ import Error from './features/Error.jsx';
 // ------- Section layouts -------
 import Navigation from './components/layouts/Navigation.jsx';
 import Footer from './components/layouts/Footer.jsx';
+
+import ButtonAdd from './components/buttons/ButtonAdd.jsx';
+import AdminApplications from './admin/AdminApplications.jsx';
+import ApplicationCreate from './applications/ApplicationCreate.jsx';
+import ApplicationShow from './applications/ApplicationShow.jsx';
+
 import AdminPeople from './admin/AdminPeople.jsx';
 
 function App() {
@@ -57,14 +63,23 @@ function App() {
 
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/listAdvertisement" element={<AdminAdvertising />} />
+
+          <Route path="/listApplication" element={<AdminApplications />} />
+
           <Route path="/people" element={<AdminPeople />} />
           <Route path="/people/:id" element={<AdminPeople />} />
+
 
           {/* ====================================== */}
           {/* ~~~~~~~~~~ ADVERTISEMENT ~~~~~~~~~~ */}
           <Route path="/" element={<Advertisement />} />
           <Route path="/advertisementCreate" element={<AdvertisementCreate />} />
           <Route path="/advertisement/:id" element={<AdvertisementShow />} />
+
+          {/* ====================================== */}
+          {/* ~~~~~~~~~~ APPLICATIONS ~~~~~~~~~~ */}
+          <Route path="/applicationCreate" element={<ApplicationCreate />} />
+          <Route path="/apply/:id" element={<ApplicationShow />} />
 
           {/* ====================================== */}
           {/* ~~~~~~~~~~ PAGES ~~~~~~~~~~ */}
@@ -74,10 +89,15 @@ function App() {
           <Route path="/account" element={<Account />} />
 
           {/* ====================================== */}
+          {/* ~~~~~~~~~~ PAGES ~~~~~~~~~~ */}
+          <Route path="/buttonAdd" element={<ButtonAdd />} />
+
+          {/* ====================================== */}
           {/* ~~~~~~~~~~ Auth ~~~~~~~~~~ */}
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
         </Routes>
+        <Footer />
       </Router>
     </>
   );

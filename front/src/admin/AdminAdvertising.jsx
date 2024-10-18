@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
+import ButtonAdd from '../components/buttons/ButtonAdd';
 
 export default function AdminAdvertising() {
   const { id } = useParams();
@@ -145,6 +146,11 @@ export default function AdminAdvertising() {
           </thead>
           <tbody>{renderAdvertisements()}</tbody>
         </table>
+        <div>
+        <Link to={`/advertisementCreate`}>
+          <ButtonAdd />
+        </Link>
+      </div>
       </div>
     </section>
   );

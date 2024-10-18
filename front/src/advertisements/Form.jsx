@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-let user_id;
-
 export default function Form({advertisement_id}) {
     const urlApplyCreate = `${process.env.REACT_APP_API_APPLY_CREATE}`;
     const urlProfileCandidate = `${process.env.REACT_APP_API_ACCOUNT_CANDIDATE}`;
@@ -18,15 +16,22 @@ export default function Form({advertisement_id}) {
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
 
-    let apply = {last_name, first_name, email, phone, people_id, advertisement_id};
+    const [formData, setFormData] = useState({
+        last_name: '',
+        first_name: '',
+        email: '',
+        phone: '',
+        advertisement_id: '',
+        people_id: ''
+      });
 
-    console.log(`Apply Create | apply: `, apply);
+      
+    console.log(`FormData ZUT :`,formData);
+
     
 
     const createApply = async (e) => {
         e.preventDefault();
-
-        // const authToken = secureLocalStorage.getItem("@TokenUser");
 
         let options = {
             method: "POST",
@@ -34,7 +39,7 @@ export default function Form({advertisement_id}) {
                 "Content-Type": "application/json",
                 // Authorization: `Bearer ${authToken}`,
             },
-            body: JSON.stringify(apply),
+            body: JSON.stringify(formData),
         };
 
          console.log(`Apply Create | options :`, options);
@@ -66,9 +71,6 @@ export default function Form({advertisement_id}) {
   // ----------- Function : candidate | GET ---------------
 
   useEffect(()=>{
-
-
-
     const getCandidateProfile = async () => {
       try {
 
@@ -96,6 +98,8 @@ export default function Form({advertisement_id}) {
   
         if (response.ok) {
           setCandidate(data.data);
+
+
           console.log(`Candidate Profile data : `, data.data);
 
         } else {
@@ -111,11 +115,39 @@ export default function Form({advertisement_id}) {
         const candidateId = localStorage.getItem('id');
           setAuthenticated(true);
 
-            getCandidateProfile();
-      }
+            getCandidateProfile();            
+        } 
 
-  }, []);
+    }, []);
 
+    // Mettre à jour les champs lorsqu'ils sont modifiés par l'utilisateur
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevState) => ({
+          ...prevState,
+          [name]: value,
+        }));
+      };
+
+    useEffect(() => {
+        if (candidate) {
+        setFormData({
+            last_name: candidate.last_name || '',
+            first_name: candidate.first_name || '',
+            email: candidate.email || '',
+            phone: candidate.phone || '',
+            people_id: candidate.id || null ,
+            advertisement_id: advertisement_id
+        });
+        }
+    }, [candidate]);
+    
+    // Gestion de la soumission du formulaire
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log('Form submitted with data: ', formData);
+
+  };
 
     return (
         <>
@@ -128,7 +160,61 @@ export default function Form({advertisement_id}) {
                 <div>
                     <p className="text-1xl  text-center italic text-black mb-4"><span className="font-bold border-b">Information</span> : Les éléments munient d'un * doivent être remplis obligatoirement pour valider votre demande</p>
                 </div>
-                {authenticated ? (
+                <form onSubmit={handleSubmit}>
+                            <div className="grid gap-6 mb-6 md:grid-cols-2 items-between pt-2">
+                                <div>
+                                    <label htmlFor="last_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Nom*</label>
+                                    <input type="text" id="last_name"
+                                    name="last_name" 
+                                    value={formData.last_name}
+                                    onChange={handleChange}
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nom" required />
+                                </div>
+                                <div>
+                                    <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Prénom*</label>
+                                    <input type="text" id="first_name" 
+                                    name="first_name"
+                                    value={formData.first_name}
+                                    onChange={handleChange}
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Prénom" required />
+                                </div>
+                                <div>
+                                    <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Téléphone*</label>
+                                    <input type="tel" id="phone"
+                                    name="phone" 
+                                    value={formData.phone}
+                                    onChange={handleChange}
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Téléphone" required />
+                                </div>
+                                <div className="mb-6">
+                                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Email*</label>
+                                    <input type="email" id="email" 
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Email" required />
+                                </div> 
+                                <button type="submit"
+                                onClick={createApply}
+                                className="bg-slate-300 mb-3 col-span-full transition-colors delay-50 duration-300 
+                                font-bold
+                                text-center
+                                rounded text-2x1
+                                px-4 py-2
+                                mt-4
+                                bg-grey-700
+                                border
+                                border-grey
+                                text-gray-800
+                                hover:text-white
+                                hover:bg-teal-800
+                                hover:border-teal-800"
+                                >
+                                    Soumettre
+                                </button>
+                            </div>
+                        </form>
+                {/* {authenticated ? (
                     <>
                         <form >
                             <div className="grid gap-6 mb-6 md:grid-cols-2 items-between pt-2">
@@ -226,7 +312,7 @@ export default function Form({advertisement_id}) {
                             </div>
                         </form>
                     </>
-                )}
+                )} */}
                         
 
     

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 export default function Login() {
   const urlLogin = `${process.env.REACT_APP_API_LOGIN}`;
