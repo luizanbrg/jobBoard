@@ -19,6 +19,17 @@ router.get('/:id', advertisementController.getAdvertisementById);
 // Route pour mettre à jour une annonce
 router.put('/:id', auth, checkAdvertisementOwnership, advertisementController.updateAdvertisement);
 
+// route pour chercher les types de contract dans la db
+router.get('/contract-types', async (req, res) => {
+  try {
+    const contractTypes = await contractType.findAll();
+    res.json(contractTypes);
+  } catch (error) {
+    console.error('Error fetching contract types:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // Route pour supprimer une annonce
 router.delete(
   '/:id',

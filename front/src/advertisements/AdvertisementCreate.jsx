@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
+
 export default function AdvertisementCreate() {
   const urlAdvertisementCreate = `${process.env.REACT_APP_API_ADVERTISEMENT_CREATE}`;
+  const urlContractTypes = `${process.env.REACT_APP_API_CONTRACT}`;
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [wages, setWages] = useState('');
   const [city, setCity] = useState('');
-  const [contractType, setContractType] = useState('');
+  const [contract_type_id, setContractType] = useState('');
+  const [contractTypes, setContractTypes] = useState([]);
 
-  let offer = { title, content, wages, city };
+  let offer = { title, content, wages, city, contract_type_id };
 
   const createAdvertisement = async e => {
     e.preventDefault();
@@ -48,9 +51,25 @@ export default function AdvertisementCreate() {
     }
   };
 
-  // useEffect(() => {
-  //     createAdvertisement();
-  // })
+  useEffect(() => {
+    const fetchContractTypes = async () => {
+      try {
+        const response = await fetch(urlContractTypes);
+        console.log('URL Contract Types:', urlContractTypes);
+
+        if (!response.ok) {
+          throw new Error('Error fetching contract types');
+        }
+        const data = await response.json();
+
+        setContractTypes(data);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des types de contrat : ', error);
+      }
+    };
+
+    fetchContractTypes();
+  }, []);
 
   return (
     <>
@@ -138,23 +157,28 @@ export default function AdvertisementCreate() {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             </div>
-            <div className="containerForm mt-4">
+            <div>
               <label
-                htmlFor="title"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+                htmlFor="contractType"
+                className="block mb-2 text-sm font-medium text-gray-900"
               >
-                Type de contract* :
+                Type de contrat* :
               </label>
-              <input
+              <select
                 required
-                type="number"
-                name="contractAdvertisement"
-                id="contractADvertisement"
-                value={contractType}
+                id="contractType"
+                name="contractType"
+                value={contract_type_id}
                 onChange={e => setContractType(e.target.value)}
-                placeholder="Salaire"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              >
+                <option value="">Sélectionner un type de contrat</option>
+                {contractTypes.map(type => (
+                  <option key={type.id} value={type.id}>
+                    {type.name}
+                  </option>
+                ))}
+              </select>
             </div>
             <button
               type="submit"

@@ -58,7 +58,7 @@ exports.createAdvertisement = async (req, res) => {
   try {
     const people_id = req.people.id;
     // const { title, content, skills_id, salary, city, contract_type, company_id, found, publication_date, remote_work, distance } = req.body;
-    const { title, content, wages, city, contract_type } = req.body;
+    const { title, content, wages, city, contract_type_id } = req.body;
 
     const advertisement = await Advertisement.create({
       title,
@@ -67,7 +67,7 @@ exports.createAdvertisement = async (req, res) => {
       wages,
       city,
       people_id,
-      contract_type,
+      contract_type_id,
       // company_id,
       // found,
       // publication_date,
@@ -109,7 +109,7 @@ exports.updateAdvertisement = async (req, res) => {
       skills_id,
       salary,
       city,
-      contract_type,
+      contract_type_id,
       company_id,
       found,
       publication_date,
@@ -133,7 +133,7 @@ exports.updateAdvertisement = async (req, res) => {
       skills_id,
       salary,
       city,
-      contract_type,
+      contract_type_id,
       company_id,
       found,
       publication_date,
