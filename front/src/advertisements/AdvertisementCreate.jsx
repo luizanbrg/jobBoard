@@ -6,6 +6,7 @@ export default function AdvertisementCreate() {
   const [content, setContent] = useState('');
   const [wages, setWages] = useState('');
   const [city, setCity] = useState('');
+  const [contractType, setContractType] = useState('');
 
   let offer = { title, content, wages, city };
 
@@ -53,20 +54,23 @@ export default function AdvertisementCreate() {
 
   return (
     <>
-       <section className="pt-20  bg-slate-100 min-h-screen">
+      <section className="pt-20  bg-slate-100 min-h-screen">
         <h2 className="text-5xl font-bold text-center text-black mb-12 pt-2">Création d'annonce</h2>
 
         <div>
           <p className="text-1xl  text-center italic text-black mb-4">
-            <span className="font-bold border-b border-black">Information</span> : Les éléments munient d'un *
-            doivent être remplis obligatoirement pour valider votre demande
+            <span className="font-bold border-b border-black">Information</span> : Les éléments
+            munient d'un * doivent être remplis obligatoirement pour valider votre demande
           </p>
         </div>
-        
+
         <form method="post" action="">
           <div className="grid gap-6 mb-6 md:grid-cols-1 items-between pt-2 px-3">
-            <div >
-              <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+            <div>
+              <label
+                htmlFor="title"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+              >
                 Titre de l'annonce* :
               </label>
               <input
@@ -77,11 +81,14 @@ export default function AdvertisementCreate() {
                 value={title}
                 onChange={e => setTitle(e.target.value)}
                 placeholder="Titre de l'annonce"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             </div>
             <div className="containerForm mt-4">
-              <label htmlFor="content" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+              <label
+                htmlFor="content"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+              >
                 Contenu* :
               </label>
               <input
@@ -92,12 +99,14 @@ export default function AdvertisementCreate() {
                 value={content}
                 onChange={e => setContent(e.target.value)}
                 placeholder="Description de l'annonce"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             </div>
             <div className="containerForm mt-4">
-              <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+              <label
+                htmlFor="title"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+              >
                 Localisation* :
               </label>
               <input
@@ -108,12 +117,14 @@ export default function AdvertisementCreate() {
                 value={city}
                 onChange={e => setCity(e.target.value)}
                 placeholder="Localisation"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             </div>
             <div className="containerForm mt-4">
-              <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+              <label
+                htmlFor="title"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+              >
                 Salaire* :
               </label>
               <input
@@ -124,7 +135,25 @@ export default function AdvertisementCreate() {
                 value={wages}
                 onChange={e => setWages(e.target.value)}
                 placeholder="Salaire"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+            </div>
+            <div className="containerForm mt-4">
+              <label
+                htmlFor="title"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+              >
+                Type de contract* :
+              </label>
+              <input
+                required
+                type="number"
+                name="contractAdvertisement"
+                id="contractADvertisement"
+                value={contractType}
+                onChange={e => setContractType(e.target.value)}
+                placeholder="Salaire"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             </div>
             <button
@@ -147,8 +176,8 @@ export default function AdvertisementCreate() {
             >
               Créer une nouvelle annonce
             </button>
-            </div>
-          </form>
+          </div>
+        </form>
       </section>
     </>
   );
