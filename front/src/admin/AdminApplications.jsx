@@ -37,44 +37,6 @@ export default function AdminApplications() {
 
 
   // =================================================================================================
-  // ----- retrouver un advertisement par l'id ------
-  // const getApplicationById = async (id) => {
-  //   if (!id) {
-  //     console.error('No advertisement ID');
-  //     return;
-  //   }
-
-  //   try {
-  //     const authToken = localStorage.getItem('token');
-
-  //     let options = {
-  //       method: 'GET',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         Authorization: `Bearer ${authToken}`,
-  //       },
-  //     };
-  //     console.log(`Get Application Show | Options :`, options);
-
-  //     const response = await fetch(`${urlApply}${id}`);
-
-  //     if (!response.ok) {
-  //       throw new Error('Erreur de fetch ');
-  //     }
-
-  //     const data = await response.json();
-  //     setApplications([data]);
-  //     console.log('Get Application Show data: ', data);
-  //   } catch (error) {
-  //     console.error('Erreur de fetch application:', error);
-  //   }
-  // };
-
-
-
-
-
-  // =================================================================================================
   // ----------- Function : Apply  | DELETE ---------------
   const deleteApplication = async (id) => {
     const authToken = localStorage.getItem('token');
@@ -146,7 +108,6 @@ export default function AdminApplications() {
     });
   };
 
-
   useEffect(() =>{
     getApplicationList();
   },[])
@@ -168,10 +129,10 @@ export default function AdminApplications() {
           <tbody>{renderAdvertisements()}</tbody>
         </table>
         <div>
-        <Link to={`/applicationCreate`}>
-          <ButtonAdd />
-        </Link>
-      </div>
+          <Link to={`/applicationCreate`}>
+            <ButtonAdd />
+          </Link>
+        </div>
       </div>
     </section>
   );

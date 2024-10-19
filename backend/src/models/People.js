@@ -54,9 +54,9 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'People',
       tableName: 'People',
       underscored: true,
-      timestamps: true, // Assurez-vous que cette option est définie
-      createdAt: 'created_at', // Configure le nom de la colonne pour createdAt
-      updatedAt: 'updated_at', // Configure le nom de la colonne pour updatedAt
+      timestamps: true,
+      createdAt: 'created_at', 
+      updatedAt: 'updated_at',
     },
   );
 

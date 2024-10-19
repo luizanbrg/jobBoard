@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import ButtonAdd from '../components/buttons/ButtonAdd';
 
 export default function AdminPeople() {
   const { id } = useParams();
@@ -8,42 +9,13 @@ export default function AdminPeople() {
   // const urlAdminDashboard = `${process.env.REACT_APP_API_PROTECTED_ROUTE}`;
   const urlPeopleIndex = `${process.env.REACT_APP_API_PEOPLE_INDEX}`;
 
-  const urlOnePeople = `${process.env.REACT_APP_API_ACCOUNT_CANDIDATE}`;
+  const urlOnePeople = `${process.env.REACT_APP_API_PEOPLE_SHOW}`;
 
   const [people, setPeople] = useState([]);
 
-  // ----- retrouver un people par l'id ------
-  const getPeopleById = async () => {
-    if (!id) {
-      console.error('No people ID');
-      return;
-    }
 
-    try {
-      let options = {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${authToken}`,
-        },
-      };
-      console.log(`Get People Page | Options :`, options);
-      // console.log(urlOnePeople);
-
-      const response = await fetch(`${urlOnePeople}/${id}`, options);
-
-      if (!response.ok) {
-        throw new Error('Erreur de fetch ');
-      }
-
-      const data = await response.json();
-      setPeople([data]);
-      console.log('Get People Show data: ', data);
-    } catch (error) {
-      console.error('Erreur de fetch people:', error);
-    }
-  };
-
+  // =================================================================================================
+  // ----------- Function : People all | GET ---------------
   const getAllPeople = async () => {
     try {
       const options = {
@@ -73,6 +45,9 @@ export default function AdminPeople() {
     }
   };
 
+
+  // =================================================================================================
+  // ----------- Function : People  | DELETE ---------------
   const deletePeople = async id => {
     const authToken = localStorage.getItem('token');
     console.log(`People Delete (id) : `, id);
@@ -112,36 +87,37 @@ export default function AdminPeople() {
           <td className="border px-4 py-2">{element.last_name}</td>
           <td className="border px-4 py-2">{element.email} </td>
           <td className="border px-4 py-2">{element.city} </td>
-          <td className="border px-4 py-2">{element.role_id} </td>
+          <td className="border px-4 py-2">{element.role.name} </td>
           <td className="border px-4 py-2">
+            {/* Supprimer */}
             <button
               className="bg-red-600 text-white px-4 py-2 mx-2 rounded hover:bg-red-700"
               onClick={() => deletePeople(element.id)}
             >
               <i className="fa-solid fa-xmark"></i>
-              {/* Supprimer */}
             </button>
 
-            <button
-              className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-              onClick={() => (window.location.href = `/people/${element.id}`)}
-            >
-              <i className="fa-solid fa-magnifying-glass"></i>
-              {/* Voir */}
-            </button>
+            {/* Voir */}
+            <Link
+                to={`/adminpeople/${element.id}`}
+                state={element.id}
+              >
+                <button
+                  type="submit"
+                  className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 shadow"
+                >
+                  <i className="fa-solid fa-magnifying-glass"></i>
+                </button>
+              </Link>
           </td>
         </tr>
       );
     });
   };
 
-  useEffect(() => {
-    if (id) {
-      getPeopleById();
-    } else {
-      getAllPeople();
-    }
-  }, [id]);
+  useEffect(() =>{
+    getAllPeople();
+  },[])
 
   return (
     <section className="pt-20  bg-slate-100 min-h-screen">
@@ -150,16 +126,21 @@ export default function AdminPeople() {
         <table className="min-w-full bg-white">
           <thead>
             <tr>
-              <th className="py-2 px-4 bg-gray-200">First Name</th>
-              <th className="py-2 px-4 bg-gray-200">Last name</th>
+              <th className="py-2 px-4 bg-gray-200">Nom</th>
+              <th className="py-2 px-4 bg-gray-200">Prénom</th>
               <th className="py-2 px-4 bg-gray-200">Email</th>
               <th className="py-2 px-4 bg-gray-200">City</th>
-              <th className="py-2 px-4 bg-gray-200">Role Id</th>
+              <th className="py-2 px-4 bg-gray-200">Status</th>
               <th className="py-2 px-4 bg-gray-200">Actions</th>
             </tr>
           </thead>
           <tbody>{renderPeople()}</tbody>
         </table>
+        <div>
+          <Link to={`/peopleCreate`}>
+            <ButtonAdd />
+          </Link>
+        </div>
       </div>
     </section>
   );

@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
-const { People } = require('../models');
-const { Role } = require('../models/Role');
+const crypto = require('crypto');
+const { People, Role } = require('../models');
 const jwt = require('jsonwebtoken');
 
 exports.signup = (req, res, next) => {
@@ -74,11 +74,20 @@ exports.login = (req, res, next) => {
 };
 
 // =================================================================================================
-
+// Récupérer tous les utilisateur
 exports.getAllPeople = async (req, res) => {
   try {
     // Appel direct à la base de données sans synchronisation répétée
-    const peoples = await People.findAll();
+    const peoples = await People.findAll({
+      attributes: ['id', 'last_name', 'first_name', 'email', 'city', 'role_id'],
+      include: [
+        {
+          model: Role,
+          as: 'role',
+          attributes: ['name'],
+        },
+      ],
+    });
     console.log(peoples);
     if (!peoples || peoples.length === 0) {
       return res.status(404).json({ message: 'Aucun utilisateur trouvé' });
@@ -93,7 +102,8 @@ exports.getAllPeople = async (req, res) => {
   }
 };
 
-// Récupérer toutes l'utilisateur | GET
+// =================================================================================================
+// Récupérer l'utilisateur
 exports.getCandidateById = async (req, res) => {
   try {
     // Récupération de l'ID depuis les paramètres de l'URL
@@ -121,6 +131,40 @@ exports.getCandidateById = async (req, res) => {
   }
 };
 
+// =================================================================================================
+// Créer un nouveau utilisateur
+exports.createPeople = async (req, res) => {
+  try {
+
+    // Générer un mot de passe aléatoire
+    const randomPassword = crypto.randomBytes(8).toString('hex'); // Mot de passe de 16 caractères
+
+    // Hasher le mot de passe généré
+    const hashedPassword = await bcrypt.hash(randomPassword, 10);
+
+
+    const people = new People({
+      last_name: req.body.last_name,
+      first_name: req.body.first_name,
+      phone: req.body.phone,
+      city: req.body.city,
+      email: req.body.email,
+      password: hashedPassword, 
+      role_id:1,
+      // resume: req.body.resume
+    });
+
+    await people.save();
+
+    res.status(201).json({ message: 'L\'utilisateur a été créé', data: people });
+  } catch (error) {
+    console.error("Erreur lors de la création du candidat :", error);
+    res.status(500).json({ message: "Erreur lors de la création du candidat", error: error.message });
+  }
+};
+
+// =================================================================================================
+// Supprime un utilisateur
 exports.deletePeople = async (req, res) => {
   try {
     const { id } = req.params;
