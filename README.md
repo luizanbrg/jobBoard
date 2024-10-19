@@ -41,19 +41,31 @@ Nous avons 8 tables:
 - Express: Le Framework de Node.js
 - Jsonwebtoken: Pour garantir que nos utilisateurs soient authentifiés avant de pouvoir effectuer certaines opérations CRUD et/ou avoir accès à certaines pages de l'application, nous avons opté pour utiliser ce package, qui génère un token garantissant l'identité de l'utilisateur. Nous avons opté pour un token qui s'expire au bout de 24 heures.
 - Multer: Pour gérer l'envoi d'images des utilisateurs, afin de pouvoir rentrer le logo des entreprises.
-- Mysql2: Notre base de données 
-- Nodemailer
-- Parse-json
-- Sequelize
+- Mysql2: Base de données relationnelle
+- Nodemailer : Utilisé pour l'envoi automatique d'un e-mail à l'admin lorsqu'un utilisateur postule pour une annonce.
+- Parse-json : Pour transformer les strings en JSON, afin de pouvoir traiter les images
+- Sequelize : ORM de MySQL
 
 **Côté front-end:**
-- React
-- React-dom
-- React-router-dom
+- React : Framework JavaScript
+- React-dom : C'est le lien entre le DOM virtuel de React et le DOM du navigateur, afin de restituer les composants React dans le DOM.
+- React-router-dom : Système de routes pour le front-end utilisé avec React afin de gérer les routes et créer des liens pour pouvoir naviguer entre différentes pages
 
 ### Routes
+Les route sont séparées entre:
+- adminRoutes
+- advertisementRoutes
+- applicationRoutes
+- companyRoutes
+- contractTypesRoutes
+- peopleRoutes
+Une route admin différente a été faite pour gérer les opérations CRUD des advertisements, nécessitant d'une authentification afin de garantir la sécurité.
+Certaines routes ont un middleware d'authentification, d'autres ont également un middleware qui vérifie si l'utilisateur est admin ou le créateur de cette route (ex: routes des annonces, qui peuvent être modifiés seulement par les admins ou l'utilisateur qui les a créées).
 
 ### Middlewares
+- auth: Il s'agit du middleware responsable pour vérifier le token de l'utilisateur, ainsi que pour assigner l'id de cet utiliqateur et son role à sa session, afin de lui garantir les droits nécessaires.
+- checkAdvertisementOwnership / checkPeopleOwnership : middleware utilisé pour garantir qu'une annonce ou un profil pourront être modifiés seulement par un adin ou l'utilisateur qui l'a créé. Le middleware compare l'id utilisateur stocké dans la session avec celui de l'utilisateur qui a créé l'annonce/profil dans la base de données, et si cet id est différent, ou si l'utilisateur ne possède pas un role_id d'admin, l'accès est réfusé.
+- checkCompanyOwnership : même principe du middleware précédant, mais celui ci est responsable seulement pour vérifier si le role_id gardé dans la session est égal au role_id d'un admin, afin de garantir ou pas l'accès aux opérations CRUD.
 
 ## Comment installer notre projet ?
 
