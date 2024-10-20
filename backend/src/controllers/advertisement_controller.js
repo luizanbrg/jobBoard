@@ -155,6 +155,47 @@ exports.updateAdvertisement = async (req, res) => {
   }
 };
 
+
+// Récupérer les annonces d'une compagnie
+// exports.getAdvertisementsByCompany = async (req, res) => {
+//   const companyId = req.params.companyId;
+
+//   try {
+//     const advertisements = await Advertisement.findAll({
+//       where: { company_id: companyId },
+//       attributes: ['id', 'title'],
+//     });
+//     res.status(200).json(advertisements);
+//   } catch (error) {
+//     console.error('Erreur lors de la récupération des annonces :', error);
+//     res.status(500).json({ message: 'Erreur lors de la récupération des annonces' });
+//   }
+// };
+exports.getAdvertisementsByCompany = async (req, res) => {
+  const companyId = req.params.companyId;
+
+  try {
+    const advertisements = await Advertisement.findAll({
+      where: { company_id: companyId }, // Condition sur la clé étrangère
+      include: [
+        {
+          model: Company,
+          as: 'company',            // Association définie dans le modèle
+          attributes: ['id', 'name'], // Champs que tu veux récupérer pour la compagnie
+        }
+      ],
+      attributes: ['id', 'title'],  // Champs que tu veux récupérer pour l'annonce
+    });
+
+    console.log(advertisements); // Vérifie que les annonces sont bien récupérées
+    res.status(200).json(advertisements);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des annonces :', error);
+    res.status(500).json({ message: 'Erreur lors de la récupération des annonces' });
+  }
+};
+
+
 // Supprimer une annonce
 exports.deleteAdvertisement = async (req, res) => {
   try {

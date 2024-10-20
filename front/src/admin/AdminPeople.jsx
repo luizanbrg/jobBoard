@@ -123,19 +123,21 @@ export default function AdminPeople() {
     <section className="pt-20  bg-slate-100 min-h-screen">
       <div className="container mx-auto px-6">
         <h4 className="text-2xl font-bold text-center text-black mb-12 pt-2">Les utilisateurs</h4>
-        <table className="min-w-full bg-white">
-          <thead>
-            <tr>
-              <th className="py-2 px-4 bg-gray-200">Nom</th>
-              <th className="py-2 px-4 bg-gray-200">Prénom</th>
-              <th className="py-2 px-4 bg-gray-200">Email</th>
-              <th className="py-2 px-4 bg-gray-200">City</th>
-              <th className="py-2 px-4 bg-gray-200">Status</th>
-              <th className="py-2 px-4 bg-gray-200">Actions</th>
-            </tr>
-          </thead>
-          <tbody>{renderPeople()}</tbody>
-        </table>
+        <div className="overflow-x-auto">  
+          <table className="min-w-full bg-white">
+            <thead>
+              <tr>
+                <th className="py-2 px-4 bg-gray-200">Nom</th>
+                <th className="py-2 px-4 bg-gray-200">Prénom</th>
+                <th className="py-2 px-4 bg-gray-200">Email</th>
+                <th className="py-2 px-4 bg-gray-200">City</th>
+                <th className="py-2 px-4 bg-gray-200">Status</th>
+                <th className="py-2 px-4 bg-gray-200">Actions</th>
+              </tr>
+            </thead>
+            <tbody>{renderPeople()}</tbody>
+          </table>
+        </div>
         <div>
           <Link to={`/peopleCreate`}>
             <ButtonAdd />
