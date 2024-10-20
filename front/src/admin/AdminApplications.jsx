@@ -37,44 +37,6 @@ export default function AdminApplications() {
 
 
   // =================================================================================================
-  // ----- retrouver un advertisement par l'id ------
-  // const getApplicationById = async (id) => {
-  //   if (!id) {
-  //     console.error('No advertisement ID');
-  //     return;
-  //   }
-
-  //   try {
-  //     const authToken = localStorage.getItem('token');
-
-  //     let options = {
-  //       method: 'GET',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         Authorization: `Bearer ${authToken}`,
-  //       },
-  //     };
-  //     console.log(`Get Application Show | Options :`, options);
-
-  //     const response = await fetch(`${urlApply}${id}`);
-
-  //     if (!response.ok) {
-  //       throw new Error('Erreur de fetch ');
-  //     }
-
-  //     const data = await response.json();
-  //     setApplications([data]);
-  //     console.log('Get Application Show data: ', data);
-  //   } catch (error) {
-  //     console.error('Erreur de fetch application:', error);
-  //   }
-  // };
-
-
-
-
-
-  // =================================================================================================
   // ----------- Function : Apply  | DELETE ---------------
   const deleteApplication = async (id) => {
     const authToken = localStorage.getItem('token');
@@ -111,11 +73,12 @@ export default function AdminApplications() {
   // =================================================================================================
   // ----------- Function : Apply  | RENDER ---------------
   const renderAdvertisements = () => {
-    return applications.map(element => {
+    return applications?.map(element => {
       return (
         <tr key={element.id}>
           <td className="border px-4 py-2 text-center">{element.id}</td>
           <td className="border px-4 py-2 ">{element.advertisement.title}</td>
+          <td className="border px-4 py-2 ">{element.company.name}</td>
           <td className="border px-4 py-2 text-center">{element.last_name}</td>
           <td className="border px-4 py-2 text-center">{element.first_name}</td>
           <td className="border px-4 py-2 text-center">
@@ -146,7 +109,6 @@ export default function AdminApplications() {
     });
   };
 
-
   useEffect(() =>{
     getApplicationList();
   },[])
@@ -160,18 +122,19 @@ export default function AdminApplications() {
             <tr>
               <th className="py-2 px-4 bg-gray-200">Id</th>
               <th className="py-2 px-4 bg-gray-200">Annonce</th>
-              <th className="py-2 px-4 bg-gray-200">Nom</th>
-              <th className="py-2 px-4 bg-gray-200">Prénom</th>
+              <th className="py-2 px-4 bg-gray-200">Entreprise</th>
+              <th className="py-2 px-4 bg-gray-200">Nom du candidat</th>
+              <th className="py-2 px-4 bg-gray-200">Prénom du candidat</th>
               <th className="py-2 px-4 bg-gray-200">Modification</th>
             </tr>
           </thead>
           <tbody>{renderAdvertisements()}</tbody>
         </table>
         <div>
-        <Link to={`/applicationCreate`}>
-          <ButtonAdd />
-        </Link>
-      </div>
+          <Link to={`/applicationCreate`}>
+            <ButtonAdd />
+          </Link>
+        </div>
       </div>
     </section>
   );

@@ -1,4 +1,4 @@
-const { Advertisement, ContractType } = require('../models');
+const { Advertisement, ContractType, Company} = require('../models');
 
 // const sequelize = require('../models/index');
 // const { DataTypes } = require('sequelize');
@@ -16,6 +16,11 @@ exports.getAllAdvertisements = async (req, res) => {
         {
           model: ContractType,
           as: 'contractType',
+          attributes: ['name'],
+        },
+        {
+          model: Company,
+          as: 'company',
           attributes: ['name'],
         },
       ],
@@ -58,7 +63,7 @@ exports.createAdvertisement = async (req, res) => {
   try {
     const people_id = req.people.id;
     // const { title, content, skills_id, salary, city, contract_type, company_id, found, publication_date, remote_work, distance } = req.body;
-    const { title, content, wages, city, contract_type_id } = req.body;
+    const { title, content, wages, city, experiences, working_time, contract_type_id, company_id } = req.body;
 
     const advertisement = await Advertisement.create({
       title,
@@ -68,7 +73,9 @@ exports.createAdvertisement = async (req, res) => {
       city,
       people_id,
       contract_type_id,
-      // company_id,
+      company_id,
+      experiences,
+      working_time,
       // found,
       // publication_date,
       // remote_work,

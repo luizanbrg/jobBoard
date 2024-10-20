@@ -21,6 +21,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'contract_type_id',
         as: 'contractType',
       });
+      Advertisement.belongsTo(models.Company, {
+        foreignKey: 'company_id',
+        as: 'company',
+      });
     }
   }
 

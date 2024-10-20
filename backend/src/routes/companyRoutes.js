@@ -17,6 +17,6 @@ router.get('/show/:id', companyController.getCompanyById);
 router.put('/update/:id', auth, companyController.updateCompany);
 
 // // Route pour supprimer une entreprise
-// router.delete('/:id', auth, companyController.deleteCompany);
+router.delete('/:id', auth, companyController.deleteCompany);
 
 module.exports = router;

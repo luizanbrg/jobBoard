@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 export default function ApplicationCreate() {
     const urlApplyCreate = `${process.env.REACT_APP_API_APPLY_CREATE}`;
+    const urlCompany = `${process.env.REACT_APP_API_COMPANY_LIST}`;
     // const authToken = localStorage.getItem('token');
     // const people_id = localStorage.getItem('id');
 
@@ -9,9 +10,11 @@ export default function ApplicationCreate() {
   const [first_name, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [companies, setCompanies] = useState([]);
+  const [company_id, setCompany] = useState("")
 
   // let apply = {last_name, first_name, email, phone, people_id, advertisement_id};
-  let apply = {last_name, first_name, email, phone};
+  let apply = {last_name, first_name, email, phone, company_id};
 
   const createApply = async (e) => {
     e.preventDefault();
@@ -52,9 +55,27 @@ export default function ApplicationCreate() {
     }
 }
 
-  // useEffect(() => {
-  //     createAdvertisement();
-  // })
+useEffect(() => {
+  const fetchCompanies = async () => {
+    try {
+      const response = await fetch(urlCompany);
+      console.log('URL Company:', urlCompany);
+
+      if (!response.ok) {
+        throw new Error('Error fetching contract types');
+      }
+      const data = await response.json();
+
+      setCompanies(data);
+      console.log(`companies:`, data);
+      
+    } catch (error) {
+      console.error('Erreur lors de la récupération de toutes les companies : ', error);
+    }
+  };
+
+  fetchCompanies();
+}, []);
 
   return (
     <>
@@ -70,56 +91,94 @@ export default function ApplicationCreate() {
         
         <form method="post" action="">
           <div className="grid gap-6 mb-6 md:grid-cols-1 items-between pt-2 px-3">
-            <div >
+                        <div>
+              <label
+                htmlFor="contractType"
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
+                Société* :
+              </label>
+              <select
+                required
+                id="company"
+                name="companies"
+                value={company_id}
+                onChange={e => setCompany(e.target.value)}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              >
+                <option value="">Sélectionner l'entreprise</option>
+                {companies.map(type => (
+                  <option key={type.id} value={type.id}>
+                    {type.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            {/* <div >
               <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
                 Titre de l'annonce* :
               </label>
               <input
-                required
+                // required
                 type="text"
                 name="titleAdvertisement"
                 id="titleAdvertisement"
-                value={last_name}
-                onChange={e => setLastName(e.target.value)}
+                value={advertisment}
+                onChange={e => setAdvertisement(e.target.value)}
                 placeholder="Titre de l'annonce"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
               />
-            </div>
+            </div> */}
             <div className="containerForm mt-4">
-              <label htmlFor="content" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
-                Prénom* :
+              <label htmlFor="lastNameApply" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+                Nom du candidat* :
               </label>
               <input
                 required
                 type="text"
-                name="contentAdvertisement"
-                id="contentAdvertisement"
+                name="last_name"
+                id="lastNameApply"
+                value={last_name}
+                onChange={e => setLastName(e.target.value)}
+                placeholder="Nom du candidat"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+
+              />
+            </div>
+            <div className="containerForm mt-4">
+              <label htmlFor="firtNameApply" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+                Prénom du candidat* :
+              </label>
+              <input
+                required
+                type="text"
+                name="first_name"
+                id="firtNameApply"
                 value={first_name}
                 onChange={e => setFirstName(e.target.value)}
-                placeholder="Description de l'annonce"
+                placeholder="Prénom du candidat"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-
               />
             </div>
             <div className="containerForm mt-4">
-              <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
-                Téléphone* :
+              <label htmlFor="phoneApply" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+                Téléphone du candidat* :
               </label>
               <input
                 required
                 type="text"
-                name="phoneApplication"
-                id="phoneApplication"
+                name="phone"
+                id="phoneApply"
                 value={phone}
                 onChange={e => setPhone(e.target.value)}
-                placeholder="Localisation"
+                placeholder="Téléphone du candidat"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
 
               />
             </div>
             <div className="containerForm mt-4">
               <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
-                Email* :
+                Email du candidat* :
               </label>
               <input
                 required
@@ -128,40 +187,11 @@ export default function ApplicationCreate() {
                 id="emailApplication"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                placeholder="Salaire"
+                placeholder="Email du candidat"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
               />
             </div>
-            <div className="containerForm mt-4">
-              <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
-                Entreprise* :
-              </label>
-              <input
-                required
-                type="text"
-                name="companyApplication"
-                id="companyApplication"
-                // value={company}
-                // onChange={e => setCompany(e.target.value)}
-                placeholder="Salaire"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-              />
-            </div>
-            <div className="containerForm mt-4">
-              <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
-                Candidat* :
-              </label>
-              <input
-                required
-                type="text"
-                name="candidateApplication"
-                id="candidateApplication"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                placeholder="Salaire"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-              />
-            </div>
+
             <button
               type="submit"
               onClick={createApply}

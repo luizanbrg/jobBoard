@@ -14,7 +14,7 @@ router.get('/list', applicationController.getAllApplications);
 router.get('/show/:id', applicationController.getApplicationById);
 
 // // Route pour mettre à jour une candidature
-// router.put('/:id', auth, checkApplicationOwnership, applicationController.updateApplication);
+router.put('/update/:id', auth, applicationController.updateApplication);
 
 // // Route pour supprimer une candidature
 router.delete('/:id', auth, applicationController.deleteApplication);

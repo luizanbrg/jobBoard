@@ -1,56 +1,57 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-export default function CompanyShow() {
+export default function PeopleShow() {
     // const { id } = useParams();
     const value = useLocation().state;
 
-    const urlCompanyUpdate = `${process.env.REACT_APP_API_COMPANY_UPDATE}`;
-    const urlCompanyShow = `${process.env.REACT_APP_API_COMPANY_SHOW}`;
+    // const urlPeopleUpdate = `${process.env.REACT_APP_API_PEOPLE_UPDATE}`;
+    const urlPeopleShow = `${process.env.REACT_APP_API_PEOPLE_SHOW}`;
 
-    const [company, setCompany] = useState({});
+    const [people, setPeople] = useState({});
     const [editing, setEditing] = useState(false);
 
 
 
 
     // =================================================================================================
-    // ----------- Function : COMPANY | GET ---------------   
+    // ----------- Function : People | GET ---------------   
     useEffect(() => {
-        const getCompanyShow = async () => {
-            try {
-            const authToken = localStorage.getItem('token');
+    const getPeopeShow = async () => {
+        try {
+        const authToken = localStorage.getItem('token');
 
-            let options = {
-                method: 'GET',
-                headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${authToken}`,
-                },
-            };
-            console.log(`Get Company Show | Options :`, options);
-
-            console.log(`URL utilisée: ${urlCompanyShow}/${value}`);
-
-            const response = await fetch(`${urlCompanyShow}/${value}`, options);
-            const data = await response.json();
-
-            console.log('Get Company Show | Response: ', response);
-
-            if (response.ok) {
-                setCompany(data);
-
-            } else {
-                throw new Error('Erreur de fetch ');
-            }
-
-            } catch (error) {
-            console.error('Erreur de fetch Company:', error);
-
-            }
+        let options = {
+            method: 'GET',
+            headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${authToken}`,
+            },
         };
+        console.log(`Get People Show | Options :`, options);
+
+        console.log(`URL utilisée: ${urlPeopleShow}/${value}`);
+
+        const response = await fetch(`${urlPeopleShow}/${value}`, options);
+        const data = await response.json();
+
+        console.log('Get People Show | Response: ', response);
+
+        if (response.ok) {
+            console.log(data);
+            setPeople(data.data);
+
+        } else {
+            throw new Error('Erreur de fetch ');
+        }
+
+        } catch (error) {
+        console.error('Erreur de fetch People show:', error);
+
+        }
+    };
     console.log(`Miaou`);
-    getCompanyShow();
+    getPeopeShow();
     }, []);
 
 
@@ -64,13 +65,14 @@ export default function CompanyShow() {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${authToken}`,
         },
-        body: JSON.stringify(company),
+        body: JSON.stringify(people),
         };
 
         try {
-        const response = await fetch(`${urlCompanyUpdate}/${value})`, options);
+        const response = await fetch(`${urlPeopleShow}/${value})`, options);
 
-        console.log(`Application Update | Options:`, options);
+        console.log(`People Update | Options:`, options);
+        
 
         if (!response.ok) {
             alert(`HTTP error. Status: ${response.status}`);
@@ -101,7 +103,7 @@ export default function CompanyShow() {
                 {editing ? (
                     <>
                         <h2 className="text-1xl font-bold text-center uppercase tracking-wider text-black mb-2 pt-2">
-                        Modification de l'entreprise
+                        Modification du profil de l'utilisateur
                         </h2>
                         <div>
                         <p className="text-1xl text-center italic text-black mb-4">
@@ -114,34 +116,68 @@ export default function CompanyShow() {
                             
                                 <div>
                                     <label
-                                        htmlFor="name"
+                                        htmlFor="last_name"
                                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
                                     >
                                         Nom*
                                     </label>
                                     <input
                                         type="text"
-                                        id="name"
-                                        name="name"
-                                        value={company.name || ''}
-                                        onChange={e => setCompany({ ...company, name: e.target.value })}
+                                        id="last_name"
+                                        name="last_name"
+                                        value={people.last_name || ''}
+                                        onChange={e => setPeople({ ...people, last_name: e.target.value })}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         required
                                     />
                                 </div>
                                 <div>
                                     <label
-                                        htmlFor="address"
+                                        htmlFor="first_name"
                                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
                                     >
-                                        Adresse de la société*
+                                        Prénom*
                                     </label>
                                     <input
                                         type="text"
-                                        id="address"
-                                        name="address"
-                                        value={company.address || ''}
-                                        onChange={e => setCompany({ ...company, address: e.target.value })}
+                                        id="first_name"
+                                        name="first_name"
+                                        value={people.first_name || ''}
+                                        onChange={e => setPeople({ ...people, first_name: e.target.value })}
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <label
+                                        htmlFor="email"
+                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+                                    >
+                                        Email*
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="email"
+                                        name="email"
+                                        value={people.email || ''}
+                                        onChange={e => setPeople({ ...people, email: e.target.value })}
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <label
+                                        htmlFor="phone"
+                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+                                    >
+                                        Téléphone*
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="phone"
+                                        name="phone"
+                                        value={people.phone || ''}
+                                        onChange={e => setPeople({ ...people, phone: e.target.value })}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         required
                                     />
@@ -157,55 +193,29 @@ export default function CompanyShow() {
                                         type="text"
                                         id="location"
                                         name="city"
-                                        value={company.city || ''}
-                                        onChange={e => setCompany({ ...company, city: e.target.value })}
+                                        value={people.city || ''}
+                                        onChange={e => setPeople({ ...people, city: e.target.value })}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         required
                                     />
                                 </div>
-                                <div>
-                                    <label
-                                        htmlFor="picture"
-                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
-                                    >
-                                        Logo de la société
-                                    </label>
-                                    <input
-                                        type="file"
-                                        accept=".jpg, .jpeg, .png"
-                                        size="small"
-                                        id="picture"
-                                        name='picture'
-                                        value={company.picture || ''}
-                                        onChange={e => setCompany({ ...company, picture: e.target.value })}
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                        disabled
-                                        // required
-                                    />
-                                    {/* <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                                        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
-                                        <span>Download</span>
-                                        </button> */}
-                                </div>
+
                             </div>
                             <div>
-                                <label
-                                htmlFor="content"
-                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
-                                >
-                                Description*
-                                </label>
-                                <textarea
-                                type="text"
-                                id="content"
-                                name='content'
-                                rows={10}
-                                value={company.content || ''}
-                                onChange={e => setCompany({ ...company, content: e.target.value })}
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                
-                                />
-                            </div>
+                                    <label
+                                        htmlFor="role"
+                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+                                    >
+                                        Statut
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="role"
+                                        value={people.role_id || ''}
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        disabled
+                                    />
+                                </div>
 
 
                                 {/* Buttons */}
@@ -230,21 +240,21 @@ export default function CompanyShow() {
                 ) : (
                     <>
                         <h2 className="text-1xl font-bold text-center uppercase tracking-wider text-black mb-2 pt-2">
-                        Fiche de l'entreprise
+                        Fiche de l'utilisateur
                         </h2>
                         <div className="p-2">
                             <div className="grid gap-6 mb-6 md:grid-cols-2 items-between pt-2">
                                 <div>
                                     <label
-                                        htmlFor="name"
+                                        htmlFor="last_name"
                                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
                                     >
-                                        Nom de la société
+                                        Nom
                                     </label>
                                     <input
                                         type="text"
                                         id="last_name"
-                                        value={company.name || ''}
+                                        value={people.last_name || ''}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         disabled
                                     />
@@ -252,15 +262,45 @@ export default function CompanyShow() {
 
                                 <div>
                                     <label
-                                        htmlFor="address"
+                                        htmlFor="first_name"
                                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
                                     >
-                                        Adresse de la société
+                                        Prénom
                                     </label>
                                     <input
                                         type="text"
-                                        id="address"
-                                        value={company.address || ''}
+                                        id="first_name"
+                                        value={people.first_name || ''}
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        disabled
+                                    />
+                                </div>
+                                <div>
+                                    <label
+                                        htmlFor="email"
+                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+                                    >
+                                        Email
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="email"
+                                        value={people.email || ''}
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        disabled
+                                    />
+                                </div>
+                                <div>
+                                    <label
+                                        htmlFor="phone"
+                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+                                    >
+                                        Téléphone
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="phone"
+                                        value={people.phone || ''}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         disabled
                                     />
@@ -275,49 +315,28 @@ export default function CompanyShow() {
                                     <input
                                         type="text"
                                         id="location"
-                                        value={company.city || ''}
+                                        value={people.city || ''}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         disabled
                                     />
                                 </div>
                                 <div>
                                     <label
-                                        htmlFor="picture"
+                                        htmlFor="role"
                                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
                                     >
-                                        Logo de la société
+                                        Statut
                                     </label>
                                     <input
-                                        type="file"
-                                        accept=".jpg, .jpeg, .png"
-                                        size="small"
-                                        id="picture"
-                                        value={company.picture || ''}
+                                        type="text"
+                                        id="role"
+                                        value={people.role_id || ''}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         disabled
                                     />
-                                    {/* <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                                        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
-                                        <span>Download</span>
-                                        </button> */}
                                 </div>
                             </div>
-                            <div>
-                                <label
-                                htmlFor="content"
-                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
-                                >
-                                Description*
-                                </label>
-                                <textarea
-                                type="text"
-                                id="content"
-                                rows={10}
-                                value={company.content || ''}
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                disabled
-                                />
-                            </div>
+
                         </div>
                             <div className="grid gap-6 mb-6 md:grid-cols-1 items-between pt-2 px-2">
                             <button

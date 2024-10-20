@@ -1,26 +1,22 @@
 import React, { useState, useEffect } from 'react';
 
 
-export default function CompanyCreate() {
-  const urlCompanyCreate = `${process.env.REACT_APP_API_COMPANY_CREATE}`;
+export default function PeopleCreate() {
+  const urlPeopleCreate = `${process.env.REACT_APP_API_PEOPLE_CREATE}`;
 
-  const [name, setName] = useState('');
-  const [address, setAddress] = useState('');
+  const [first_name, setFirstName] = useState('');
+  const [last_name, setLastName] = useState('');
+  const [phone, setPhone] = useState('');
   const [city, setCity] = useState('');
-  const [content, setContent] = useState('');
-  const [picture, setPicture] = useState(null);
+  const [email, setEmail] = useState('');
+  // const [resume, setResume] = useState('');
 
-  let company = { name, address, content, city };
+  let people = { first_name, last_name, phone, city, email};
 
-  const createCompany = async e => {
+  // =================================================================================================
+  // ----------- Function : People  | CREATE ---------------
+  const createPeople = async e => {
     e.preventDefault();
-
-    // const formData = new FormData();
-    // formData.append("name", name);
-    // formData.append("content", content);
-    // formData.append("city", city);
-    // formData.append("address", address);
-    // formData.append("picture", picture);
 
     const authToken = localStorage.getItem('token');
 
@@ -30,16 +26,15 @@ export default function CompanyCreate() {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${authToken}`,
       },
-      body: JSON.stringify(company),
-      // body: formData,
+      body: JSON.stringify(people),
     };
 
-    console.log(`Advertisement Create | options :`, options);
+    console.log(`People Create | options :`, options);
 
     try {
-      const response = await fetch(urlCompanyCreate, options);
+      const response = await fetch(urlPeopleCreate, options);
 
-      console.log(`Advertisement Create | response :`, response);
+      console.log(`People Create | response :`, response);
 
       if (!response.ok) {
         throw new Error(`HTTP error ! Status: ${response.status}`);
@@ -47,25 +42,21 @@ export default function CompanyCreate() {
 
       const data = await response.json();
 
-      console.log(`Advertisement Create | data :`, data);
+      console.log(`People Create | data :`, data);
 
       if (data) {
         // navigate("/");
-        window.location.href = `/dashboard`;
+        window.location.href = `/people`;
       }
     } catch (error) {
-      console.error('Fetch error back-end advertisement Create: ', error);
+      console.error('Fetch error back-end People Create: ', error);
     }
   };
-
-  // useEffect(() => {
-  //     createAdvertisement();
-  // })
 
   return (
     <>
       <section className="pt-20  bg-slate-100 min-h-screen">
-        <h2 className="text-5xl font-bold text-center text-black mb-12 pt-2">Création d'une entreprise</h2>
+        <h2 className="text-5xl font-bold text-center text-black mb-12 pt-2">Création d'un candidat</h2>
 
         <div>
           <p className="text-1xl  text-center italic text-black mb-4">
@@ -78,71 +69,88 @@ export default function CompanyCreate() {
           <div className="grid gap-6 mb-6 md:grid-cols-1 items-between pt-2 px-3">
             <div>
               <label
-                htmlFor="name"
+                htmlFor="last_name"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
               >
-                Nom de la société* :
+                Nom du candidat* :
               </label>
               <input
                 required
                 type="text"
-                name="nameCompany"
-                id="nameCompany"
-                value={name}
-                onChange={e => setName(e.target.value)}
-                placeholder="Titre de l'annonce"
+                name="last_name"
+                id="last_name"
+                value={last_name}
+                onChange={e => setLastName(e.target.value)}
+                placeholder="Nom"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             </div>
             <div className="containerForm mt-4">
               <label
-                htmlFor="address"
+                htmlFor="first_name"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
               >
-                Adresse* :
+                Prénom du candidat* :
               </label>
               <input
                 required
                 type="text"
-                name="addressCompany"
-                id="addressCompany"
-                value={address}
-                onChange={e => setAddress(e.target.value)}
-                placeholder="Adresse de la société"
+                name="first_name"
+                id="first_name"
+                value={first_name}
+                onChange={e => setFirstName(e.target.value)}
+                placeholder="Prénom"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             </div>
             <div className="containerForm mt-4">
               <label
-                htmlFor="content"
+                htmlFor="email"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
               >
-                Description* :
+                Email* :
               </label>
-              <textarea
-                rows={10}
+              <input
                 required
                 type="text"
-                name="contentCompany"
-                id="contentCompany"
-                value={content}
-                onChange={e => setContent(e.target.value)}
-                placeholder="Description de la société"
+                name="email"
+                id="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                placeholder="Email"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             </div>
             <div className="containerForm mt-4">
               <label
-                htmlFor="title"
+                htmlFor="phone"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
               >
-                Localisation* :
+                Téléphone* :
               </label>
               <input
                 required
                 type="text"
-                name="cityCompany"
-                id="cityCompany"
+                name="phone"
+                id="phone"
+                value={phone}
+                onChange={e => setPhone(e.target.value)}
+                placeholder="Téléphone"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+            </div>
+            <div className="containerForm mt-4">
+              <label
+                htmlFor="city"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+              >
+                Ville* :
+              </label>
+              <input
+                required
+                type="text"
+                name="city"
+                id="city"
                 value={city}
                 onChange={e => setCity(e.target.value)}
                 placeholder="Ville"
@@ -151,28 +159,24 @@ export default function CompanyCreate() {
             </div>
             {/* <div className="containerForm mt-4">
               <label
-                htmlFor="title"
+                htmlFor="resume"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
               >
-                Logo de la société* :
+                CV à importer :
               </label>
               <input
-                required
-                accept=".jpg, .jpeg, .png"
-                component="label"
-                name="picture"
-                size="large"
-                type="file"
-                id="pictureCompany"
-                value={picture}
-                onChange={e => setPicture(e.target.value)}
-                placeholder="Salaire"
+                type="text"
+                name="resume"
+                id="resume"
+                value={resume}
+                onChange={e => setResume(e.target.value)}
+                placeholder="CV à importer"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             </div> */}
             <button
               type="submit"
-              onClick={createCompany}
+              onClick={createPeople}
               className="bg-white transition-colors delay-50 duration-300
                         hover:text-white
                         font-bold
@@ -188,7 +192,7 @@ export default function CompanyCreate() {
                         hover:bg-cyan-600
                         hover:border-cyan-600"
             >
-              Créer une nouvelle société
+              Créer une nouvelle annonce
             </button>
           </div>
         </form>

@@ -14,8 +14,12 @@ router.delete('/advertisements/:id', auth, advertisementController.deleteAdverti
 
 // routes pour les utilisateurs
 router.get('/adminlists', auth, peopleController.getAllPeople);
-// router.get('/adminpeople/:id', auth, peopleController.getCandidateById);
-// router.put('/adminpeople/:id', auth, peopleController.updatePeople);
-// router.delete('/adminpeople/:id', auth, peopleController.deletePeople);
+
+// Route pour créer un utilisateur
+router.post('/admincreate', peopleController.createPeople);
+
+router.get('/adminpeople/:id', auth, peopleController.getCandidateById);
+router.put('/adminpeople/:id', auth, peopleController.updatePeople);
+router.delete('/adminpeople/:id', auth, peopleController.deletePeople);
 
 module.exports = router;
