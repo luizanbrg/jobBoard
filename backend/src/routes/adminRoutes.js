@@ -1,12 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const advertisementController = require('./advertisement_controller');
-const peopleController = require('./people_controller');
+const advertisementController = require('../controllers/advertisement_controller');
+const peopleController = require('../controllers/people_controller');
 const auth = require('../middleware/auth');
-
-const checkPeopleOwnership = require('../middleware/checkPeopleOwnership.js');
-const checkAdvertisementOwnership = require('../middleware/checkAdvertisementOwnership.js');
 
 // routes pour les annonces
 router.get('/advertisements', auth, advertisementController.getAllAdvertisements);
@@ -17,6 +14,10 @@ router.delete('/advertisements/:id', auth, advertisementController.deleteAdverti
 
 // routes pour les utilisateurs
 router.get('/adminlists', auth, peopleController.getAllPeople);
+
+// Route pour créer un utilisateur
+router.post('/admincreate', peopleController.createPeople);
+
 router.get('/adminpeople/:id', auth, peopleController.getCandidateById);
 router.put('/adminpeople/:id', auth, peopleController.updatePeople);
 router.delete('/adminpeople/:id', auth, peopleController.deletePeople);

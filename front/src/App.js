@@ -6,6 +6,8 @@ import './App.css';
 // ------- Section Advertisement -------
 import Advertisement from '../src/advertisements/Advertisement.jsx';
 import AdvertisementCreate from './advertisements/AdvertisementCreate.jsx';
+import AdminAdvertising from './admin/AdminAdvertising.jsx';
+import AdvertisementShow from './advertisements/AdvertisementShow.jsx';
 
 // ------- Section Pages -------
 import SignUp from './auth/signup.jsx';
@@ -20,6 +22,18 @@ import Error from './features/Error.jsx';
 // ------- Section layouts -------
 import Navigation from './components/layouts/Navigation.jsx';
 import Footer from './components/layouts/Footer.jsx';
+
+import ButtonAdd from './components/buttons/ButtonAdd.jsx';
+import AdminApplications from './admin/AdminApplications.jsx';
+import ApplicationCreate from './applications/ApplicationCreate.jsx';
+import ApplicationShow from './applications/ApplicationShow.jsx';
+
+import AdminPeople from './admin/AdminPeople.jsx';
+import AdminCompany from './admin/AdminCompany.jsx';
+import CompanyCreate from './company/CompanyCreate.jsx';
+import CompanyShow from './company/CompanyShow.jsx';
+import PeopleCreate from './people/PeopleCreate.jsx';
+import PeopleShow from './people/PeopleShow.jsx';
 
 function App() {
   //   const [authTypeApp, setAuthTypeApp] = useState(null);
@@ -54,24 +68,51 @@ function App() {
 
           <Route path="/dashboard" element={<Dashboard />} />
 
+          <Route path="/listAdvertisement" element={<AdminAdvertising />} />
+          <Route path="/listApplication" element={<AdminApplications />} />
+          <Route path="/listCompany" element={<AdminCompany />} />
+          
+          <Route path="/people" element={<AdminPeople />} />
+          <Route path="/people/:id" element={<AdminPeople />} />
+
+
           {/* ====================================== */}
           {/* ~~~~~~~~~~ ADVERTISEMENT ~~~~~~~~~~ */}
           <Route path="/" element={<Advertisement />} />
           <Route path="/advertisementCreate" element={<AdvertisementCreate />} />
+          <Route path="/advertisement/:id" element={<AdvertisementShow />} />
+
+          {/* ====================================== */}
+          {/* ~~~~~~~~~~ APPLICATIONS ~~~~~~~~~~ */}
+          <Route path="/applicationCreate" element={<ApplicationCreate />} />
+          <Route path="/apply/:id" element={<ApplicationShow />} />
+
+          {/* ~~~~~~~~~~ APPLICATIONS ~~~~~~~~~~ */}
+          <Route path="/companyCreate" element={<CompanyCreate />} />
+          <Route path="/company/:id" element={<CompanyShow />} />
+
+          {/* ~~~~~~~~~~ APPLICATIONS ~~~~~~~~~~ */}
+          <Route path="/peopleCreate" element={<PeopleCreate/>} />
+          <Route path="/adminpeople/:id" element={<PeopleShow />} />
+
 
           {/* ====================================== */}
           {/* ~~~~~~~~~~ PAGES ~~~~~~~~~~ */}
           <Route path="*" element={<Error />} />
           <Route path="/form" element={<Form />} />
           {/* <Route path='/account/:value' element={<Account/>}/> */}
-          <Route path='/account' element={<Account/>}/>
+          <Route path="/account" element={<Account />} />
+
+          {/* ====================================== */}
+          {/* ~~~~~~~~~~ PAGES ~~~~~~~~~~ */}
+          <Route path="/buttonAdd" element={<ButtonAdd />} />
 
           {/* ====================================== */}
           {/* ~~~~~~~~~~ Auth ~~~~~~~~~~ */}
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
         </Routes>
-
+        <Footer />
       </Router>
     </>
   );

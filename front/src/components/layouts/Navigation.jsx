@@ -7,25 +7,36 @@ export default function Account() {
 
   const [authenticated, setAuthenticated] = useState(false);
   const [admin, setAdmin] = useState(false);
-
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-      if (authToken) {
-        const candidateId = localStorage.getItem('id');
-          setAuthenticated(true);
-      }
-      if (typeUser === "3"){
-          setAdmin(true);
-      }
+    if (authToken) {
+      const candidateId = localStorage.getItem('id');
+      setAuthenticated(true);
+    }
+    if (typeUser === '3') {
+      setAdmin(true);
+    }
   }, []);
 
+
+
+  // =================================================================================================
+  // ----------- Function : Navbar | Gestion de l'ouverture et fermeture du menu ---------------
+    const toggleMenu = () => {
+      setIsMenuOpen(!isMenuOpen); // Inverse l'état
+    };
+
+
+  // =================================================================================================
+  // ----------- Function : Déconnexion ---------------
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('role_id');
+    localStorage.removeItem('id');
     setAuthenticated(false);
     window.location.href = '/login';
   };
-
-
 
   return (
     <>
@@ -42,12 +53,12 @@ export default function Account() {
                 <button
                   onClick={handleLogout}
                   type="button"
-                  className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-rose-600 dark:font-bold dark:hover:bg-rose-700 dark:focus:ring-blue-800"
+                  className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-rose-600 dark:font-bold dark:hover:bg-rose-700 dark:focus:ring-red-800"
                 >
                   Déconnexion
                 </button>
               </>
-            ):(
+            ) : (
               <>
                 <div className="flex space-x-4">
                   <button
@@ -66,14 +77,15 @@ export default function Account() {
               </>
             )}
 
+            {/* Bouton burger */}
             <button
               data-collapse-toggle="navbar-sticky"
               type="button"
-              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-              aria-controls="navbar-sticky"
+              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"              aria-controls="navbar-sticky"
               aria-expanded="false"
+              onClick={toggleMenu}
             >
-              <span className="sr-only">Open main menu</span>
+            <span className="sr-only">Ouvrir le menu principal</span>
               <svg
                 className="w-5 h-5"
                 aria-hidden="true"
@@ -92,28 +104,29 @@ export default function Account() {
             </button>
           </div>
           <div
-            className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
-            id="navbar-sticky"
+          className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${isMenuOpen ? 'block' : 'hidden'}`}
+          id="navbar-sticky"
           >
             <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-              <li>
-                <a
-                  href="/"
-                  className="block py-2 px-3 text-white font-bold bg-teal-700 rounded md:bg-transparent md:text-teal-700 md:p-0 md:dark:text-teal-500"
-                  aria-current="page"
-                >
-                  Accueil
-                </a>
-              </li>
-              <li>
-                <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-teal-700 md:p-0 md:dark:hover:text-teal-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  Mes candidatures
-                </a>
-              </li>
-
-              {(authenticated) ? (
+              {authenticated ? (
                 <>
+                  <li>
+                    <a
+                      href="/"
+                      className="block py-2 px-3 text-white font-bold bg-teal-700 rounded md:bg-transparent md:text-teal-700 md:p-0 md:dark:text-teal-500"
+                      aria-current="page"
+                    >
+                      Accueil
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-teal-700 md:p-0 md:dark:hover:text-teal-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                    >
+                      Mes candidatures
+                    </a>
+                  </li>
                   <li>
                     <a
                       href="/advertisementCreate"
@@ -133,7 +146,7 @@ export default function Account() {
                         </a>
                       </li>
                     </>
-                  ):(
+                  ) : (
                     <>
                       <li>
                         <a
@@ -144,13 +157,11 @@ export default function Account() {
                         </a>
                       </li>
                     </>
-                  )} 
+                  )}
                 </>
-              ):(
-                <>
-                </>
+              ) : (
+                <></>
               )}
-
             </ul>
           </div>
         </div>

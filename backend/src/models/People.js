@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       People.hasMany(models.Application, { foreignKey: 'people_id', as: 'applications' });
       People.hasMany(models.Skill, { foreignKey: 'people_id', as: 'skills' });
+      People.hasMany(models.Advertisement, { foreignKey: 'people_id', as: 'advertisement' });
       People.belongsTo(models.Role, { foreignKey: 'role_id', as: 'role' });
     }
   }
@@ -22,11 +23,14 @@ module.exports = (sequelize, DataTypes) => {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
       },
       password: {
         type: DataTypes.STRING,
         allowNull: false,
+      },
+      phone: {
+        type: DataTypes.STRING,
+        allowNull: true,
       },
       city: {
         type: DataTypes.STRING,
@@ -50,9 +54,9 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'People',
       tableName: 'People',
       underscored: true,
-      timestamps: true, // Assurez-vous que cette option est définie
-      createdAt: 'created_at', // Configure le nom de la colonne pour createdAt
-      updatedAt: 'updated_at', // Configure le nom de la colonne pour updatedAt
+      timestamps: true,
+      createdAt: 'created_at', 
+      updatedAt: 'updated_at',
     },
   );
 
