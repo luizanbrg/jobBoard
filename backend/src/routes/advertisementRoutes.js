@@ -30,6 +30,12 @@ router.get('/contract-types', async (req, res) => {
   }
 });
 
+
+// Route pour récupérer les annonces d'une compagnie
+router.get('/company/:companyId', advertisementController.getAdvertisementsByCompany);
+
+
+
 // Route pour supprimer une annonce
 router.delete(
   '/:id',

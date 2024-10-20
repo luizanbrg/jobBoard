@@ -5,7 +5,6 @@ import ButtonAdd from '../components/buttons/ButtonAdd';
 export default function AdminAdvertising() {
   const { id } = useParams();
 
-  // const urlAdminDashboard = `${process.env.REACT_APP_API_PROTECTED_ROUTE}`;
   const urlAdvertisementShow = `${process.env.REACT_APP_API_ADVERTISEMENT_INDEX}`;
   const [advertisement, setAdvertisement] = useState([]);
 
@@ -63,6 +62,9 @@ export default function AdminAdvertising() {
     }
   };
 
+
+  // =================================================================================================
+  // ----------- Function : Apply  | DELETE ---------------
   const deleteAdvertisement = async id => {
     const authToken = localStorage.getItem('token');
     console.log(`Advertisement Delete (id) : `, id);
@@ -99,19 +101,21 @@ export default function AdminAdvertising() {
       return (
         <tr key={element.id}>
           <td className="border px-4 py-2">{element.title}</td>
+          <td className="border px-4 py-2 ">{element.company.name}</td>
           <td className="border px-4 py-2">{element.city}</td>
           <td className="border px-4 py-2">{element.wages} €</td>
           <td className="border px-4 py-2">
-            <button
-              className="bg-red-600 text-white px-4 py-2 mx-2 rounded hover:bg-red-700"
-              onClick={() => deleteAdvertisement(element.id)}
-            >
-              <i className="fa-solid fa-xmark"></i>
+            <div className="flex space-x-2">
               {/* Supprimer */}
-            </button>
+              <button
+                className="bg-red-600 text-white px-4 py-2 mx-2 rounded hover:bg-red-700"
+                onClick={() => deleteAdvertisement(element.id)}
+              >
+                <i className="fa-solid fa-xmark"></i>
+              </button>
 
-            {/* Voir */}
-            <Link
+              {/* Voir */}
+              <Link
                 to={`/advertisement/${element.id}`}
                 state={element.id}
               >
@@ -122,6 +126,7 @@ export default function AdminAdvertising() {
                   <i className="fa-solid fa-magnifying-glass"></i>
                 </button>
               </Link>
+            </div>
           </td>
         </tr>
       );
@@ -140,22 +145,25 @@ export default function AdminAdvertising() {
     <section className="pt-20  bg-slate-100 min-h-screen">
       <div className="container mx-auto px-6">
         <h4 className="text-2xl font-bold text-center text-black mb-12 pt-2">Les annonces</h4>
-        <table className="min-w-full bg-white">
-          <thead>
-            <tr>
-              <th className="py-2 px-4 bg-gray-200">Titre</th>
-              <th className="py-2 px-4 bg-gray-200">Ville</th>
-              <th className="py-2 px-4 bg-gray-200">Salaire</th>
-              <th className="py-2 px-4 bg-gray-200">Actions</th>
-            </tr>
-          </thead>
-          <tbody>{renderAdvertisements()}</tbody>
-        </table>
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white">
+            <thead>
+              <tr>
+                <th className="py-2 px-4 bg-gray-200">Titre</th>
+                <th className="py-2 px-4 bg-gray-200">Entreprise</th>
+                <th className="py-2 px-4 bg-gray-200">Ville</th>
+                <th className="py-2 px-4 bg-gray-200">Salaire</th>
+                <th className="py-2 px-4 bg-gray-200">Actions</th>
+              </tr>
+            </thead>
+            <tbody>{renderAdvertisements()}</tbody>
+          </table>
+        </div>
         <div>
-        <Link to={`/advertisementCreate`}>
-          <ButtonAdd />
-        </Link>
-      </div>
+          <Link to={`/advertisementCreate`}>
+            <ButtonAdd />
+          </Link>
+        </div>
       </div>
     </section>
   );

@@ -36,44 +36,6 @@ export default function AdminCompany() {
 
 
   // =================================================================================================
-  // ----- retrouver un advertisement par l'id ------
-  // const getApplicationById = async (id) => {
-  //   if (!id) {
-  //     console.error('No advertisement ID');
-  //     return;
-  //   }
-
-  //   try {
-  //     const authToken = localStorage.getItem('token');
-
-  //     let options = {
-  //       method: 'GET',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         Authorization: `Bearer ${authToken}`,
-  //       },
-  //     };
-  //     console.log(`Get Application Show | Options :`, options);
-
-  //     const response = await fetch(`${urlApply}${id}`);
-
-  //     if (!response.ok) {
-  //       throw new Error('Erreur de fetch ');
-  //     }
-
-  //     const data = await response.json();
-  //     setCompany([data]);
-  //     console.log('Get Application Show data: ', data);
-  //   } catch (error) {
-  //     console.error('Erreur de fetch application:', error);
-  //   }
-  // };
-
-
-
-
-
-  // =================================================================================================
   // ----------- Function : Apply  | DELETE ---------------
   const deleteApplication = async (id) => {
     const authToken = localStorage.getItem('token');
@@ -118,16 +80,17 @@ export default function AdminCompany() {
           <td className="border px-4 py-2 text-center">{element.address}</td>
           <td className="border px-4 py-2 text-center">{element.city}</td>
           <td className="border px-4 py-2 text-center">
-            {/* Supprimer */}
-            <button
-              className="bg-red-600 text-white px-4 py-2 mx-2 rounded shadow hover:bg-red-700"
-              onClick={() => deleteApplication(element.id)}
-            >
-              <i className="fa-solid fa-xmark"></i>
+            <div className="flex space-x-2">
+              {/* Supprimer */}
+              <button
+                className="bg-red-600 text-white px-4 py-2 mx-2 rounded shadow hover:bg-red-700"
+                onClick={() => deleteApplication(element.id)}
+              >
+                <i className="fa-solid fa-xmark"></i>
 
-            </button>
+              </button>
 
-            {/* Voir */}
+              {/* Voir */}
               <Link
                 to={`/company/${element.id}`}
                 state={element.id}
@@ -139,19 +102,13 @@ export default function AdminCompany() {
                   <i className="fa-solid fa-magnifying-glass"></i>
                 </button>
               </Link>
+            </div>
           </td>
         </tr>
       );
     });
   };
 
-  // useEffect(() => {
-  //   if (id) {
-  //     getAdvertisementById();
-  //   } else {
-  //     getApplicationList();
-  //   }
-  // }, [id]);
 
   useEffect(() =>{
     getCompaniesList();
@@ -161,18 +118,20 @@ export default function AdminCompany() {
     <section className="pt-20  bg-slate-100 min-h-screen">
       <div className="container mx-auto px-6 overflow-x-auto">
         <h4 className="text-2xl font-bold text-center text-black mb-12 pt-2">Les entreprises</h4>
-        <table className="min-w-full bg-white">
-          <thead>
-            <tr>
-              <th className="py-2 px-4 bg-gray-200">Id</th>
-              <th className="py-2 px-4 bg-gray-200">Nom de la société</th>
-              <th className="py-2 px-4 bg-gray-200">Adresse</th>
-              <th className="py-2 px-4 bg-gray-200">Localisation</th>
-              <th className="py-2 px-4 bg-gray-200">Modification</th>
-            </tr>
-          </thead>
-          <tbody>{renderAdvertisements()}</tbody>
-        </table>
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white">
+            <thead>
+              <tr>
+                <th className="py-2 px-4 bg-gray-200">Id</th>
+                <th className="py-2 px-4 bg-gray-200">Nom de la société</th>
+                <th className="py-2 px-4 bg-gray-200">Adresse</th>
+                <th className="py-2 px-4 bg-gray-200">Localisation</th>
+                <th className="py-2 px-4 bg-gray-200">Modification</th>
+              </tr>
+            </thead>
+            <tbody>{renderAdvertisements()}</tbody>
+          </table>
+        </div>
         <div>
         <Link to={`/companyCreate`}>
           <ButtonAdd />

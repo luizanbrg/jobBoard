@@ -178,19 +178,19 @@ export default function PeopleCreate() {
               type="submit"
               onClick={createPeople}
               className="bg-white transition-colors delay-50 duration-300
-                        hover:text-white
-                        font-bold
-                        text-center
-                        rounded text-2x1
-                        px-4 py-2
-                        mt-4
-                        bg-grey-700
-                        border
-                        border-grey
-                        text-gray-800
-                        shadow
-                        hover:bg-cyan-600
-                        hover:border-cyan-600"
+              hover:text-white
+              font-bold
+              text-center
+              rounded text-2x1
+              px-4 py-2
+              mt-4
+              bg-grey-700
+              border
+              border-grey
+              text-gray-800
+              shadow
+              hover:bg-teal-800
+              hover:border-teal-800"
             >
               Créer une nouvelle annonce
             </button>

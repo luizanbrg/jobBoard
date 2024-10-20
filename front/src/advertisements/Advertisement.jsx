@@ -93,32 +93,6 @@ export default function Advertisement() {
       console.error(`Fetch error back-end advertisement details: `, error);
     }
   };
-    // =================================================================================================
-  // ----------- Function : Advertisement Id | GET ---------------
-  // const getAdvertisementId = async () => {
-  //   try {
-  //     const options = {
-  //       method: 'GET',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         // Authorization: `Bearer ${authToken}`,
-  //       },
-  //     };
-
-  //     console.log(`Advertisement List | Options :`, options);
-
-  //     const response = await fetch(urlAdvertisementIndex, options);
-  //     const data = await response.json();
-
-  //     if (Array.isArray(data)) {
-  //       setAdvertsement(data);
-  //     } else {
-  //       // console.error(`Advertisement Index | data : `, data);
-  //     }
-  //   } catch (error) {
-  //     console.error(`Fetch error back-end advertisement Index: `, error);
-  //   }
-  // };
 
   // =================================================================================================
   // ----------- Function : Advertisement | DELETE ---------------
@@ -131,9 +105,6 @@ export default function Advertisement() {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${authToken}`,
       },
-      // body: JSON.stringify({
-      //   id: id,
-      // })
     };
 
     try {

@@ -82,16 +82,17 @@ export default function AdminApplications() {
           <td className="border px-4 py-2 text-center">{element.last_name}</td>
           <td className="border px-4 py-2 text-center">{element.first_name}</td>
           <td className="border px-4 py-2 text-center">
-            {/* Supprimer */}
-            <button
-              className="bg-red-600 text-white px-4 py-2 mx-2 rounded shadow hover:bg-red-700"
-              onClick={() => deleteApplication(element.id)}
-            >
-              <i className="fa-solid fa-xmark"></i>
+            <div className="flex space-x-2">
+              {/* Supprimer */}
+              <button
+                className="bg-red-600 text-white px-4 py-2 mx-2 rounded shadow hover:bg-red-700"
+                onClick={() => deleteApplication(element.id)}
+              >
+                <i className="fa-solid fa-xmark"></i>
 
-            </button>
+              </button>
 
-            {/* Voir */}
+              {/* Voir */}
               <Link
                 to={`/apply/${element.id}`}
                 state={element.id}
@@ -103,6 +104,7 @@ export default function AdminApplications() {
                   <i className="fa-solid fa-magnifying-glass"></i>
                 </button>
               </Link>
+            </div>
           </td>
         </tr>
       );
@@ -117,19 +119,21 @@ export default function AdminApplications() {
     <section className="pt-20  bg-slate-100 min-h-screen">
       <div className="container mx-auto px-6 overflow-x-auto">
         <h4 className="text-2xl font-bold text-center text-black mb-12 pt-2">Les candidatures</h4>
-        <table className="min-w-full bg-white">
-          <thead>
-            <tr>
-              <th className="py-2 px-4 bg-gray-200">Id</th>
-              <th className="py-2 px-4 bg-gray-200">Annonce</th>
-              <th className="py-2 px-4 bg-gray-200">Entreprise</th>
-              <th className="py-2 px-4 bg-gray-200">Nom du candidat</th>
-              <th className="py-2 px-4 bg-gray-200">Prénom du candidat</th>
-              <th className="py-2 px-4 bg-gray-200">Modification</th>
-            </tr>
-          </thead>
-          <tbody>{renderAdvertisements()}</tbody>
-        </table>
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white">
+            <thead>
+              <tr>
+                <th className="py-2 px-4 bg-gray-200">Id</th>
+                <th className="py-2 px-4 bg-gray-200">Annonce</th>
+                <th className="py-2 px-4 bg-gray-200">Entreprise</th>
+                <th className="py-2 px-4 bg-gray-200">Nom du candidat</th>
+                <th className="py-2 px-4 bg-gray-200">Prénom du candidat</th>
+                <th className="py-2 px-4 bg-gray-200">Modification</th>
+              </tr>
+            </thead>
+            <tbody>{renderAdvertisements()}</tbody>
+          </table>
+        </div>
         <div>
           <Link to={`/applicationCreate`}>
             <ButtonAdd />
