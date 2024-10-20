@@ -288,8 +288,8 @@ export default function AdvertisementCreate() {
                 border-grey
                 text-gray-800
                 shadow
-                hover:bg-cyan-600
-                hover:border-cyan-600"
+              hover:bg-teal-800
+              hover:border-teal-800"
               >
                 Créer une nouvelle annonce
               </button>
