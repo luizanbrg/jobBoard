@@ -120,4 +120,3 @@ L'installation de notre API nécessite l'installation de Node.js et de npm (Node
 4. Configurer la base de données (assurez-vous que MySQL soit installé)
 5. Lancer l'application: démarrez le serveur avec la commande: `npm start` pour le front-end et `nodemon serve` pour le back-end. L'API sera alors disponible sur http://localhost:3000
 6. Tester les routes: Vous pouvez utiliser un outil comme Postman pour tester les différentes routes de l'API. 
-
