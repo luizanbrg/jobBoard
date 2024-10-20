@@ -1,16 +1,15 @@
 # Job Board
 
 ### Comment nous avons travaillé:  
-Ce projet appelé Job Board, effectué en duo, c'est le premier projet proposé à Epitech Nice. Conçu par Luiza Nobrega et Véronique Santi, nous avons eu deux semaines pour réaliser une page web d'un site proposant des offres d'emploi, ainsi que d'une dashboard permettant aux admins du site de réaliser des opérations CRUD sur les utilisateurs, les annonces d'emploi, les entreprises y registrées et les soumissions de candidatures. Les utilisateurs ont aussi la possibilité d'effectuer des opérations CRUD sur leurs profiles et les annonces d'emploi créés par eux mêmes, ainsi que de soummetre des candidatures à des postes ouverts.
+Ce projet appelé Job Board, effectué en duo, c'est le premier projet proposé à Epitech Nice. Conçu par Luiza Nobrega et Véronique Santi, nous avons eu deux semaines pour réaliser une page web d'un site proposant des offres d'emploi, ainsi que d'une dashboard permettant aux admins du site de réaliser des opérations CRUD sur les utilisateurs, les annonces d'emploi, les entreprises y registrées et les soumissions de candidatures. Les utilisateurs ont aussi la possibilité d'effectuer des opérations CRUD sur leurs profils et les annonces d'emploi créés par eux mêmes, ainsi que de soumettre des candidatures à des postes ouverts.
 
 Nous avons décidé ensemble de partir sur des technologies auxquelles nous ne maîtrisions pas encore, ou n'avions pas encore beaucoup d'expérience, tels que le Node.js pour le back-end et le React.js pour le front-end. Nous nous sommes organisées à travers d'un Trello [Jobboard](https://trello.com/b/mi4irua3/job-board) et chaque matin on révisait ensemble ce qui avait été fait la veille, et à partir de ce moment-là, nous décidions ce que chacune allait faire pendant la journée.
 
 ### Technologies
 **Back-end**: Node.js, Express.js, Nodemon.
 
-Node.js a été notre premier choix, car il s'agit d'une langage de programmation légère et qui possède une communauté massive, ce qui est essentiel afin de trouver assez de contenu en ligne permettant de nous aider. De plus, avec Express.js comme framework de Node.js, le système de routages de l'application est simplifié et nous pouvons mettre en place des middlewares. Pour installer Express.js, écrivez `npm install express` sur le terminal.
-Nous avons choisi de travailler avec Nodemon server, car cette outil permet d'optimiser le travail sur Node.js, puisqu'il réeinitialise le serveur automatiquement lorsqu'un changement est effectué, évitant ainsi le test de l'application en quelques secondes. 
-Pour l'installer, il suffit d'écrire `npm install nodemon` sur le terminal.
+Node.js a été notre premier choix, car il s'agit d'un langage de programmation léger et qui possède une communauté massive, ce qui est essentiel afin de trouver assez de contenu en ligne permettant de nous aider. De plus, avec Express.js comme framework de Node.js, le système de routages de l'application est simplifié et nous pouvons mettre en place des middlewares. 
+Nous avons choisi de travailler avec Nodemon server, car cette outil permet d'optimiser le travail sur Node.js, puisqu'il réeinitialise le serveur automatiquement lorsqu'un changement est effectué, permettant ainsi le test de l'application en quelques secondes. 
 
 **Front-end**: React.js, Tailwind CSS
 
@@ -97,13 +96,13 @@ Ces routes gèrent les informations des entreprises publiant des annonces sur la
 Cette route permet de récupérer tous les types de contrats disponibles, afin de faciliter la gestion des annonces d'emploi en lien avec des contrats spécifiques.
 - GET /contract-types : Récupère la liste des types de contrats depuis la base de données.
 
-Une route admin différente a été faite pour gérer les opérations CRUD des annonces, nécessitant d'une authentification afin de garantir la sécurité.
+Une route admin différente a été faite pour gérer les opérations CRUD des annonces, nécessitant une authentification afin de garantir la sécurité.
 Certaines routes ont un middleware d'authentification, d'autres ont également un middleware qui vérifie si l'utilisateur est admin ou le créateur de cette route (ex: routes des annonces, qui peuvent être modifiés seulement par les admins ou l'utilisateur qui les a créées).
 
 ### Middlewares
 - auth: Il s'agit du middleware responsable pour vérifier le token de l'utilisateur, ainsi que pour assigner l'id de cet utiliqateur et son role à sa session, afin de lui garantir les droits nécessaires.
-- checkAdvertisementOwnership / checkPeopleOwnership : middleware utilisé pour garantir qu'une annonce ou un profil pourront être modifiés seulement par un adin ou l'utilisateur qui l'a créé. Le middleware compare l'id utilisateur stocké dans la session avec celui de l'utilisateur qui a créé l'annonce/profil dans la base de données, et si cet id est différent, ou si l'utilisateur ne possède pas un role_id d'admin, l'accès est réfusé.
-- checkCompanyOwnership : même principe du middleware précédant, mais celui ci est responsable seulement pour vérifier si le role_id gardé dans la session est égal au role_id d'un admin, afin de garantir ou pas l'accès aux opérations CRUD.
+- checkAdvertisementOwnership / checkPeopleOwnership : middleware utilisé pour garantir qu'une annonce ou un profil pourront être modifiés seulement par un admin ou l'utilisateur qui l'a créé. Le middleware compare l'id utilisateur stocké dans la session avec celui de l'utilisateur qui a créé l'annonce/profil dans la base de données, et si cet id est différent, ou si l'utilisateur ne possède pas un role_id d'admin, l'accès est réfusé.
+- checkCompanyOwnership : même principe du middleware précédant, mais celui ci sert seulement à vérifier si le role_id gardé dans la session est égal au role_id d'un admin, afin de garantir ou pas l'accès aux opérations CRUD.
 
 ## Comment installer notre projet ?
 
