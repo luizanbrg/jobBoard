@@ -1,4 +1,4 @@
-const { Advertisement, ContractType } = require('../models');
+const { Advertisement, ContractType, Company} = require('../models');
 
 // const sequelize = require('../models/index');
 // const { DataTypes } = require('sequelize');
@@ -16,6 +16,11 @@ exports.getAllAdvertisements = async (req, res) => {
         {
           model: ContractType,
           as: 'contractType',
+          attributes: ['name'],
+        },
+        {
+          model: Company,
+          as: 'company',
           attributes: ['name'],
         },
       ],

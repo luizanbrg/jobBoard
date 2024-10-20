@@ -4,13 +4,13 @@ module.exports = (sequelize, DataTypes) => {
   class Company extends Model {
     //Associations
     static associate(models) {
-      // Company.hasMany(models.Advertisement, {
-      //   foreignKey: 'company_id',
-      //   as: 'advertisements',
-      // });
+      Company.hasMany(models.Advertisement, {
+        foreignKey: 'company_id',
+        as: 'advertisements',
+      });
       Company.hasMany(models.Application, {
         foreignKey: 'company_id',
-        as: 'applications', // alias pour la relation inverse
+        as: 'applications',
       });
       
     }

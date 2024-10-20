@@ -24,8 +24,8 @@ exports.getAllApplications = async (req, res) => {
         },
         {
           model: Company,
-          as: 'company', // Assurez-vous que l'alias correspond bien à celui dans les associations
-          attributes: ['name'], // Récupérer le nom de la société
+          as: 'company',
+          attributes: ['name'],
         },
       ],
     });

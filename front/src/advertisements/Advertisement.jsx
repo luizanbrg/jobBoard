@@ -167,6 +167,7 @@ export default function Advertisement() {
         <div className="bg-white p-6 rounded-lg shadow-lg text-center" key={element.id}>
           {/* ---------- Element Base | Start ---------- */}
           <h1 className="text-2xl font-bold mb-2">{element.title}</h1>
+          <p className="text-1xl font-bold mb-2">{element.company.name} </p>
           <div className="flex col items-center justify-center">
             <div className="flex items-center justify-center bg-slate-200 rounded-full inline-block px-2 my-2">
               <i className="fa-solid fa-location-dot"></i>

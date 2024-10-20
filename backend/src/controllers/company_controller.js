@@ -73,28 +73,6 @@ exports.getCompanyById = async (req, res) => {
 };
 
 // =================================================================================================
-// Supprimer une compagnie
-// exports.deleteCompany = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     console.log('Deleting company with id:', id);
-//     const company = await Company.findByPk(id);
-
-//     if (!company) {
-//       return res.status(404).json({ message: 'Company non trouvée' });
-//     }
-
-//     await company.destroy();
-
-//     res.status(200).json({ message: 'Company supprimée avec succès' });
-//   } catch (error) {
-//     console.error("Erreur lors de la suppression de la company : ", error);
-//     res.status(500).json({ message: "Erreur de la suppression de la company" });
-//   }
-// };
-
-
-// =================================================================================================
 // Mettre à jour une annonce
 exports.updateCompany= async (req, res) => {
   try {
@@ -132,3 +110,23 @@ exports.updateCompany= async (req, res) => {
   }
 };
 
+// =================================================================================================
+// Supprimer une compagnie
+exports.deleteCompany = async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log('Deleting company with id:', id);
+    const company = await Company.findByPk(id);
+
+    if (!company) {
+      return res.status(404).json({ message: 'Company non trouvée' });
+    }
+
+    await company.destroy();
+
+    res.status(200).json({ message: 'Company supprimée avec succès' });
+  } catch (error) {
+    console.error("Erreur lors de la suppression de la company : ", error);
+    res.status(500).json({ message: "Erreur de la suppression de la company" });
+  }
+};
