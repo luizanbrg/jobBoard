@@ -30,7 +30,7 @@ export default function Dashboard() {
   return (
     <section className="pt-20 bg-slate-100 min-h-screen">
       <div className="container mx-auto px-6">
-        <h4 className="text-2xl font-bold text-center text-black mb-12 pt-2">Dashboard</h4>
+        <h4 className="text-2xl font-bold text-center text-black pt-2">Dashboard</h4>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-20">
           <div className="bg-white p-6 rounded-lg shadow-md">
             <h5 className="text-lg font-semibold mb-4">Annonces</h5>

@@ -179,8 +179,6 @@ export default function Advertisement() {
 
               {/* --> Apply */}
               <button
-                // className="bg-grey-700 text-gray-800 transition-colors delay-50 duration-300
-                //   hover:bg-teal-600 hover:text-white font-bold text-center rounded text-1xl px-4 py-2"
                 className={`transition-colors delay-50 duration-300 font-bold text-center rounded text-1xl px-4 py-2 cursor-pointer ${
                   showApply === element.id
                     ? 'bg-orange-600 text-white' // Couleur de fond et texte pour "Annuler"
@@ -195,8 +193,6 @@ export default function Advertisement() {
                 <>
                   {/* --> Delete */}
                   <button
-                    // className="bg-grey-700 text-gray-800 transition-colors delay-50 duration-300
-                    //     hover:bg-red-600 hover:text-white font-bold text-center rounded text-1xl px-4 py-2"
                     className="text-white bg-red-700 hover:bg-red-800 focus:ring-3 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-rose-600 dark:font-bold dark:hover:bg-rose-700 dark:focus:ring-blue-800"
                     onClick={() => deleteAdvertisement(element.id)}
                   >
@@ -231,7 +227,7 @@ export default function Advertisement() {
               )}
               {showApply === element.id && (
                 <div className="extra-info my-4">
-                  <Form advertisement_id={element.id} />
+                  <Form advertisement_id={element.id} company_id={element.company.id} />
                 </div>
               )}
             </div>

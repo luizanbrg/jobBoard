@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-export default function Form({advertisement_id}) {
+export default function Form({advertisement_id, company_id}) {
     const urlApplyCreate = `${process.env.REACT_APP_API_APPLY_CREATE}`;
     const urlProfileCandidate = `${process.env.REACT_APP_API_ACCOUNT_CANDIDATE}`;
 
@@ -22,6 +22,7 @@ export default function Form({advertisement_id}) {
         email: '',
         phone: '',
         advertisement_id: '',
+        company_id: '',
         people_id: ''
       });
 
@@ -137,7 +138,8 @@ export default function Form({advertisement_id}) {
             email: candidate.email || '',
             phone: candidate.phone || '',
             people_id: candidate.id || null ,
-            advertisement_id: advertisement_id
+            advertisement_id: advertisement_id,
+            company_id: company_id,
         });
         }
     }, [candidate]);
