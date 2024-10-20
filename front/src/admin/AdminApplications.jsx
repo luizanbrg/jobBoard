@@ -73,11 +73,12 @@ export default function AdminApplications() {
   // =================================================================================================
   // ----------- Function : Apply  | RENDER ---------------
   const renderAdvertisements = () => {
-    return applications.map(element => {
+    return applications?.map(element => {
       return (
         <tr key={element.id}>
           <td className="border px-4 py-2 text-center">{element.id}</td>
           <td className="border px-4 py-2 ">{element.advertisement.title}</td>
+          <td className="border px-4 py-2 ">{element.company.name}</td>
           <td className="border px-4 py-2 text-center">{element.last_name}</td>
           <td className="border px-4 py-2 text-center">{element.first_name}</td>
           <td className="border px-4 py-2 text-center">
@@ -121,8 +122,9 @@ export default function AdminApplications() {
             <tr>
               <th className="py-2 px-4 bg-gray-200">Id</th>
               <th className="py-2 px-4 bg-gray-200">Annonce</th>
-              <th className="py-2 px-4 bg-gray-200">Nom</th>
-              <th className="py-2 px-4 bg-gray-200">Prénom</th>
+              <th className="py-2 px-4 bg-gray-200">Entreprise</th>
+              <th className="py-2 px-4 bg-gray-200">Nom du candidat</th>
+              <th className="py-2 px-4 bg-gray-200">Prénom du candidat</th>
               <th className="py-2 px-4 bg-gray-200">Modification</th>
             </tr>
           </thead>

@@ -12,6 +12,11 @@ module.exports = (sequelize, DataTypes) => {
           foreignKey: 'advertisement_id',
           as: 'advertisement',
         });
+        Application.belongsTo(models.Company, {
+          foreignKey: 'company_id',
+          as: 'company',
+        });
+        
       }
     }
 

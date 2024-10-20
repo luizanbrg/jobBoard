@@ -5,7 +5,7 @@ export default function ApplicationShow() {
     // const { id } = useParams();
     const value = useLocation().state;
 
-    const urlApply= `${process.env.REACT_APP_API_APPLY}`;
+    const urlApplyUpdate= `${process.env.REACT_APP_API_APPLY_UPDATE}`;
     const urlApplyShow = `${process.env.REACT_APP_API_APPLY_SHOW}`;
 
     const [application, setApplication] = useState({});
@@ -56,40 +56,41 @@ export default function ApplicationShow() {
 
     // =================================================================================================
     // ----------- Function : Application | Update ---------------
-    // const updateAdvertisements = async id => {
-    //     const authToken = localStorage.getItem('token');
-    //     const options = {
-    //     method: 'PUT',
-    //     headers: {
-    //         'Content-Type:': 'application/json',
-    //         Authorization: `Bearer ${authToken}`,
-    //     },
-    //     };
+    const updateApplication = async () => {
+        const authToken = localStorage.getItem('token');
+        const options = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${authToken}`,
+        },
+        body: JSON.stringify(application),
+        };
 
-    //     try {
-    //     const response = await fetch(`${urlApply}${id})`, options);
+        try {
+        const response = await fetch(`${urlApplyUpdate}/${value})`, options);
 
-    //     console.log(`Application Update | Options:`, options);
+        console.log(`Application Update | Options:`, options);
 
-    //     if (!response.ok) {
-    //         alert(`HTTP error. Status: ${response.status}`);
-    //     }
+        if (!response.ok) {
+            alert(`HTTP error. Status: ${response.status}`);
+        }
 
-    //     const data = await response.json();
+        const data = await response.json();
 
-    //     if (data) {
-    //         window.location.href = `/dashboard`;
-    //     }
-    //     } catch (error) {
-    //     console.error("Erreur lors de la modification de la candidature: ", error);
-    //     }
-    // };
+        if (data) {
+            window.location.href = `/listApplication`;
+        }
+        } catch (error) {
+        console.error("Erreur lors de la modification de la candidature: ", error);
+        }
+    };
 
   
 
 
     const handleSave = () => {
-        // updateAdvertisements();
+        updateApplication();
         setEditing(false);
     };
 
@@ -100,7 +101,7 @@ export default function ApplicationShow() {
                 {editing ? (
                     <>
                         <h2 className="text-1xl font-bold text-center uppercase tracking-wider text-black mb-2 pt-2">
-                        Modification de l'annonce
+                        Modification de la candidature
                         </h2>
                         <div>
                         <p className="text-1xl text-center italic text-black mb-4">
@@ -207,22 +208,6 @@ export default function ApplicationShow() {
                         </h2>
                         <div className="p-2">
                             <div className="grid gap-6 mb-6 md:grid-cols-2 items-between pt-2">
-                                <div>
-                                    
-                                    <label
-                                        htmlFor="last_name"
-                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
-                                    >
-                                        Titre de l'annonce
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="last_name"
-                                        // value={application.advertisement.title || ''}
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                        disabled
-                                    />
-                                </div>
                                 <div>
                                     <label
                                         htmlFor="last_name"

@@ -51,7 +51,7 @@ export default function CompanyCreate() {
 
       if (data) {
         // navigate("/");
-        window.location.href = `/`;
+        window.location.href = `/dashboard`;
       }
     } catch (error) {
       console.error('Fetch error back-end advertisement Create: ', error);

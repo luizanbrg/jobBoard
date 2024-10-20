@@ -8,6 +8,11 @@ module.exports = (sequelize, DataTypes) => {
       //   foreignKey: 'company_id',
       //   as: 'advertisements',
       // });
+      Company.hasMany(models.Application, {
+        foreignKey: 'company_id',
+        as: 'applications', // alias pour la relation inverse
+      });
+      
     }
   }
 

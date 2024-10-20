@@ -72,6 +72,7 @@ export default function PeopleShow() {
         const response = await fetch(`${urlPeopleShow}/${value})`, options);
 
         console.log(`People Update | Options:`, options);
+        
 
         if (!response.ok) {
             alert(`HTTP error. Status: ${response.status}`);
@@ -143,6 +144,40 @@ export default function PeopleShow() {
                                         name="first_name"
                                         value={people.first_name || ''}
                                         onChange={e => setPeople({ ...people, first_name: e.target.value })}
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <label
+                                        htmlFor="email"
+                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+                                    >
+                                        Email*
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="email"
+                                        name="email"
+                                        value={people.email || ''}
+                                        onChange={e => setPeople({ ...people, email: e.target.value })}
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <label
+                                        htmlFor="phone"
+                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+                                    >
+                                        Téléphone*
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="phone"
+                                        name="phone"
+                                        value={people.phone || ''}
+                                        onChange={e => setPeople({ ...people, phone: e.target.value })}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         required
                                     />
@@ -251,6 +286,21 @@ export default function PeopleShow() {
                                         type="text"
                                         id="email"
                                         value={people.email || ''}
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        disabled
+                                    />
+                                </div>
+                                <div>
+                                    <label
+                                        htmlFor="phone"
+                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+                                    >
+                                        Téléphone
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="phone"
+                                        value={people.phone || ''}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         disabled
                                     />

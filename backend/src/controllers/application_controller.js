@@ -1,4 +1,4 @@
-const { Application, Advertisement } = require('../models');
+const { Application, Advertisement, Company } = require('../models');
 const sendMail = require('../mailsender');
 
 // =================================================================================================
@@ -22,10 +22,15 @@ exports.getAllApplications = async (req, res) => {
           as: 'advertisement',
           attributes: ['title'],
         },
+        {
+          model: Company,
+          as: 'company', // Assurez-vous que l'alias correspond bien à celui dans les associations
+          attributes: ['name'], // Récupérer le nom de la société
+        },
       ],
     });
     console.log(applications);
-    console.log(applications.map(app => app.advertisement_id));
+    console.log(applications.map(app => app.advertisement));
 
     // Envoi de la réponse après la sauvegarde
     res.status(200).json(applications);
@@ -100,6 +105,43 @@ exports.getApplicationById = async (req, res) => {
 };
 
 // =================================================================================================
+// Mettre à jour une annonce
+exports.updateApplication= async (req, res) => {
+  try {
+    const { id } = req.params;
+    const {
+      first_name,
+      last_name,
+      phone,
+      email,
+    } = req.body;
+
+
+    const application = await Application.findByPk(id);
+
+    if (!application) {
+      return res.status(404).json({ message: 'Annonce non trouvée' });
+    }
+
+    if (req.people.role_id !== 3 && application.people_id !== req.people.id) {
+      return res.status(403).json({ message: 'Accès refusé' });
+    }
+
+    await application.update({
+      first_name,
+      last_name,
+      phone,
+      email,
+    });
+
+    res.status(200).json(application);
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour de l'annonce :", error);
+    res.status(500).json({ message: "Erreur lors de la mise à jour de l'annonce" });
+  }
+};
+
+// =================================================================================================
 // Supprimer une annonce
 exports.deleteApplication = async (req, res) => {
   try {
@@ -119,27 +161,3 @@ exports.deleteApplication = async (req, res) => {
     res.status(500).json({ message: 'Erreur de la suppression de la candidature' });
   }
 };
-
-// =================================================================================================
-// Vérifier si le candidat a postulé pour une annonce spécifique
-// exports.checkIfApplied = async (req, res) => {
-//   try {
-//     const { advertisement_id, people_id } = req.params;
-
-//     const application = await Application.findOne({
-//       where: {
-//         advertisement_id: advertisement_id,
-//         people_id: people_id,
-//       },
-//     });
-
-//     if (application) {
-//       res.status(200).json({ hasApplied: true });
-//     } else {
-//       res.status(200).json({ hasApplied: false });
-//     }
-//   } catch (error) {
-//     console.error("Erreur lors de la vérification de la candidature :", error);
-//     res.status(500).json({ message: "Erreur lors de la vérification de la candidature" });
-//   }
-// };

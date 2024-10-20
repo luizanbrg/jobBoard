@@ -9,16 +9,22 @@ export default function AdvertisementShow() {
   const [advertisement, setAdvertisement] = useState(null);
   const [editing, setEditing] = useState(false);
 
+
+  // =================================================================================================
+  // ----------- Function : Application | UPDATE ---------------
   const updateAdvertisements = async id => {
     const authToken = localStorage.getItem('token');
     const options = {
       method: 'PUT',
       headers: {
-        'Content-Type:': 'application/json',
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${authToken}`,
-      },
+    },
+      body: JSON.stringify(advertisement),
     };
 
+    console.log(`${urlAdvertisementShow}/${id})`);
+    
     try {
       const response = await fetch(`${urlAdvertisementShow}/${id})`, options);
 

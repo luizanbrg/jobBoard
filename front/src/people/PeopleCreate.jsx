@@ -46,7 +46,7 @@ export default function PeopleCreate() {
 
       if (data) {
         // navigate("/");
-        window.location.href = `/`;
+        window.location.href = `/people`;
       }
     } catch (error) {
       console.error('Fetch error back-end People Create: ', error);
