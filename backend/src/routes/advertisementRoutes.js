@@ -14,10 +14,10 @@ router.get('/', advertisementController.getAllAdvertisements);
 router.get('/detail/:id', advertisementController.getAdvertisementsDetail);
 
 // Route pour récupérer une annonce par ID
-router.get('/:id', advertisementController.getAdvertisementById);
+router.get('/show/:id', advertisementController.getAdvertisementById);
 
 // Route pour mettre à jour une annonce
-router.put('/:id', auth, checkAdvertisementOwnership, advertisementController.updateAdvertisement);
+router.put('/update/:id', auth, checkAdvertisementOwnership, advertisementController.updateAdvertisement);
 
 // route pour chercher les types de contract dans la db
 router.get('/contract-types', async (req, res) => {

@@ -110,13 +110,18 @@ export default function AdminAdvertising() {
               {/* Supprimer */}
             </button>
 
-            <button
-              className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-              onClick={() => (window.location.href = `/advertisement/${element.id}`)}
-            >
-              <i className="fa-solid fa-magnifying-glass"></i>
-              {/* Voir */}
-            </button>
+            {/* Voir */}
+            <Link
+                to={`/advertisement/${element.id}`}
+                state={element.id}
+              >
+                <button
+                  type="submit"
+                  className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 shadow"
+                >
+                  <i className="fa-solid fa-magnifying-glass"></i>
+                </button>
+              </Link>
           </td>
         </tr>
       );

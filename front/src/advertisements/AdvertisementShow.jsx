@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 export default function AdvertisementShow() {
-  const { id } = useParams();
+  // const { id } = useParams();
+  const value = useLocation().state;
 
-  const urlAdvertisementShow = `${process.env.REACT_APP_API_ADVERTISEMENT_INDEX}`;
+  const urlAdvertisementShow = `${process.env.REACT_APP_API_ADVERTISEMENT_SHOW}`;
+  const urlAdvertisementUpdate = `${process.env.REACT_APP_API_ADVERTISEMENT_UPDATE}`;
 
-  const [advertisement, setAdvertisement] = useState(null);
+  const [advertisement, setAdvertisement] = useState({});
   const [editing, setEditing] = useState(false);
 
 
   // =================================================================================================
   // ----------- Function : Application | UPDATE ---------------
-  const updateAdvertisements = async id => {
+  const updateAdvertisements = async () => {
     const authToken = localStorage.getItem('token');
     const options = {
       method: 'PUT',
@@ -23,10 +25,10 @@ export default function AdvertisementShow() {
       body: JSON.stringify(advertisement),
     };
 
-    console.log(`${urlAdvertisementShow}/${id})`);
+    console.log(`${urlAdvertisementUpdate}/${value})`);
     
     try {
-      const response = await fetch(`${urlAdvertisementShow}/${id})`, options);
+      const response = await fetch(`${urlAdvertisementUpdate}/${value})`, options);
 
       console.log(`Advertisement Update | Options:`, options);
 
@@ -37,7 +39,7 @@ export default function AdvertisementShow() {
       const data = await response.json();
 
       if (data) {
-        window.location.href = `/dashboard`;
+        window.location.href = `/listAdvertisement`;
       }
     } catch (error) {
       console.error("Erreur lors de la modification de l'annonce: ", error);
@@ -49,11 +51,6 @@ export default function AdvertisementShow() {
       try {
         const authToken = localStorage.getItem('token');
 
-        if (!id) {
-          console.error('No advertisement ID');
-          return;
-        }
-
         let options = {
           method: 'GET',
           headers: {
@@ -63,25 +60,29 @@ export default function AdvertisementShow() {
         };
         console.log(`Get Advertisement Page | Options :`, options);
 
-        const response = await fetch(`${urlAdvertisementShow}/${id}`);
-
-        if (!response.ok) {
-          throw new Error('Erreur de fetch ');
-        }
-
+        const response = await fetch(`${urlAdvertisementShow}/${value}`, options);
         const data = await response.json();
-        setAdvertisement(data);
-        console.log('Get Advertisement Show data: ', data);
+
+        // if (!response.ok) {
+        //   throw new Error('Erreur de fetch ');
+        // }
+
+        if (response.ok) {
+          setAdvertisement(data);
+
+      } else {
+          throw new Error('Erreur de fetch ');
+      }
+
+        // setAdvertisement(data);
+        // console.log('Get Advertisement Show data: ', data);
       } catch (error) {
         console.error('Erreur de fetch advertisement:', error);
       }
     };
     getAdvertisementById();
-  }, [id, urlAdvertisementShow]);
+  }, []);
 
-  if (!advertisement) {
-    return 'lol';
-  }
 
   const handleSave = () => {
     updateAdvertisements();
@@ -204,7 +205,7 @@ export default function AdvertisementShow() {
                       setAdvertisement({ ...advertisement, contract_type: e.target.value })
                     }
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    required
+                    
                   />
                 </div>
               </div>

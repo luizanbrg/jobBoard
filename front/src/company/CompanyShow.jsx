@@ -17,38 +17,38 @@ export default function CompanyShow() {
     // =================================================================================================
     // ----------- Function : COMPANY | GET ---------------   
     useEffect(() => {
-    const getCompanyShow = async () => {
-        try {
-        const authToken = localStorage.getItem('token');
+        const getCompanyShow = async () => {
+            try {
+            const authToken = localStorage.getItem('token');
 
-        let options = {
-            method: 'GET',
-            headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${authToken}`,
-            },
+            let options = {
+                method: 'GET',
+                headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${authToken}`,
+                },
+            };
+            console.log(`Get Company Show | Options :`, options);
+
+            console.log(`URL utilisée: ${urlCompanyShow}/${value}`);
+
+            const response = await fetch(`${urlCompanyShow}/${value}`, options);
+            const data = await response.json();
+
+            console.log('Get Company Show | Response: ', response);
+
+            if (response.ok) {
+                setCompany(data);
+
+            } else {
+                throw new Error('Erreur de fetch ');
+            }
+
+            } catch (error) {
+            console.error('Erreur de fetch Company:', error);
+
+            }
         };
-        console.log(`Get Company Show | Options :`, options);
-
-        console.log(`URL utilisée: ${urlCompanyShow}/${value}`);
-
-        const response = await fetch(`${urlCompanyShow}/${value}`, options);
-        const data = await response.json();
-
-        console.log('Get Company Show | Response: ', response);
-
-        if (response.ok) {
-            setCompany(data);
-
-        } else {
-            throw new Error('Erreur de fetch ');
-        }
-
-        } catch (error) {
-        console.error('Erreur de fetch Company:', error);
-
-        }
-    };
     console.log(`Miaou`);
     getCompanyShow();
     }, []);
