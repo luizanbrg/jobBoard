@@ -3,15 +3,21 @@ import React, { useState, useEffect } from 'react';
 export default function AdvertisementCreate() {
   const urlAdvertisementCreate = `${process.env.REACT_APP_API_ADVERTISEMENT_CREATE}`;
   const urlContractTypes = `${process.env.REACT_APP_API_CONTRACT}`;
+  const urlCompany = `${process.env.REACT_APP_API_COMPANY_LIST}`;
+
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [wages, setWages] = useState('');
   const [city, setCity] = useState('');
+  const [working_time, setWorkingTime] = useState('');
+  const [experiences, setExperiences]  = useState('');
   const [contract_type_id, setContractType] = useState('');
   const [contractTypes, setContractTypes] = useState([]);
+  const [companies, setCompanies] = useState([]);
+  const [company_id, setCompany] = useState("");
 
-  let offer = { title, content, wages, city, contract_type_id };
+  let offer = { title, content, wages, city,working_time, experiences, contract_type_id, company_id };
 
   const createAdvertisement = async e => {
     e.preventDefault();
@@ -67,7 +73,25 @@ export default function AdvertisementCreate() {
         console.error('Erreur lors de la récupération des types de contrat : ', error);
       }
     };
-
+    const fetchCompanies = async () => {
+      try {
+        const response = await fetch(urlCompany);
+        console.log('URL Company:', urlCompany);
+  
+        if (!response.ok) {
+          throw new Error('Error fetching contract types');
+        }
+        const data = await response.json();
+  
+        setCompanies(data);
+        console.log(`companies:`, data);
+        
+      } catch (error) {
+        console.error('Erreur lors de la récupération de toutes les companies : ', error);
+      }
+    };
+  
+    fetchCompanies();
     fetchContractTypes();
   }, []);
 
@@ -110,7 +134,8 @@ export default function AdvertisementCreate() {
               >
                 Contenu* :
               </label>
-              <input
+              <textarea
+                rows={10}
                 required
                 type="text"
                 name="contentAdvertisement"
@@ -157,6 +182,30 @@ export default function AdvertisementCreate() {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             </div>
+
+            <div>
+              <label
+                htmlFor="contractType"
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
+                Société* :
+              </label>
+              <select
+                required
+                id="company"
+                name="companies"
+                value={company_id}
+                onChange={e => setCompany(e.target.value)}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              >
+                <option value="">Sélectionner l'entreprise</option>
+                {companies.map(type => (
+                  <option key={type.id} value={type.id}>
+                    {type.name}
+                  </option>
+                ))}
+              </select>
+            </div>
             <div>
               <label
                 htmlFor="contractType"
@@ -179,6 +228,42 @@ export default function AdvertisementCreate() {
                   </option>
                 ))}
               </select>
+            </div>
+            <div className="containerForm mt-4">
+              <label
+                htmlFor="workingAdvertisement"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+              >
+                Temps de travail* :
+              </label>
+              <input
+                required
+                type="text"
+                name="working_time"
+                id="workingAdvertisement"
+                value={working_time}
+                onChange={e => setWorkingTime(e.target.value)}
+                placeholder="Temps de travail"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+            </div>
+            <div className="containerForm mt-4">
+              <label
+                htmlFor="experiencesAdvertisement"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+              >
+                Expériences* :
+              </label>
+              <input
+                required
+                type="text"
+                name="experiences"
+                id="experiencesAdvertisement"
+                value={experiences}
+                onChange={e => setExperiences(e.target.value)}
+                placeholder="Expériences"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
             </div>
             <button
               type="submit"

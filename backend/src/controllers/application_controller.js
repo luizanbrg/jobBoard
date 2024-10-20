@@ -53,6 +53,7 @@ exports.createApplication = async (req, res) => {
       phone: req.body.phone,
       advertisement_id: req.body.advertisement_id,
       people_id: req.body.people_id,
+      company_id: req.body.company_id,
     });
 
     // Sauvegarde de l'application dans la base de données
