@@ -21,7 +21,7 @@ exports.getAllAdvertisements = async (req, res) => {
         {
           model: Company,
           as: 'company',
-          attributes: ['name'],
+          attributes: ['id', 'name'],
         },
       ],
     });
