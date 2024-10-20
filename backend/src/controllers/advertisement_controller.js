@@ -1,8 +1,5 @@
 const { Advertisement, ContractType, Company} = require('../models');
 
-// const sequelize = require('../models/index');
-// const { DataTypes } = require('sequelize');
-
 console.log(`Advertissement`, Advertisement);
 
 // =================================================================================================
@@ -62,7 +59,6 @@ exports.getAdvertisementsDetail = async (req, res) => {
 exports.createAdvertisement = async (req, res) => {
   try {
     const people_id = req.people.id;
-    // const { title, content, skills_id, salary, city, contract_type, company_id, found, publication_date, remote_work, distance } = req.body;
     const { title, content, wages, city, experiences, working_time, contract_type_id, company_id } = req.body;
 
     const advertisement = await Advertisement.create({
@@ -93,7 +89,15 @@ exports.createAdvertisement = async (req, res) => {
 exports.getAdvertisementById = async (req, res) => {
   try {
     const { id } = req.params;
-    const advertisement = await Advertisement.findByPk(id);
+    const advertisement = await Advertisement.findByPk(id, {
+      include: [
+        {
+          model: ContractType,
+          as: 'contractType',
+          attributes: ['name'],
+        },
+      ]
+    });
 
     if (!advertisement) {
       return res.status(404).json({ message: 'Annonce non trouvée' });
@@ -122,6 +126,7 @@ exports.updateAdvertisement = async (req, res) => {
       publication_date,
       remote_work,
       distance,
+      
     } = req.body;
 
     const advertisement = await Advertisement.findByPk(id);

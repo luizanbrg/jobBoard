@@ -7,9 +7,13 @@ export default function AdvertisementShow() {
 
   const urlAdvertisementShow = `${process.env.REACT_APP_API_ADVERTISEMENT_SHOW}`;
   const urlAdvertisementUpdate = `${process.env.REACT_APP_API_ADVERTISEMENT_UPDATE}`;
+  const urlContractTypes = `${process.env.REACT_APP_API_CONTRACT}`;
+  const urlCompany = `${process.env.REACT_APP_API_COMPANY_LIST}`;
 
   const [advertisement, setAdvertisement] = useState({});
   const [editing, setEditing] = useState(false);
+  const [contractTypeShow, setContractTypeShow] = useState('');
+  const [contractTypes, setContractTypes] = useState([]);
 
 
   // =================================================================================================
@@ -69,6 +73,8 @@ export default function AdvertisementShow() {
 
         if (response.ok) {
           setAdvertisement(data);
+          console.log(`Verif`, data);
+          setContractTypeShow(data.contractType.name); 
 
       } else {
           throw new Error('Erreur de fetch ');
@@ -80,6 +86,24 @@ export default function AdvertisementShow() {
         console.error('Erreur de fetch advertisement:', error);
       }
     };
+
+    const fetchContractTypes = async () => {
+      try {
+        const response = await fetch(urlContractTypes);
+        console.log('URL Contract Types:', urlContractTypes);
+
+        if (!response.ok) {
+          throw new Error('Error fetching contract types');
+        }
+        const data = await response.json();
+
+        setContractTypes(data);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des types de contrat : ', error);
+      }
+    };
+
+    fetchContractTypes();
     getAdvertisementById();
   }, []);
 
@@ -192,24 +216,29 @@ export default function AdvertisementShow() {
                 </div>
                 <div>
                   <label
-                    htmlFor="contract_type"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+                    htmlFor="contractType"
+                    className="block mb-2 text-sm font-medium text-gray-900"
                   >
-                    Type de contrat*
+                    Type de contrat* :
                   </label>
-                  <input
-                    type="text"
-                    id="contract_type"
-                    value={advertisement.contract_type || ''}
-                    onChange={e =>
-                      setAdvertisement({ ...advertisement, contract_type: e.target.value })
-                    }
+                  <select
+                    required
+                    id="contractType"
+                    name="contractType"
+                    value={advertisement.contract_type_id || ''}
+                    onChange={e => setAdvertisement({ ...advertisement, contract_type_id: e.target.value })}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    
-                  />
+                  >
+                    <option value="">Sélectionner un type de contrat</option>
+                    {contractTypes.map(type => (
+                      <option key={type.id} value={type.id}>
+                        {type.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
-              
+
               <div>
                 <label
                   htmlFor="content"
@@ -340,7 +369,7 @@ export default function AdvertisementShow() {
                   <input
                     type="text"
                     id="contract_type"
-                    value={advertisement.contract_type || ''}
+                    value={contractTypeShow || ''}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     disabled
                   />
